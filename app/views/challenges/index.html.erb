@@ -1,2 +1,36 @@
-<h1>Challenges#index</h1>
-<p>Find me in app/views/challenges/index.html.erb</p>
+<div class="container">
+
+      <!-- Jumbotron Header -->
+      <header class="jumbotron my-4 mt-5">
+        <h1 class="display-3">Challenge yourself !</h1>
+        <p class="lead">ChallengR t'aide à franchir le pas</p>
+
+        <% if user_signed_in? %>
+             <%= link_to "Je crée mon challenge", new_challenge_path, class:'btn btn-success btn-sm'%>
+        <% else %>
+        	 <%= link_to "Connecte-toi", new_user_session_path, class:'btn btn-success btn-sm'%>
+        	 <%= link_to "Pas encore inscrit ? Enregistre-toi", new_user_registration_path, class:'btn btn-info btn-sm'%>
+        <% end %>
+      </header>
+                
+      <!-- Page Features -->
+      <div class="row text-center">
+
+        <div class="col-lg-3 col-md-6 mb-4">
+          <div class="card">
+            <%= image_tag("joggingfrejus800.jpg", class:"card-img-top") %>
+            <div class="card-body">
+              <h4 class="card-title">Courir pour la paix</h4>
+              <p class="card-text">Viens courir pour la paix</p>
+            </div>
+            <div class="card-footer">
+              <a href="#" class="btn btn-primary">Inscris-toi !</a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <!-- /.row -->
+
+    </div>
+    <!-- /.container -->
