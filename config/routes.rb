@@ -1,5 +1,13 @@
 Rails.application.routes.draw do
 
+  get 'challenges/index'
+
+  get 'challenges/show'
+
+  get 'challenges/new'
+
+  get 'challenges/edit'
+
 	devise_for :users
 	resources :challenges
 	resources :subgoals
