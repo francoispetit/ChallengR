@@ -45,6 +45,18 @@ ActiveRecord::Schema.define(version: 20180312155149) do
     t.datetime "updated_at", null: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+    end
+
+  create_table "subgoals", force: :cascade do |t|
+    t.integer "subgoal_int"
+    t.string "subgoal_unit"
+    t.string "subgoal_string"
+    t.datetime "duedate"
+    t.text "description"
+    t.boolean "accomplished"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "challenge_id"
   end
 
 end
