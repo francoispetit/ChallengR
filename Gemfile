@@ -17,6 +17,7 @@ group :development, :test do
   gem 'sqlite3', '1.3.13'
   gem 'byebug',  '9.0.6', platform: :mri
   gem 'dotenv-rails'
+  gem 'rspec-rails', '~> 3.7'
 end
 
 group :development do
