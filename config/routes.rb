@@ -1,12 +1,6 @@
 Rails.application.routes.draw do
 
-  get 'challenges/index'
-
-  get 'challenges/show'
-
-  get 'challenges/new'
-
-  get 'challenges/edit'
+  	root "challenges#index"
 
 	devise_for :users
 	resources :challenges
