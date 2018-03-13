@@ -14,7 +14,7 @@ ActiveRecord::Schema.define(version: 20180312223758) do
 
   create_table "challenges", force: :cascade do |t|
     t.string "goal"
-    t.datetime "duedate"
+    t.datetime "deadline"
     t.boolean "accomplished"
     t.integer "organizer_id"
     t.datetime "created_at", null: false
