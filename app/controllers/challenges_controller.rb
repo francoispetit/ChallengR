@@ -24,16 +24,15 @@
   def create
     @challenge = Challenge.new(challenge_params)
     @challenge.organizer = current_user
-     if @challenge.save
-      flash[:success] = "Challenge créé."
+    if @challenge.save
+      flash[:success] = "challenge créé"
     redirect_to @challenge
-      else render 'new'
-      end
+  else render 'new'
   end
+end
 
   def destroy
     @challenge = Challenge.find(params[:id])
-
     if current_user.id == @challenge.current_user_id
      @challenge.destroy
      redirect_to root_path
@@ -41,7 +40,7 @@
       flash[:danger] = "Désolé, ce challenge n'est pas le votre !"
     end
 
-  end
+
 
   def join_challenge
     @challenge = Challenge.find(params[:id])
@@ -61,5 +60,4 @@
   params.require(:challenge).permit(:goal, :deadline)
   end
 end
-
 
