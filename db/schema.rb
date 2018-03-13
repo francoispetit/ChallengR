@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180312155149) do
+ActiveRecord::Schema.define(version: 20180312223758) do
 
   create_table "challenges", force: :cascade do |t|
     t.string "goal"
@@ -18,27 +18,30 @@ ActiveRecord::Schema.define(version: 20180312155149) do
     t.boolean "accomplished"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "organizer_id"
-    t.index ["organizer_id"], name: "index_challenges_on_organizer_id"
+    t.integer "user_id"
+    t.index ["user_id"], name: "index_challenges_on_user_id"
   end
 
-  create_table "challenges_users", id: false, force: :cascade do |t|
-    t.integer "challenge_id", null: false
-    t.integer "user_id", null: false
-    t.index ["challenge_id", "user_id"], name: "index_challenges_users_on_challenge_id_and_user_id"
-    t.index ["user_id", "challenge_id"], name: "index_challenges_users_on_user_id_and_challenge_id"
+  create_table "participations", force: :cascade do |t|
+    t.integer "challenge_id"
+    t.integer "user_id"
+    t.boolean "accomplished"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["challenge_id"], name: "index_participations_on_challenge_id"
+    t.index ["user_id"], name: "index_participations_on_user_id"
   end
 
   create_table "subgoals", force: :cascade do |t|
     t.integer "subgoal_int"
     t.string "subgoal_unit"
     t.string "subgoal_string"
-    t.datetime "duedate"
+    t.datetime "deadline"
     t.text "description"
     t.boolean "accomplished"
+    t.integer "challenge_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "challenge_id"
     t.index ["challenge_id"], name: "index_subgoals_on_challenge_id"
   end
 
