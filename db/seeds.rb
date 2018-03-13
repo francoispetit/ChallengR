@@ -10,21 +10,26 @@
 	User.delete_all
 	Challenge.delete_all
 	Subgoal.delete_all
+	Category.delete_all
 
 	User.create(username:"Albert", email:"albert@mail.com", password:"123456")
 	User.create(username:"Bernard", email:"bernard@mail.com", password:"123456")
 	User.create(username:"Caroline", email:"caroline@mail.com", password:"123456")
 	User.create(username:"Danièle", email:"daniele@mail.com", password:"123456")
 
-	Challenge.create(goal:"courir", deadline:"2018-04-01", organizer_id:1)
-	Challenge.create(goal:"sauter", deadline:"2018-05-01", organizer_id:1)
-	Challenge.create(goal:"danser", deadline:"2018-06-01", organizer_id:2)
+	Challenge.create(goal:"courir un marathon", image_url:"jogging800.jpg", deadline:"2018-04-01", organizer_id:1)
+	Challenge.create(goal:"sauter comme un Yamakazi", image_url:"jump800.jpg", deadline:"2018-05-01", organizer_id:1)
+	Challenge.create(goal:"danser les classiques", image_url:"dance800.jpg", deadline:"2018-06-01", organizer_id:1)
+	Challenge.create(goal:"faire pousser des tomates", image_url:"tomatoe800.jpg", deadline:"2018-06-01",organizer_id:1)
+	Challenge.create(goal:"monter sa startup", image_url:"startup800.jpg", deadline:"2018-06-01",organizer_id:1)
+	Challenge.create(goal:"déguiser un crime", image_url:"crime800.jpg", deadline:"2018-06-01",organizer_id:1)
 
-	Challenge.find(1).subgoals.create(subgoal_string:"step1", description:"go", deadline:"2018-04-02", accomplished:true)
-	Challenge.find(1).subgoals.create(subgoal_string:"step2", description:"go go", deadline:"2018-04-03", accomplished:false)
 
 	Category.create(category_name:"sport")
 	Category.create(category_name:"running")
 	Category.create(category_name:"music")
 	Category.create(category_name:"art")
 	Category.create(category_name:"beginner")
+
+	Challenge.first.categories << Category.find(1)
+	Challenge.first.categories << Category.find(2)
