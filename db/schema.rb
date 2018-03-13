@@ -20,6 +20,7 @@ ActiveRecord::Schema.define(version: 20180312223758) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["organizer_id"], name: "index_challenges_on_organizer_id"
+
   end
 
   create_table "participations", force: :cascade do |t|
@@ -41,6 +42,7 @@ ActiveRecord::Schema.define(version: 20180312223758) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["challenge_id"], name: "index_subgoals_on_challenge_id"
+
   end
 
   create_table "users", force: :cascade do |t|
