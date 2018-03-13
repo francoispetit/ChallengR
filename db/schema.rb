@@ -10,22 +10,31 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180312223758) do
+ActiveRecord::Schema.define(version: 20180313160434) do
 
-  create_table "challenges", force: :cascade do |t|
-    t.string "goal"
-    t.datetime "duedate"
-    t.boolean "accomplished"
+  create_table "categories", force: :cascade do |t|
+    t.string "category_name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "challenges_users", id: false, force: :cascade do |t|
-    t.integer "challenge_id", null: false
-    t.integer "user_id", null: false
-    t.index ["challenge_id", "user_id"], name: "index_challenges_users_on_challenge_id_and_user_id"
-    t.index ["user_id", "challenge_id"], name: "index_challenges_users_on_user_id_and_challenge_id"
+  create_table "categories_challenges", id: false, force: :cascade do |t|
+    t.integer "category_id"
+    t.integer "challenge_id"
+    t.index ["category_id"], name: "index_categories_challenges_on_category_id"
+    t.index ["challenge_id"], name: "index_categories_challenges_on_challenge_id"
   end
+
+  create_table "challenges", force: :cascade do |t|
+    t.string "goal"
+    t.datetime "deadline"
+    t.boolean "accomplished"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+
+  end
+
+  
 
   create_table "participations", force: :cascade do |t|
     t.boolean "accomplished"
@@ -46,6 +55,7 @@ ActiveRecord::Schema.define(version: 20180312223758) do
     t.datetime "updated_at", null: false
     t.integer "challenge_id"
     t.index ["challenge_id"], name: "index_subgoals_on_challenge_id"
+
   end
 
   create_table "users", force: :cascade do |t|

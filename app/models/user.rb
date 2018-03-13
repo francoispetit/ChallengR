@@ -8,6 +8,7 @@ class User < ApplicationRecord
   has_many :participations
   has_many :attended_challenges, class_name: "Challenge", through: :participations, source: :challenge
 
+
   validates :username, presence: true
 
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
