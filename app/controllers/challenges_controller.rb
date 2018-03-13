@@ -60,4 +60,5 @@ end
   params.require(:challenge).permit(:goal, :deadline)
   end
 end
+end
 
