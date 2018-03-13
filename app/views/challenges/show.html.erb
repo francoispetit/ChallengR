@@ -1,2 +1,98 @@
-<h1>Challenges#show</h1>
-<p>Find me in app/views/challenges/show.html.erb</p>
+<div class="container mt-5">
+
+      <div class="row">
+
+        <div class="col-lg-3">
+          <h2 class="my-4"><%= @challenge.goal %></h2>
+          <div class="list-group">
+            <a href="#pres" class="list-group-item active">Présentation</a>
+            <a href="#objectifs" class="list-group-item">Objectifs</a>
+            <a href="#participants" class="list-group-item">Participants</a>
+            <a href="#commentaires" class="list-group-item">Commentaires</a>
+          </div>
+          	</br>
+          <div class="card mt-4">
+          	<%= link_to "Je participe", root_path, class:"btn btn-success" %>
+          </div>
+          <div class="card mt-4 p-4">
+          	<h5 class="card-title text-center">Catégories</h5>
+          	<div class="card-body text-center">
+          	<% @challenge.categories.each do |cat| %>
+          		<span class="badge badge-pill badge-info"><%= cat.category_name %></span> 
+          	<% end %>
+          </div>
+          </div>
+        </div>
+        <!-- /.col-lg-3 -->
+
+        <div class="col-lg-9">
+
+          <div class="card mt-4">
+          	<%= image_tag(@challenge.image_url, height:"400", class:"card-img-top img-fluid") %>
+            <div class="card-body">
+              <h3 class="card-title" id="pres">Présentation</h3>
+              <p>Créé par <strong><%= @challenge.organizer.username %></strong></p>
+              <p>A mener pour le <span class="badge badge-pill badge-info"><%= @challenge.deadline.strftime("%d/%m/%y") %></span></p>
+
+              <p class="card-text">Voici la description de ce challenge</p>
+            </div>
+          </div>
+          <!-- /.card -->
+
+          <div class="card card-outline-secondary my-4">
+            <div class="card-header" id="objectifs">
+              Objectifs
+            </div>
+            <div class="card-body">
+              <table class="table table-hover table-responsive">
+              <thead class="thead-dark">
+	              <tr>
+	              	<th scope="col">#</th>
+	              	<th scope="col">Objectif</th>
+	              	<th scope="col">Pour le</th>
+	              </tr>
+	            </thead>
+	            <tbody>
+              <% @challenge.subgoals.each do |obj| %>
+              <tr>	
+              	<td><%= obj.index %></td>
+              	<td><%= obj.subgoal_string %></td>
+              	<td><%= obj.deadline.strftime("%d/%B") %></td>
+              </tr>
+              <% end %>
+              </tbody>
+            </table>
+            </div>
+          </div>
+
+          <div class="card card-outline-secondary my-4">
+            <div class="card-header" id="participants">
+              Participants
+            </div>
+            <div class="card-body">
+              <% @challenge.attendees.each do |att| %>
+              	<p><%= att.username %></p>
+              <% end %>
+            </div>
+          </div>
+
+          <div class="card card-outline-secondary my-4">
+            <div class="card-header" id="commentaires">
+              Commentaires
+            </div>
+            <div class="card-body">
+              <p>Super challenge !</p>
+              <small class="text-muted">Posted by Anonymous on 3/1/17</small>
+              <hr>
+              <a href="#" class="btn btn-success">Commenter ce challenge</a>
+            </div>
+          </div>
+          <!-- /.card -->
+
+        </div>
+        <!-- /.col-lg-9 -->
+
+      </div>
+
+    </div>
+    <!-- /.container -->
