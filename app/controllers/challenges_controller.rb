@@ -22,9 +22,14 @@ class ChallengesController < ApplicationController
   end
 
   def create
-    @challenge = Challenge.create(challenge_params)
+    @challenge = Challenge.new(challenge_params)
+    @challenge.organizer = current_user
+    if @challenge.save
+      flash[:success] = "challenge créé"
     redirect_to @challenge
+  else render 'new'
   end
+end
 
   def destroy
     @challenge = Challenge.find(params[:id])
@@ -37,6 +42,18 @@ class ChallengesController < ApplicationController
     end
 
   end
+
+def join_challenge
+    @challenge = challenge.find(params[:id])
+    if
+      @challenge.attendees.include? current_user
+      flash[:error] = "vous participez déja"
+      redirect_to @challenge
+    else
+      @challenge.attendees << current_user
+      flash[:success] = "vous participez au challenge!"
+      redirect_to @challenge
+end
 
   private
   def challenge_params

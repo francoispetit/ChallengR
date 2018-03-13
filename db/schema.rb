@@ -18,8 +18,6 @@ ActiveRecord::Schema.define(version: 20180312155149) do
     t.boolean "accomplished"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "organizer_id"
-    t.index ["organizer_id"], name: "index_challenges_on_organizer_id"
   end
 
   create_table "challenges_users", id: false, force: :cascade do |t|
