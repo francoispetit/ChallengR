@@ -5,6 +5,7 @@ class Challenge < ApplicationRecord
   has_many :participations
   has_many :attendees, class_name:"User", through: :participations, source: :user
 
+  has_and_belongs_to_many :categories
 
   validates :goal, presence: true
 end
