@@ -5,7 +5,8 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :trackable, :validatable
 
   has_many :organized_challenges, class_name: "Challenge", foreign_key: "organizer_id"
-  has_and_belongs_to_many :attended_challenges, class_name: "Challenge"
+  has_many :participations
+  has_many :attended_challenges, class_name: "Challenge", through: :participations, source: :challenge
 
   validates :username, presence: true
 
