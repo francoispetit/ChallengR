@@ -6,6 +6,7 @@ class User < ApplicationRecord
 
   has_many :organized_challenges, class_name: "Challenge", foreign_key: "organizer_id"
 <<<<<<< HEAD
+<<<<<<< HEAD
   has_and_belongs_to_many :attended_challenges, class_name: "Challenge"
 =======
   has_many :participations
@@ -13,6 +14,11 @@ class User < ApplicationRecord
 
 >>>>>>> viewindex
 
+=======
+  has_many :participations
+  has_many :attended_challenges, class_name: "Challenge", through: :participations, source: :challenge
+
+>>>>>>> d26febe3bd1c53b0d030f74f029d0039e7d3707c
   validates :username, presence: true
 
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
