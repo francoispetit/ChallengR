@@ -7,10 +7,8 @@ class CreateSubgoals < ActiveRecord::Migration[5.1]
       t.datetime :deadline
       t.text :description
       t.boolean :accomplished
-      t.integer :challenge_id
+      t.references :challenge, foreign_key: true
       t.timestamps
     end
-    add_index :subgoals, :challenge_id
-    add_foreign_key :subgoals, :challenges
   end
 end

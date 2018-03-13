@@ -16,20 +16,18 @@ ActiveRecord::Schema.define(version: 20180312223758) do
     t.string "goal"
     t.datetime "duedate"
     t.boolean "accomplished"
+    t.integer "organizer_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "user_id"
-    t.index ["user_id"], name: "index_challenges_on_user_id"
+    t.index ["organizer_id"], name: "index_challenges_on_organizer_id"
   end
 
   create_table "participations", force: :cascade do |t|
-    t.integer "challenge_id"
-    t.integer "user_id"
     t.boolean "accomplished"
+    t.integer "user_id"
+    t.integer "challenge_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["challenge_id"], name: "index_participations_on_challenge_id"
-    t.index ["user_id"], name: "index_participations_on_user_id"
   end
 
   create_table "subgoals", force: :cascade do |t|
