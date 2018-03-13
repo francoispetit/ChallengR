@@ -22,3 +22,9 @@
 
 	Challenge.find(1).subgoals.create(subgoal_string:"step1", description:"go", deadline:"2018-04-02", accomplished:true)
 	Challenge.find(1).subgoals.create(subgoal_string:"step2", description:"go go", deadline:"2018-04-03", accomplished:false)
+
+	Category.create(category_name:"sport")
+	Category.create(category_name:"running")
+	Category.create(category_name:"music")
+	Category.create(category_name:"art")
+	Category.create(category_name:"beginner")

@@ -10,7 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180312223758) do
+ActiveRecord::Schema.define(version: 20180313160434) do
+
+  create_table "categories", force: :cascade do |t|
+    t.string "category_name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "categories_challenges", id: false, force: :cascade do |t|
+    t.integer "category_id"
+    t.integer "challenge_id"
+    t.index ["category_id"], name: "index_categories_challenges_on_category_id"
+    t.index ["challenge_id"], name: "index_categories_challenges_on_challenge_id"
+  end
 
   create_table "challenges", force: :cascade do |t|
     t.string "goal"
@@ -20,6 +33,7 @@ ActiveRecord::Schema.define(version: 20180312223758) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["organizer_id"], name: "index_challenges_on_organizer_id"
+
   end
 
   create_table "participations", force: :cascade do |t|
@@ -41,6 +55,7 @@ ActiveRecord::Schema.define(version: 20180312223758) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["challenge_id"], name: "index_subgoals_on_challenge_id"
+
   end
 
   create_table "users", force: :cascade do |t|

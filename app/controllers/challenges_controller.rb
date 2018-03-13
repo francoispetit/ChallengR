@@ -1,4 +1,4 @@
-class ChallengesController < ApplicationController
+ class ChallengesController < ApplicationController
  def index
     @challenges = Challenge.all
   end
@@ -22,8 +22,13 @@ class ChallengesController < ApplicationController
   end
 
   def create
-    @challenge = Challenge.create(challenge_params)
+    @challenge = Challenge.new(challenge_params)
+    @challenge.organizer = current_user
+     if @challenge.save
+      flash[:success] = "Challenge créé."
     redirect_to @challenge
+      else render 'new'
+      end
   end
 
   def destroy
@@ -38,8 +43,23 @@ class ChallengesController < ApplicationController
 
   end
 
+  def join_challenge
+    @challenge = Challenge.find(params[:id])
+    if @challenge.attendees.include? current_user
+        flash[:error] = "Héhé, vous y participez déjà"
+        redirect_to @challenge
+    else 
+      @challenge.attendees << current_user
+      flash[:success] = "Bienvenue dans l'équipe !"
+      redirect_to @challenge
+    end
+  end 
+
+
   private
   def challenge_params
   params.require(:challenge).permit(:goal, :deadline)
   end
 end
+
+
