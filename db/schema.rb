@@ -29,13 +29,6 @@ ActiveRecord::Schema.define(version: 20180312155149) do
     t.index ["user_id", "challenge_id"], name: "index_challenges_users_on_user_id_and_challenge_id"
   end
 
-  create_table "challenges_users", id: false, force: :cascade do |t|
-    t.integer "challenge_id", null: false
-    t.integer "user_id", null: false
-    t.index ["challenge_id", "user_id"], name: "index_challenges_users_on_challenge_id_and_user_id"
-    t.index ["user_id", "challenge_id"], name: "index_challenges_users_on_user_id_and_challenge_id"
-  end
-
   create_table "subgoals", force: :cascade do |t|
     t.integer "subgoal_int"
     t.string "subgoal_unit"

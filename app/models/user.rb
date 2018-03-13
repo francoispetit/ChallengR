@@ -4,7 +4,7 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
-  has_many :organized_challenges, class_name: "Challenge"
+  has_many :organized_challenges, class_name: "Challenge", foreign_key: "organizer_id"
   has_and_belongs_to_many :attended_challenges, class_name: "Challenge"
 
   validates :username, presence: true
