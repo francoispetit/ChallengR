@@ -4,7 +4,8 @@ class SubgoalsController < ApplicationController
   end
 
   def new
-   @subgoal = Subgoal.new
+      @challenge = Challenge.find(:id)
+      @subgoal = @challenge.subgoals.build
   end
 
   def show
@@ -22,8 +23,8 @@ class SubgoalsController < ApplicationController
   end
 
   def create
-   @subgoal = Subgoal.create(subgoal_params)
-    redirect_to @subgoal
+    @challenge = Challenge.find(:id)
+      @subgoal = @challenge.subgoals.create(params[:subgoal])
   end
 
   def destroy
@@ -38,8 +39,20 @@ class SubgoalsController < ApplicationController
 
   end
 
+  def subgoal_done
+      @subgoal = Subgoal.find(params[:id])
+      if @subgoal.accomplished? true
+      flash[:success] = "votre objectif est rempli"
+      end
+
+
   private
   def subgoal_params
-  params.require(:subgoal).permit(:subgoal_int, :subgoal_unit, :subgoal_string, :duedate, :description, :accomplished, :challenge_id)
+  params.require(:subgoal).permit(:subgoal_int, :subgoal_unit, :subgoal_string, :deadline, :description, :accomplished, :challenge_id)
   end
+
+
+
+ 
+ 
 end
