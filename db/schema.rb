@@ -16,10 +16,15 @@ ActiveRecord::Schema.define(version: 20180312223758) do
     t.string "goal"
     t.datetime "duedate"
     t.boolean "accomplished"
-    t.integer "organizer_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
 
+  create_table "challenges_users", id: false, force: :cascade do |t|
+    t.integer "challenge_id", null: false
+    t.integer "user_id", null: false
+    t.index ["challenge_id", "user_id"], name: "index_challenges_users_on_challenge_id_and_user_id"
+    t.index ["user_id", "challenge_id"], name: "index_challenges_users_on_user_id_and_challenge_id"
   end
 
   create_table "participations", force: :cascade do |t|
@@ -34,12 +39,12 @@ ActiveRecord::Schema.define(version: 20180312223758) do
     t.integer "subgoal_int"
     t.string "subgoal_unit"
     t.string "subgoal_string"
-    t.datetime "deadline"
+    t.datetime "duedate"
     t.text "description"
     t.boolean "accomplished"
-    t.integer "challenge_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "challenge_id"
     t.index ["challenge_id"], name: "index_subgoals_on_challenge_id"
   end
 

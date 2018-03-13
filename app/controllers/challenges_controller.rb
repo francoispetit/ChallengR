@@ -60,3 +60,4 @@ end
   params.require(:challenge).permit(:goal, :duedate)
   end
 end
+end
