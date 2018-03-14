@@ -7,6 +7,7 @@ class User < ApplicationRecord
   has_many :organized_challenges, class_name: "Challenge", foreign_key: "organizer_id"
   has_many :participations
   has_many :attended_challenges, class_name: "Challenge", through: :participations, source: :challenge
+  has_many :comments
 
 
   validates :username, presence: true

@@ -15,5 +15,7 @@ RSpec.describe Subgoal, type: :model do
   it "shouldn't save with invalid data" do
     expect(!Subgoal.new(subgoal_string:"", deadline:"10/11/2024").save).to eq(true)
     expect(!Subgoal.new(subgoal_string:"Yolo", deadline:"yolo!").save).to eq(true)
+    @sub.challenge = nil
+    expect(@sub.save).to be(false)
   end
 end
