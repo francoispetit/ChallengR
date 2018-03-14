@@ -1,5 +1,5 @@
  class ChallengesController < ApplicationController
- def index
+  def index
     @challenges = Challenge.all
   end
 
@@ -27,9 +27,9 @@
     if @challenge.save
       flash[:success] = "challenge créé"
     redirect_to @challenge
-  else render 'new'
+    else render 'new'
+    end
   end
-end
 
   def destroy
     @challenge = Challenge.find(params[:id])
@@ -39,7 +39,7 @@ end
     else
       flash[:danger] = "Désolé, ce challenge n'est pas le votre !"
     end
-
+  end
 
 
   def join_challenge
@@ -59,6 +59,5 @@ end
   def challenge_params
   params.require(:challenge).permit(:goal, :deadline)
   end
-end
-end
 
+ end
