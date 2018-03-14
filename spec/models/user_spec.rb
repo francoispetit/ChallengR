@@ -6,10 +6,12 @@ RSpec.describe User, type: :model do
   end
 
   it "should save with valid data" do
-    @user.save
+    expect(@user.save).to eq(true)
   end
 
   it "shouldn't save with invalid data" do
-    !User.new(username:"testname", email:"test@email.com", password:"az").save && !User.new(username:"testname", email:"yolo@.com", password:"azerty").save && !User.new(email:"test@mail.com", password:"azerty").save
+    expect(!User.new(username:"testname", email:"test@email.com", password:"az").save).to eq(true)
+    expect(!User.new(username:"testname", email:"yolo@.com", password:"azerty").save).to eq(true)
+    expect(!User.new(email:"test@mail.com", password:"azerty").save).to eq(true)
   end
 end

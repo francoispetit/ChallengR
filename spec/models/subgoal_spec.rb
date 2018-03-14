@@ -2,14 +2,18 @@ require 'rails_helper'
 
 RSpec.describe Subgoal, type: :model do
   before do
-    @sub = Subgoal.new(subgoal_string:"yololala", duedate:"10/11/2024", description:"hahaha")
+    @user = User.create(email:"yo@lala.com", password:"azerty", username:"itsme")
+    @user.organized_challenges << @chall = Challenge.create(goal:"yolo")
+    @sub = Subgoal.new(subgoal_string:"yololala", deadline:"10/11/2024", description:"hahaha", accomplished:false)
+    @chall.subgoals << @sub
   end
 
   it "should save with valid data" do
-    @sub.save
+    expect(@sub.save).to eq(true)
   end
 
   it "shouldn't save with invalid data" do
-    !Subgoal.new(subgoal_string:"", duedate:"10/11/2024").save && !Subgoal.new(subgoal_string:"Yolo", duedate:"yolo!").save
+    expect(!Subgoal.new(subgoal_string:"", deadline:"10/11/2024").save).to eq(true)
+    expect(!Subgoal.new(subgoal_string:"Yolo", deadline:"yolo!").save).to eq(true)
   end
 end
