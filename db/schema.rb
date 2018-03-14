@@ -27,11 +27,12 @@ ActiveRecord::Schema.define(version: 20180313164042) do
 
   create_table "challenges", force: :cascade do |t|
     t.string "goal"
-    t.datetime "duedate"
+    t.datetime "deadline"
     t.boolean "accomplished"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "image_url"
+    t.integer "organizer_id"
     t.index ["organizer_id"], name: "index_challenges_on_organizer_id"
 
   end
@@ -53,6 +54,7 @@ ActiveRecord::Schema.define(version: 20180313164042) do
     t.boolean "accomplished"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "challenge_id"
     t.index ["challenge_id"], name: "index_subgoals_on_challenge_id"
 
   end

@@ -4,8 +4,10 @@ class Challenge < ApplicationRecord
   belongs_to :organizer, class_name: "User"
   has_many :participations
   has_many :attendees, class_name:"User", through: :participations, source: :user
-
+  accepts_nested_attributes_for :subgoals,
+    :allow_destroy => true,
+    :reject_if => :all_blank
   has_and_belongs_to_many :categories
 
-  validates :goal, presence: true
+  #validates :goal, presence: true
 end
