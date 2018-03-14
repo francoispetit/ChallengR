@@ -1,5 +1,5 @@
  class ChallengesController < ApplicationController
- def index
+  def index
     @challenges = Challenge.all
   end
 
@@ -31,9 +31,9 @@
       @challenge.subgoals << @subgoal
       flash[:success] = "challenge créé"
     redirect_to @challenge
-  else render 'new'
+    else render 'new'
+    end
   end
-end
 
   def destroy
     @challenge = Challenge.find(params[:id])
@@ -44,7 +44,6 @@ end
       flash[:danger] = "Désolé, ce challenge n'est pas le votre !"
     end
   end
-
 
 
   def join_challenge
@@ -71,6 +70,7 @@ end
     #:goal, :deadline, :accomplished, :subgoal,
    # subgoals_attributes: [:subgoal_int, :subgoal_unit, :subgoal_string, :duedate, :description, :accomplished, :challenge_id]) 
   end
+<<<<<<< HEAD
   
  def subgoal_params
   params.require(:challenge).require(:subgoal).permit(:subgoal_int, :subgoal_unit, :subgoal_string, :duedate, :description, :accomplished, :challenge_id)
@@ -78,4 +78,7 @@ end
 
 end
 
+=======
+>>>>>>> dev
 
+ end

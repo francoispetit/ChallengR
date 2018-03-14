@@ -8,6 +8,6 @@ class Challenge < ApplicationRecord
     :allow_destroy => true,
     :reject_if => :all_blank
   has_and_belongs_to_many :categories
-
-  #validates :goal, presence: true
+  has_many :comments, as: :commentable
+  validates :goal, presence: true
 end

@@ -44,7 +44,7 @@ class SubgoalsController < ApplicationController
       if @subgoal.accomplished? true
       flash[:success] = "votre objectif est rempli"
       end
-
+  end
 
   private
   def subgoal_params
