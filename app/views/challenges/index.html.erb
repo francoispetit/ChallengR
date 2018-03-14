@@ -14,23 +14,33 @@
       </header>
                 
       <!-- Page Features -->
-      <div class="row text-center">
 
-        <div class="col-lg-3 col-md-6 mb-4">
-          <div class="card">
-            <%= image_tag("joggingland800.jpg", class:"card-img-top") %>
-            <div class="card-body">
-              <h4 class="card-title">Courir pour la paix</h4>
-              <p class="card-text">Viens courir pour la paix</p>
-            </div>
-            <div class="card-footer">
-              <a href="#" class="btn btn-primary">Inscris-toi !</a>
+    <div class="row">
+        
+        <% @challenges.each do |chal| %>
+
+          <div class="col-lg-3 col-md-6 mb-4">
+            <div class="card h-100">
+              <%= image_tag(chal.image_url, class:"card-img-top") %>
+              <div class="card-body">
+                <h5 class="card-title"><%= chal.goal %></h5>
+                <p><span class="badge badge-pill badge-primary"><%= chal.attendees.size %></span> participants</p>
+                <p class="font-italic">Description du challenge</p>
+                <p>Organisé par <span class="badge badge-pill badge-secondary"><%= chal.organizer.username %></span></p>
+
+              </div>
+              <div class="card-footer">
+                <% chal.categories.each do |cat| %>
+                  <span class="badge badge-pill badge-danger"><%= cat.category_name %></span> 
+                <% end %>
+              </div>
+              <div class="card-footer">
+                <%= link_to "En savoir plus", challenge_path(chal), class:"btn btn-primary" %>
+              </div>
             </div>
           </div>
-        </div>
 
-      </div>
-      <!-- /.row -->
+        <% end %>
 
-    </div>
-    <!-- /.container -->
+    </div><!-- /.row -->
+</div> <!-- /.container -->
