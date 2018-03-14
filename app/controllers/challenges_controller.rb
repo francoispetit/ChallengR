@@ -70,15 +70,9 @@
     #:goal, :deadline, :accomplished, :subgoal,
    # subgoals_attributes: [:subgoal_int, :subgoal_unit, :subgoal_string, :duedate, :description, :accomplished, :challenge_id]) 
   end
-<<<<<<< HEAD
   
  def subgoal_params
   params.require(:challenge).require(:subgoal).permit(:subgoal_int, :subgoal_unit, :subgoal_string, :duedate, :description, :accomplished, :challenge_id)
  end
 
 end
-
-=======
->>>>>>> dev
-
- end
