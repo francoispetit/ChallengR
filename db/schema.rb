@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180314100226) do
+ActiveRecord::Schema.define(version: 20180314175014) do
 
   create_table "categories", force: :cascade do |t|
     t.string "category_name"
@@ -51,6 +51,7 @@ ActiveRecord::Schema.define(version: 20180314100226) do
     t.integer "challenge_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.text "stats"
   end
 
   create_table "subgoals", force: :cascade do |t|
