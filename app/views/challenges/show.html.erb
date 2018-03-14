@@ -12,8 +12,9 @@
           </div>
           	</br>
           <div class="card mt-4">
-          	<%= link_to "Je participe", root_path, class:"btn btn-success" %>
+          	<%= link_to "Je participe", join_challenge_path, class:"btn btn-success", :method => :post %>
           </div>
+
           <div class="card mt-4 p-4">
           	<h5 class="card-title text-center">Catégories</h5>
           	<div class="card-body text-center">
@@ -81,16 +82,27 @@
               Commentaires
             </div>
             <div class="card-body">
-              <p>Super challenge !</p>
-              <small class="text-muted">Posted by Anonymous on 3/1/17</small>
-              <hr>
-              <a href="#" class="btn btn-success">Commenter ce challenge</a>
+              
+            	<ul> <%= render partial: 'shared/comment', collection: @challenge.comments %> </ul>
+              
             </div>
-          </div>
-          <!-- /.card -->
+            		<% if user_signed_in? %>
+									<div class="reply-form-challenge form-group">
+										<%= form_for [@challenge, Comment.new] do |f| %>
+										<%= f.text_area :body, class:"form-control" %>
+										<%= f.submit "Commenter le challenge", class:"btn btn-primary btn-sm" %>
+										<% end %>
+									</div>
+								<% else %>
+								  Vous devez vous <%= link_to "connecter", new_user_session_path %> ou vous <%= link_to "inscrire", new_user_registration_path %> pour laisser un commentaire.
+								<% end %>
+            <p class="btn btn-reply-challenge btn-primary btn-sm">Commenter ce challenge</p>
 
-        </div>
-        <!-- /.col-lg-9 -->
+          </div><!-- /.card -->
+          
+
+        </div><!-- /.col-lg-9 -->
+        
 
       </div>
 

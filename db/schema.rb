@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180313211518) do
+ActiveRecord::Schema.define(version: 20180314100226) do
 
   create_table "categories", force: :cascade do |t|
     t.string "category_name"
@@ -34,6 +34,15 @@ ActiveRecord::Schema.define(version: 20180313211518) do
     t.datetime "updated_at", null: false
     t.string "image_url"
     t.index ["organizer_id"], name: "index_challenges_on_organizer_id"
+  end
+
+  create_table "comments", force: :cascade do |t|
+    t.text "body"
+    t.integer "commentable_id"
+    t.string "commentable_type"
+    t.integer "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "participations", force: :cascade do |t|
