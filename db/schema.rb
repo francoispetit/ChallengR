@@ -33,7 +33,6 @@ ActiveRecord::Schema.define(version: 20180314175014) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "image_url"
-    t.integer "organizer_id"
     t.index ["organizer_id"], name: "index_challenges_on_organizer_id"
   end
 
@@ -65,7 +64,6 @@ ActiveRecord::Schema.define(version: 20180314175014) do
     t.integer "challenge_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "challenge_id"
     t.index ["challenge_id"], name: "index_subgoals_on_challenge_id"
   end
 

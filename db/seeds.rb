@@ -25,11 +25,11 @@
 	Challenge.create(goal:"déguiser un crime", image_url:"crime800.jpg", deadline:"2018-06-01",organizer_id:1)
 
 
-	Category.create(category_name:"sport")
-	Category.create(category_name:"running")
+	Category.create(category_name:"sport", id:1)
+	Category.create(category_name:"running", id:2)
 	Category.create(category_name:"music")
 	Category.create(category_name:"art")
 	Category.create(category_name:"beginner")
 
-	Challenge.first.categories << Category.find(1)
-	Challenge.first.categories << Category.find(2)
+	Category.find(1).challenges << Challenge.first
+	Category.find(2).challenges << Challenge.first

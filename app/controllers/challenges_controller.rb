@@ -26,6 +26,7 @@
     @challenge = Challenge.new(challenge_params)
    @subgoal = @challenge.subgoals.build(subgoal_params)         #[[:subgoal][:accomplished],[[:subgoal][:description]],[[:subgoal][:deadline]],[[:subgoal][:subgoal_int]],[[:subgoal][:subgoal_unit]],[[:subgoal][:subgoal_string]],[[:subgoal][:description]]]])
     #challenge.create(challenge_params)
+    @challenge.image_url = "tomatoe800.jpg"
     @challenge.organizer = current_user
     if @challenge.save && @subgoal.save
       @challenge.subgoals << @subgoal
@@ -72,7 +73,7 @@
   end
   
  def subgoal_params
-  params.require(:challenge).require(:subgoal).permit(:subgoal_int, :subgoal_unit, :subgoal_string, :duedate, :description, :accomplished, :challenge_id)
+  params.require(:challenge).require(:subgoal).permit(:subgoal_int, :subgoal_unit, :subgoal_string, :deadline, :description, :accomplished, :challenge_id)
  end
 
 end
