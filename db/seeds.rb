@@ -42,8 +42,8 @@
 	User.find_by_username("Bernard").attended_challenges << Challenge.find_by_goal("courir un marathon")
 	User.find_by_username("Caroline").attended_challenges << Challenge.find_by_goal("courir un marathon")
 
-	User.find_by_username("Bernard").participations.find_by_challenge_id(Challenge.find_by_goal("courir un marathon").id).stats = 
-		{subgoal1:{done:true, date_accomplised:"2018-04-11"}, 
+	User.find_by_username("Bernard").participations.find_by_challenge_id(Challenge.find_by_goal("courir un marathon").id).stats = {
+		subgoal1:{done:true, date_accomplised:"2018-04-11"}, 
 		subgoal2:{done:true, date_accomplised:"2018-04-20"},
 		subgoal3:{done:true, date_accomplised:"2018-05-01"}	
 		}
