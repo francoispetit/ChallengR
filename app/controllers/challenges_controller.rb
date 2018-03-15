@@ -31,6 +31,9 @@
     if @challenge.save && @subgoal.save
       @challenge.subgoals << @subgoal
       @challenge.attendees << @challenge.organizer
+      
+      @copychall = Challenge.new(@challenge.attributes.merge(id:nil, organizer_id:User.find_by_username("Vald").id, created_at:nil, updated_at:nil))
+      @copychall.save
 
       flash[:success] = "challenge créé"
     redirect_to @challenge

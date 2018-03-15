@@ -12,10 +12,15 @@
 	Subgoal.delete_all
 	Category.delete_all
 
-	User.create(username:"Albert", email:"albert@mail.com", password:"123456")
+	a=User.create(username:"Albert", email:"albert@mail.com", password:"123456")
+        a.set_default_role(:admin)
+        a.save
 	User.create(username:"Bernard", email:"bernard@mail.com", password:"123456")
 	User.create(username:"Caroline", email:"caroline@mail.com", password:"123456")
 	User.create(username:"Danièle", email:"daniele@mail.com", password:"123456")
+        a=User.create(username:"Vald", email:"v@l.d", password:"azerty")
+        a.set_default_role(:vip)
+        a.save
 
 	Challenge.create(goal:"courir un marathon", image_url:"jogging800.jpg", deadline:"2018-04-01", organizer_id:User.find_by_username("Albert").id)
 	Challenge.create(goal:"sauter comme un Yamakazi", image_url:"jump800.jpg", deadline:"2018-05-01", organizer_id:User.find_by_username("Albert").id)
@@ -56,3 +61,13 @@
 	    subgoal3:{done:false}	
 	}
         a.save
+
+
+
+
+###Attention LA C'EST LA FIN!!!
+
+Challenge.all.each do |c|
+      a = Challenge.new(c.attributes.merge(id:nil, organizer_id:User.find_by_username("Vald").id, created_at:nil, updated_at:nil))
+      a.save
+end
