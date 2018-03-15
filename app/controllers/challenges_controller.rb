@@ -30,6 +30,8 @@
     @challenge.organizer = current_user
     if @challenge.save && @subgoal.save
       @challenge.subgoals << @subgoal
+      @challenge.attendees << @challenge.organizer
+
       flash[:success] = "challenge créé"
     redirect_to @challenge
     else render 'new'
