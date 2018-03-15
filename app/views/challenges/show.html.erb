@@ -29,7 +29,12 @@
         <div class="col-lg-9">
 
           <div class="card mt-4">
-          	<%= image_tag(@challenge.image_url, height:"400", class:"card-img-top img-fluid") %>
+            <% if @challenge.image_url == nil %>
+                <%= image_tag "config/images/tomatoe800.jpg", height:"400", class:"card-img-top img-fluid" %>
+            <% else %>
+            
+            <%= image_tag(@challenge.image_url, height:"400", class:"card-img-top img-fluid") %>
+            <% end %>
             <div class="card-body">
               <h3 class="card-title" id="pres">Présentation</h3>
               <p>Créé par <strong><%= @challenge.organizer.username %></strong></p>
@@ -56,7 +61,7 @@
 	            <tbody>
               <% @challenge.subgoals.each do |obj| %>
               <tr>	
-              	<td><%= obj.index %></td>
+              	<td><%= obj.description %></td>
               	<td><%= obj.subgoal_string %></td>
               	<td><%= obj.deadline.strftime("%d/%B") %></td>
               </tr>
@@ -107,4 +112,3 @@
       </div>
 
     </div>
-    <!-- /.container -->

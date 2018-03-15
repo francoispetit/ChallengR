@@ -4,7 +4,4 @@ class Subgoal < ApplicationRecord
 
    validates :subgoal_string, :deadline, presence: true
 
-
-
-
 end

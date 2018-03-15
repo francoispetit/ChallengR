@@ -30,8 +30,8 @@
 	Challenge.find_by_goal("courir un marathon").subgoals << Subgoal.create(subgoal_string:"courir 10 km en moins de 45 mn", deadline:"2018-04-30", challenge_id:"1")
 
 
-	Category.create(category_name:"sport")
-	Category.create(category_name:"running")
+	Category.create(category_name:"sport", id:1)
+	Category.create(category_name:"running", id:2)
 	Category.create(category_name:"music")
 	Category.create(category_name:"art")
 	Category.create(category_name:"beginner")
