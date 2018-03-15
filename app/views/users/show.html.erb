@@ -48,7 +48,17 @@
             </div>
           </div>
 
-          <canvas class="my-4" id="myChart" width="900" height="380"></canvas>
+
+              <% @challenges.each do |chal| %>
+
+
+                <%= pie_chart chal.subgoals.group(:accomplished).count %>
+
+              <% end %>
+
+              
+
+<!--          <canvas class="my-4" id="myChart" width="900" height="380"></canvas> -->
 
           <h2>Mes stats</h2>
           <div class="table-responsive">
@@ -61,12 +71,14 @@
                 </tr>
               </thead>
               <tbody>
-              	<% current_user.attended_challenges.first.subgoals do |sub| %>
-                <tr>
-                  <td><%= sub.subgoal_string %></td>
-                  <td><%= sub.accomplished? "fait" ; "à faire" %></td>
-                  <td><%= sub.subgoal_string %></td>                  
-                </tr>
+                <% unless current_user.attended_challenges == [] %>
+                	<% current_user.attended_challenges.first.subgoals do |sub| %>
+                  <tr>
+                    <td><%= sub.subgoal_string %></td>
+                    <td><%= sub.accomplished? "fait" ; "à faire" %></td>
+                    <td><%= current_user.participations.find_by_challenge_id(current_user.attended_challenges.first.id).stats[:subgoal[sub]] %></td>                  
+                  </tr>
+                  <% end %>
                 <% end %>
               </tbody>
             </table>
