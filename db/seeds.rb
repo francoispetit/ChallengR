@@ -41,15 +41,18 @@
 
 	User.find_by_username("Bernard").attended_challenges << Challenge.find_by_goal("courir un marathon")
 	User.find_by_username("Caroline").attended_challenges << Challenge.find_by_goal("courir un marathon")
+        a = User.find_by_username("Bernard").participations.find_by_challenge_id(Challenge.find_by_goal("courir un marathon").id)
 
-	User.find_by_username("Bernard").participations.find_by_challenge_id(Challenge.find_by_goal("courir un marathon").id).stats = {
-		subgoal1:{done:true, date_accomplised:"2018-04-11"}, 
-		subgoal2:{done:true, date_accomplised:"2018-04-20"},
-		subgoal3:{done:true, date_accomplised:"2018-05-01"}	
-		}
-
-	User.find_by_username("Caroline").participations.find_by_challenge_id(Challenge.find_by_goal("courir un marathon").id).stats = 
-		{subgoal1:{done:true, date_accomplised:"2018-04-10"}, 
-		subgoal2:{done:true, date_accomplised:"2018-04-22"},
-		subgoal3:{done:false}	
-		}
+	a.stats = {
+            subgoal1:{done:true, date_accomplised:"2018-04-11"},
+            subgoal2:{done:true, date_accomplised:"2018-04-20"},
+            subgoal3:{done:true, date_accomplised:"2018-05-01"}
+        }
+        a.save
+	a = User.find_by_username("Caroline").participations.find_by_challenge_id(Challenge.find_by_goal("courir un marathon").id) 
+        a.stats = {
+            subgoal1:{done:true, date_accomplised:"2018-04-10"}, 
+	    subgoal2:{done:true, date_accomplised:"2018-04-22"},
+	    subgoal3:{done:false}	
+	}
+        a.save
