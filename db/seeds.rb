@@ -68,6 +68,14 @@
 ###Attention LA C'EST LA FIN!!!
 
 Challenge.all.each do |c|
-      a = Challenge.new(c.attributes.merge(id:nil, organizer_id:User.find_by_username("Vald").id, created_at:nil, updated_at:nil))
-      a.save
+    a = Challenge.new(c.attributes.merge(id:nil, organizer_id:User.find_by_username("Vald").id, created_at:nil, updated_at:nil))
+    c.subgoals.each do |s|
+        b = Subgoal.new(s.attributes.merge(id:nil, challenge_id:nil, created_at:nil, updated_at:nil))
+        a.subgoals << b
+        b.save
+    end
+    c.categories.each do |ca|
+        a.categories << ca
+    end
+    a.save
 end
