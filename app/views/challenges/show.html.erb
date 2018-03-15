@@ -1,0 +1,114 @@
+<div class="container mt-5">
+
+      <div class="row">
+
+        <div class="col-lg-3">
+          <h2 class="my-4"><%= @challenge.goal %></h2>
+          <div class="list-group">
+            <a href="#pres" class="list-group-item active">Présentation</a>
+            <a href="#objectifs" class="list-group-item">Objectifs</a>
+            <a href="#participants" class="list-group-item">Participants</a>
+            <a href="#commentaires" class="list-group-item">Commentaires</a>
+          </div>
+          	</br>
+          <div class="card mt-4">
+          	<%= link_to "Je participe", join_challenge_path, class:"btn btn-success", :method => :post %>
+          </div>
+
+          <div class="card mt-4 p-4">
+          	<h5 class="card-title text-center">Catégories</h5>
+          	<div class="card-body text-center">
+          	<% @challenge.categories.each do |cat| %>
+          		<span class="badge badge-pill badge-info"><%= cat.category_name %></span> 
+          	<% end %>
+          </div>
+          </div>
+        </div>
+        <!-- /.col-lg-3 -->
+
+        <div class="col-lg-9">
+
+          <div class="card mt-4">
+            <% if @challenge.image_url == nil %>
+                <%= image_tag "config/images/tomatoe800.jpg", height:"400", class:"card-img-top img-fluid" %>
+            <% else %>
+            
+            <%= image_tag(@challenge.image_url, height:"400", class:"card-img-top img-fluid") %>
+            <% end %>
+            <div class="card-body">
+              <h3 class="card-title" id="pres">Présentation</h3>
+              <p>Créé par <strong><%= @challenge.organizer.username %></strong></p>
+              <p>A mener pour le <span class="badge badge-pill badge-info"><%= @challenge.deadline.strftime("%d/%m/%y") %></span></p>
+
+              <p class="card-text">Voici la description de ce challenge</p>
+            </div>
+          </div>
+          <!-- /.card -->
+
+          <div class="card card-outline-secondary my-4">
+            <div class="card-header" id="objectifs">
+              Objectifs
+            </div>
+            <div class="card-body">
+              <table class="table table-hover table-responsive">
+              <thead class="thead-dark">
+	              <tr>
+	              	<th scope="col">#</th>
+	              	<th scope="col">Objectif</th>
+	              	<th scope="col">Pour le</th>
+	              </tr>
+	            </thead>
+	            <tbody>
+              <% @challenge.subgoals.each do |obj| %>
+              <tr>	
+              	<td><%= obj.description %></td>
+              	<td><%= obj.subgoal_string %></td>
+              	<td><%= obj.deadline.strftime("%d/%B") %></td>
+              </tr>
+              <% end %>
+              </tbody>
+            </table>
+            </div>
+          </div>
+
+          <div class="card card-outline-secondary my-4">
+            <div class="card-header" id="participants">
+              Participants
+            </div>
+            <div class="card-body">
+              <% @challenge.attendees.each do |att| %>
+              	<p><%= att.username %></p>
+              <% end %>
+            </div>
+          </div>
+
+          <div class="card card-outline-secondary my-4">
+            <div class="card-header" id="commentaires">
+              Commentaires
+            </div>
+            <div class="card-body">
+              
+            	<ul> <%= render partial: 'shared/comment', collection: @challenge.comments %> </ul>
+              
+            </div>
+            		<% if user_signed_in? %>
+									<div class="reply-form-challenge form-group">
+										<%= form_for [@challenge, Comment.new] do |f| %>
+										<%= f.text_area :body, class:"form-control" %>
+										<%= f.submit "Commenter le challenge", class:"btn btn-primary btn-sm" %>
+										<% end %>
+									</div>
+								<% else %>
+								  Vous devez vous <%= link_to "connecter", new_user_session_path %> ou vous <%= link_to "inscrire", new_user_registration_path %> pour laisser un commentaire.
+								<% end %>
+            <p class="btn btn-reply-challenge btn-primary btn-sm">Commenter ce challenge</p>
+
+          </div><!-- /.card -->
+          
+
+        </div><!-- /.col-lg-9 -->
+        
+
+      </div>
+
+    </div>

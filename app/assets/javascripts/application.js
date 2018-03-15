@@ -12,4 +12,23 @@
 //
 //= require rails-ujs
 //= require turbolinks
-//= require_tree .
+//= require jquery3
+//= require popper
+//= require bootstrap
+//= require_tree 
+
+$(document).on('turbolinks:load', function() {
+  $('.reply-form').hide();
+  $('.btn-reply').on('click', function(e){
+    e.preventDefault();
+    $(this).next('.reply-form').toggle(); // Show form on button click
+  });
+});
+
+$(document).on('turbolinks:load', function() {
+  $('.reply-form-challenge').hide();
+  $('.btn-reply-challenge').on('click', function(e){
+    e.preventDefault();
+    $(this).prev('.reply-form-challenge').toggle(); // Show form on button click
+  });
+});
