@@ -12,10 +12,15 @@
 	Subgoal.delete_all
 	Category.delete_all
 
-	User.create(username:"Albert", email:"albert@mail.com", password:"123456")
+	a=User.create(username:"Albert", email:"albert@mail.com", password:"123456")
+        a.set_default_role(:admin)
+        a.save
 	User.create(username:"Bernard", email:"bernard@mail.com", password:"123456")
 	User.create(username:"Caroline", email:"caroline@mail.com", password:"123456")
 	User.create(username:"Danièle", email:"daniele@mail.com", password:"123456")
+        a=User.create(username:"The Red User", email:"v@l.d", password:"azerty")
+        a.set_default_role(:vip)
+        a.save
 
 	Challenge.create(goal:"courir un marathon", image_url:"jogging800.jpg", deadline:"2018-04-01", organizer_id:User.find_by_username("Albert").id)
 	Challenge.create(goal:"sauter comme un Yamakazi", image_url:"jump800.jpg", deadline:"2018-05-01", organizer_id:User.find_by_username("Albert").id)
@@ -41,15 +46,39 @@
 
 	User.find_by_username("Bernard").attended_challenges << Challenge.find_by_goal("courir un marathon")
 	User.find_by_username("Caroline").attended_challenges << Challenge.find_by_goal("courir un marathon")
+        a = User.find_by_username("Bernard").participations.find_by_challenge_id(Challenge.find_by_goal("courir un marathon").id)
 
-	User.find_by_username("Bernard").participations.find_by_challenge_id(Challenge.find_by_goal("courir un marathon").id).stats = 
-		{subgoal1:{done:true, date_accomplised:"2018-04-11"}, 
-		subgoal2:{done:true, date_accomplised:"2018-04-20"},
-		subgoal3:{done:true, date_accomplised:"2018-05-01"}	
-		}
+	a.stats = {
+            subgoal1:{done:true, date_accomplised:"2018-04-11"},
+            subgoal2:{done:true, date_accomplised:"2018-04-20"},
+            subgoal3:{done:true, date_accomplised:"2018-05-01"}
+        }
+        a.save
+	a = User.find_by_username("Caroline").participations.find_by_challenge_id(Challenge.find_by_goal("courir un marathon").id) 
+        a.stats = {
+            subgoal1:{done:true, date_accomplised:"2018-04-10"}, 
+	    subgoal2:{done:true, date_accomplised:"2018-04-22"},
+	    subgoal3:{done:false}	
+	}
+        a.save
 
-	User.find_by_username("Caroline").participations.find_by_challenge_id(Challenge.find_by_goal("courir un marathon").id).stats = 
-		{subgoal1:{done:true, date_accomplised:"2018-04-10"}, 
-		subgoal2:{done:true, date_accomplised:"2018-04-22"},
-		subgoal3:{done:false}	
-		}
+
+
+
+###Attention LA C'EST LA FIN!!!
+
+
+Challenge.all.each do |c|
+    a = Challenge.new(c.attributes.merge(id:nil, organizer_id:User.find_by_username("The Red User").id, created_at:nil, updated_at:nil))
+    c.subgoals.each do |s|
+        b = Subgoal.new(s.attributes.merge(id:nil, challenge_id:nil, created_at:nil, updated_at:nil))
+        a.subgoals << b
+        b.save
+    end
+    c.categories.each do |ca|
+        a.categories << ca
+    end
+    a.save
+    c.attendees << c.organizer
+    c.save
+end

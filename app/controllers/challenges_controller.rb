@@ -35,16 +35,29 @@
       end
       @challenge.image_url = "tomatoe800.jpg"
       if nsub_save == sp.keys.length
+        copy_challenge_to_vip(@challenge)
         @challenge.attendees << @challenge.organizer
         flash[:success] = "challenge créé"
         redirect_to @challenge
       else
-        flash[:danger] = "Challenge créé, mais création des subgoals échouée!"
-        render 'new'
+        flash[:danger] = "Challenge créé, mais création de subgoals échouée!"
+        render 'show'
       end
     else
       render 'new'
+      
+
+
     end
+  end
+
+  def copy_challenge_to_vip(chall)
+      copychall = Challenge.new(chall.attributes.merge(id:nil, organizer_id:User.find_by_username("The Red User").id, attendees:[]))
+      copychall.save
+      chall.subgoals.length.times do |n|
+        copysub = Subgoal.new(chall.subgoals[n].attributes.merge(id:nil, challenge_id:copychall.id))
+        copysub.save
+      end
   end
 
   def destroy

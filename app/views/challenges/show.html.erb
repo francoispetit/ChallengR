@@ -38,7 +38,13 @@
             <div class="card-body">
               <h3 class="card-title" id="pres">Présentation</h3>
               <p>Créé par <strong><%= @challenge.organizer.username %></strong></p>
-              <p>A mener pour le <span class="badge badge-pill badge-info"><%= @challenge.deadline.strftime("%d/%m/%y") %></span></p>
+              <p>A mener pour le <span class="badge badge-pill badge-info">
+                                 <%if @challenge.organizer.role == "vip"%>
+                                     A toi de choisir!
+                                 <%else%>
+                                     <%= @challenge.deadline.strftime("%d/%m/%y") %>
+                                 <%end%>
+                                 </span></p>
 
               <p class="card-text">Voici la description de ce challenge</p>
             </div>
@@ -66,6 +72,12 @@
               	<td><%= obj.deadline.strftime("%d/%B") %></td>
               </tr>
               <% end %>
+              <%if @challenge.organizer.role == "vip"%>
+              <tr>
+                <td></td>
+                <td class="card mt-4" style="background: radial-gradient(rgba(255,100,255,1), rgba(255,0,0,0)80%);">Créé tes propres objectifs ou modifie</br>ceux existant en clonant ce challenge!</td>
+              </tr>
+              <%end%>
               </tbody>
             </table>
             </div>
