@@ -24,17 +24,26 @@
 
   def create
     @challenge = Challenge.new(challenge_params)
-   @subgoal = @challenge.subgoals.build(subgoal_params)         #[[:subgoal][:accomplished],[[:subgoal][:description]],[[:subgoal][:deadline]],[[:subgoal][:subgoal_int]],[[:subgoal][:subgoal_unit]],[[:subgoal][:subgoal_string]],[[:subgoal][:description]]]])
-    #challenge.create(challenge_params)
-    @challenge.image_url = "tomatoe800.jpg"
+    sp = subgoal_params["subgoals_attributes"]
+    
     @challenge.organizer = current_user
-    if @challenge.save && @subgoal.save
-      @challenge.subgoals << @subgoal
-      @challenge.attendees << @challenge.organizer
-
-      flash[:success] = "challenge créé"
-    redirect_to @challenge
-    else render 'new'
+    if @challenge.save
+      nsub_save = 0
+      sp.keys.length.times do |n|
+        eval("@subgoal#{n} = @challenge.subgoals.build(sp['#{n}'])")
+        nsub_save += 1 if eval("@subgoal#{n}.save")
+      end
+      @challenge.image_url = "tomatoe800.jpg"
+      if nsub_save == sp.keys.length
+        @challenge.attendees << @challenge.organizer
+        flash[:success] = "challenge créé"
+        redirect_to @challenge
+      else
+        flash[:danger] = "Challenge créé, mais création des subgoals échouée!"
+        render 'new'
+      end
+    else
+      render 'new'
     end
   end
 
@@ -65,7 +74,7 @@
   private
 
   def challenge_params
-    params.require(:challenge).permit(:goal, :deadline, :accomplished)
+    params.require(:challenge).permit(:goal, :deadline, :accomplished, :subgoals_attributes)
       #subgoal: [:subgoal_int, :subgoal_unit, :subgoal_string, :duedate, :description, :accomplished, :challenge_id])
     #params.require(:challenge).permit([:goal, :deadline, :accomplished, :subgoal],[:subgoal_int, :subgoal_unit, :subgoal_string, :duedate, :description, :accomplished, :challenge_id])
     #params.require([:challenge, :subgoal]).permit([:goal, :deadline, :accomplished],[:subgoal_int, :subgoal_unit, :subgoal_string, :deadline, :description, :accomplished, :challenge_id])
@@ -75,7 +84,10 @@
   end
   
  def subgoal_params
-  params.require(:challenge).require(:subgoal).permit(:subgoal_int, :subgoal_unit, :subgoal_string, :deadline, :description, :accomplished, :challenge_id)
+  params.require(:challenge).permit(subgoals_attributes: [:subgoal_int, :subgoal_unit, :subgoal_string, :deadline, :description, :accomplished, :challenge_id]) # This permits the kids params to be saved
+
+
+  #params.require(:challenge).permit(:subgoals_attributes, :subgoal_int, :subgoal_unit, :subgoal_string, :deadline, :description, :accomplished, :challenge_id)
  end
 
 end

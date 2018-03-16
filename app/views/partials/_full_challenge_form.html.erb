@@ -1,0 +1,27 @@
+<%= form_for @challenge do |f| %> 
+  <%= f.label 'Challenge' %>
+  <%= f.text_field :goal %>
+  <br /> <br />
+
+  <%= f.label 'Date limite ?' %>
+  <%= f.date_field :deadline %>
+  <br /> <br />
+
+    <%= f.nested_fields_for "subgoals" do |subs| %>
+        <%= render 'challenges/subgoal_form', f: subs %>
+    <% end %>
+                                                            
+    <%= f.add_nested_fields_link :subgoals do %>
+    <span>Ajouter un Objectif </span>
+        <% end %>
+
+<%= f.submit %>
+ <% end %>
+
+                                                                    
+                                                                    
+                                                                    
+                                                                    
+                                                                    
+                                                                    
+        

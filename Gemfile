@@ -12,6 +12,8 @@ gem 'bootstrap', '~> 4.0.0'
 gem 'mailjet'
 gem 'chartkick'
 gem 'groupdate'
+gem 'nested_form_fields'
+
 
 
 group :development, :test do
