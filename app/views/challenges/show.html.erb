@@ -30,7 +30,7 @@
 
           <div class="card mt-4">
             <% if @challenge.image_url == nil %>
-                <%= image_tag "config/images/tomatoe800.jpg", height:"400", class:"card-img-top img-fluid" %>
+                <%= image_tag "tomatoe800.jpg", height:"400", class:"card-img-top img-fluid" %>
             <% else %>
             
             <%= image_tag(@challenge.image_url, height:"400", class:"card-img-top img-fluid") %>
