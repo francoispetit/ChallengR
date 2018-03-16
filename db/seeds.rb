@@ -13,10 +13,15 @@
 	Category.delete_all
 	Participation.delete_all
 
-	User.create(username:"Albert", email:"albert@mail.com", password:"123456")
+	a=User.create(username:"Albert", email:"albert@mail.com", password:"123456")
+        a.set_default_role(:admin)
+        a.save
 	User.create(username:"Bernard", email:"bernard@mail.com", password:"123456")
 	User.create(username:"Caroline", email:"caroline@mail.com", password:"123456")
 	User.create(username:"Danièle", email:"daniele@mail.com", password:"123456")
+        a=User.create(username:"Vald", email:"v@l.d", password:"azerty")
+        a.set_default_role(:vip)
+        a.save
 
 	Challenge.create(goal:"courir un marathon", image_url:"jogging800.jpg", deadline:"2018-04-01", organizer_id:User.find_by_username("Albert").id)
 	Challenge.create(goal:"sauter comme un Yamakazi", image_url:"jump800.jpg", deadline:"2018-05-01", organizer_id:User.find_by_username("Albert").id)
@@ -47,24 +52,24 @@
 	a.stats = {
 	 	subgoals:{
         	subgoal1:{
-        		subgoal_date_limit:"2018-04-10", 
+        		subgoal_date_limit:"2018-04-10",
         		subgoal_date_accomplished:"2018-04-11",
-        		subgoal_done:true, 
-        		subgoal_name:"10 km en 1h", 
+        		subgoal_done:true,
+        		subgoal_name:"10 km en 1h",
         		subgoal_targets:{
 	            	target1:{target_compulsory:true, target_unit:"km", target_value:10},
 	            	target2:{target_compulsory:false, target_unit:"duration_seconds", target_value:3600}
-	            	}, 
+	            	},
         		subgoal_attempts:{
         			attempt1:{
         				date_attempt:"2018-04-10",
         				attempt_results:{
-        					t1:8, 
+        					t1:8,
         					t2:3800}#attempt_results
         				},#attempt
         			},#subgoal_attempts
         		},#subgoal
-        	},#subgoals            		
+        	},#subgoals
        	}#stats
 
     a.save
