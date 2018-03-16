@@ -11,6 +11,7 @@
 	Challenge.delete_all
 	Subgoal.delete_all
 	Category.delete_all
+	Participation.delete_all
 
 	User.create(username:"Albert", email:"albert@mail.com", password:"123456")
 	User.create(username:"Bernard", email:"bernard@mail.com", password:"123456")
@@ -44,15 +45,26 @@
         a = User.find_by_username("Bernard").participations.find_by_challenge_id(Challenge.find_by_goal("courir un marathon").id)
 
 	a.stats = {
-            subgoal1:{done:true, date_accomplised:"2018-04-11"},
-            subgoal2:{done:true, date_accomplised:"2018-04-20"},
-            subgoal3:{done:true, date_accomplised:"2018-05-01"}
-        }
-        a.save
-	a = User.find_by_username("Caroline").participations.find_by_challenge_id(Challenge.find_by_goal("courir un marathon").id) 
-        a.stats = {
-            subgoal1:{done:true, date_accomplised:"2018-04-10"}, 
-	    subgoal2:{done:true, date_accomplised:"2018-04-22"},
-	    subgoal3:{done:false}	
-	}
-        a.save
+	 	subgoals:{
+        	subgoal1:{
+        		subgoal_date_limit:"2018-04-10", 
+        		subgoal_date_accomplished:"2018-04-11",
+        		subgoal_done:true, 
+        		subgoal_name:"10 km en 1h", 
+        		subgoal_targets:{
+	            	target1:{target_compulsory:true, target_unit:"km", target_value:10},
+	            	target2:{target_compulsory:false, target_unit:"duration_seconds", target_value:3600}
+	            	}, 
+        		subgoal_attempts:{
+        			attempt1:{
+        				date_attempt:"2018-04-10",
+        				attempt_results:{
+        					t1:8, 
+        					t2:3800}#attempt_results
+        				},#attempt
+        			},#subgoal_attempts
+        		},#subgoal
+        	},#subgoals            		
+       	}#stats
+
+    a.save

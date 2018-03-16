@@ -15,6 +15,7 @@
 //= require jquery3
 //= require popper
 //= require bootstrap
+//= require js/chartkick
 //= require_tree 
 
 $(document).on('turbolinks:load', function() {

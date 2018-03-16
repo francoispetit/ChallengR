@@ -23,10 +23,7 @@
             <ul class="nav flex-column mb-2">
             	<% current_user.attended_challenges.each do |chal| %>
               <li class="nav-item">
-                <a class="nav-link" href="#">
-                  <span data-feather="file-text"></span>
-                  <%= chal.goal %>
-                </a>
+                  <%= link_to chal.goal, root_path, class:"btn-sm btn-secondary", id:"chal#{chal.id}" %>
               </li>
                	<% end %>
             </ul>
@@ -48,7 +45,21 @@
             </div>
           </div>
 
-          <canvas class="my-4" id="myChart" width="900" height="380"></canvas>
+          <% @challenges.each do |challenge| 
+
+               chart_hash = {}%>
+               <%eval(@user.participations.find_by_challenge_id(challenge.id).stats)[:subgoals].each do |subgoal_number, subgoal_stats|%>
+                  <%if subgoal_stats%>
+                    <%n=1%>
+                  <%else%>
+                    <%n=0%>
+                  <%end%>
+                  <%chart_hash[subgoal_stats[:date_accomplished].to_sym] = n%>
+               <%end%>
+              <%= javascript_include_tag "//www.google.com/jsapi", "chartkick" %>
+              <%= bar_chart(chart_hash) %>
+
+          <% end %>
 
           <h2>Mes stats</h2>
           <div class="table-responsive">
@@ -56,16 +67,12 @@
               <thead>
                 <tr>
                   <th>Objectif</th>
-                  <th>Réalisé</th>
-                  <th>Date réalisé</th>
                 </tr>
               </thead>
               <tbody>
               	<% current_user.attended_challenges.first.subgoals do |sub| %>
                 <tr>
-                  <td><%= sub.subgoal_string %></td>
-                  <td><%= sub.accomplished? "fait" ; "à faire" %></td>
-                  <td><%= sub.subgoal_string %></td>                  
+                  <td><%= sub.subgoal_string %></td>               
                 </tr>
                 <% end %>
               </tbody>
