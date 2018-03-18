@@ -13,7 +13,7 @@ gem 'mailjet'
 gem 'chartkick'
 gem 'groupdate'
 gem 'nested_form_fields'
-
+gem 'paperclip'
 
 
 group :development, :test do

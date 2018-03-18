@@ -10,7 +10,17 @@
         <%= f.label 'Date limite',class:"col-sm-2 col-form-label" %>
         <%= f.date_field :deadline ,class:"form-control col-sm-10" %>
     </div>
+
+    <div class="form-group row">
+        <%= f.label :image,"Image",class:"col-sm-2 col-form-label " %>
     
+        <label class="btn btn-sm btn-primary">
+           Ajouter une image
+            <span style="display:none;">
+                <%= f.file_field :image, id: "fileUploader"%>
+            </span>
+        </label>
+    </div>
 
 
     <%= f.nested_fields_for "subgoals" do |subs| %>
