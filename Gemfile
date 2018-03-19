@@ -12,7 +12,7 @@ gem 'bootstrap', '~> 4.0.0'
 gem 'mailjet'
 gem 'chartkick'
 gem 'groupdate'
-
+gem "font-awesome-rails"
 
 group :development, :test do
   gem 'sqlite3', '1.3.13'

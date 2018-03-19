@@ -33,3 +33,10 @@ $(document).on('turbolinks:load', function() {
     $(this).prev('.reply-form-challenge').toggle(); // Show form on button click
   });
 });
+
+
+$(document).ready(function(){
+    $(".push_menu").click(function(){
+         $(".wrapper").toggleClass("active");
+    });
+});

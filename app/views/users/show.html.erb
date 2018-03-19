@@ -54,10 +54,11 @@
                   <%else%>
                     <%n=0%>
                   <%end%>
-                  <%chart_hash[subgoal_stats[:date_accomplished].to_sym] = n%>
+                  <%chart_hash[subgoal_stats[:date_accomplised].to_sym] = n%>
                <%end%>
               <%= javascript_include_tag "//www.google.com/jsapi", "chartkick" %>
               <%= bar_chart(chart_hash) %>
+              <%= render 'shared/progress_circle' %>
 
           <% end %>
 
