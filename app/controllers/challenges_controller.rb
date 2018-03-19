@@ -33,7 +33,7 @@
     @challenge.subgoals = []
     nsub_save = 0
     if @challenge.update(challenge_params)
-      sp.keys.length.times do |n|
+      sp.keys.length.times do |n| 
         unless eval("sp['#{n}']['_destroy'] == '1'")
           eval("@subgoal#{n} = @challenge.subgoals.build(sp['#{n}'])") 
           nsub_save += 1 if eval("@subgoal#{n}.save")
@@ -55,21 +55,24 @@
     
     @challenge.organizer = current_user
     if @challenge.save
-      nsub_save = 0
-      sp.keys.length.times do |n|
-        eval("@subgoal#{n} = @challenge.subgoals.build(sp['#{n}'])")
-        nsub_save += 1 if eval("@subgoal#{n}.save")
+      if sp == nil
+        sp = {}
       end
-      @challenge.image_url = "tomatoe800.jpg"
-      if nsub_save == sp.keys.length
-        copy_challenge_to_vip(@challenge)
-        @challenge.attendees << @challenge.organizer
-        flash[:success] = "challenge créé"
-        redirect_to @challenge
-      else
-        flash[:danger] = "Challenge créé, mais création de subgoals échouée!"
-        render 'show'
-      end
+        nsub_save = 0
+        sp.keys.length.times do |n|
+          eval("@subgoal#{n} = @challenge.subgoals.build(sp['#{n}'])")
+          nsub_save += 1 if eval("@subgoal#{n}.save")
+        end
+        @challenge.image_url = "tomatoe800.jpg"
+        if nsub_save == sp.keys.length
+          copy_challenge_to_vip(@challenge)
+          @challenge.attendees << @challenge.organizer
+          flash[:success] = "challenge créé"
+          redirect_to @challenge
+        else
+          flash[:danger] = "Challenge créé, mais création de subgoals échouée!"
+          render 'show'
+        end
     else
       render 'new'
       
