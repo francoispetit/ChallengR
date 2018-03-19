@@ -1,21 +1,36 @@
- <%= f.label :subgoal_string, "Objectif ?" %>
- <%= f.text_field :subgoal_string %>
-        
- <%= f.label :subgoal_int %>
- <%= f.number_field :subgoal_int %>
+<div class="form-group row">
+ <%= f.label :subgoal_string, "Sous-objectif", class:"col-sm-2 col-form-label"%>
+ <%= f.text_field :subgoal_string, class:"form-control col-sm-10" %>
+</div>
 
- <%= f.label :subgoal_unit %>
- <%= f.text_field :subgoal_unit %>
+<div class="form-group row"> 
+ <%= f.label :subgoal_int, "Mesure chiffré",class:"col-sm-2 col-form-label"%>
+ <%= f.number_field :subgoal_int, class:"form-control col-sm-10" %>
+</div>
 
- <%= f.label :deadline %>
- <%= f.date_field :deadline %>
+<div class="form-group row">
+ <%= f.label :subgoal_unit, "Unité de mesure", class:"col-sm-2 col-form-label" %>
+ <%= f.text_field :subgoal_unit, class:"form-control col-sm-10" %>
+</div>
 
- <%= f.label :description %>
- <%= f.text_field :description %>
-             
- <%= f.label :accomplished, "Accomplis ?"  %>
- <%= f.check_box :accomplished %>
+<div class="form-group row">
+ <%= f.label :deadline, "Date limite du sous-objectif", class:"col-sm-2 col-form-label" %>
+ <%= f.date_field :deadline, class:"form-control col-sm-10" %>
+</div>
 
+<div class="form-group row">
+ <%= f.label :description,"Description" ,class:"col-sm-2 col-form-label"%>
+ <%= f.text_area :description, class:"form-control col-sm-10" %>
+</div>
+
+<div class="form-group row">
+ <%= f.label :accomplished, "Accomplis ?",class:"col-sm-2 col-form-label " %>
+ <%= f.check_box :accomplished, class:"form-control col-sm-10 form-check checked "%>
+</div>
+
+ 
+ <%= f.remove_nested_fields_link "Supprimer l'objectif", class: 'btn btn-sm btn-danger pull-right', role: 'button' %>
+<br>
    
 
 

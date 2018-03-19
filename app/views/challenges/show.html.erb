@@ -28,13 +28,9 @@
 
         <div class="col-lg-9">
 
-          <div class="card mt-4">
-            <% if @challenge.image_url == nil %>
-                <%= image_tag "tomatoe800.jpg", height:"400", class:"card-img-top img-fluid" %>
-            <% else %>
+          <div class="card mt-4">   
             
-            <%= image_tag(@challenge.image_url, height:"400", class:"card-img-top img-fluid") %>
-            <% end %>
+            <%= image_tag(@challenge.image.url, height:"400", class:"card-img-top img-fluid") %>
             <div class="card-body">
               <h3 class="card-title" id="pres">Présentation</h3>
               <p>Créé par <strong><%= @challenge.organizer.username %></strong></p>
