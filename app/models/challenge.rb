@@ -4,7 +4,7 @@ class Challenge < ApplicationRecord
   belongs_to :organizer, class_name: "User"
   has_many :participations, dependent: :destroy
   has_many :attendees, class_name:"User", through: :participations, source: :user
-  has_attached_file :image  ,styles: { medium: "300x300>", thumb: "100x100>" }, default_url: "/assets/:style/missing.png"
+  has_attached_file :image  ,styles: { medium: "300x300>", thumb: "100x100>" }, default_url: "https://s3.eu-west-3.amazonaws.com/alex-file-bucket/challenges/images/default/.original/rawpixel-com-250087-unsplash.jpg"
 
 
   accepts_nested_attributes_for :subgoals,
