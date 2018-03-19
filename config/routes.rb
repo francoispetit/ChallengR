@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
 
-		root "challenges#index"
-		get 'challenges/redindex' => 'challenges#red_index'
+	root "challenges#index"
+	get 'challenges/redindex' => 'challenges#red_index'
 
 	post "challenge/join_challenge/:id", to: "challenges#join_challenge", as: "join_challenge"
 

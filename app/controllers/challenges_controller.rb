@@ -1,7 +1,7 @@
  class ChallengesController < ApplicationController
   def index
     red_id = User.find_by_username("The Red User").id
-    @challenges = Challenge.where.not(organizer_id:red_id)
+    @challenges = Challenge.where.not(organizer_id:red_id).order(created_at: :desc).page(params[:page])
   end
 
   def red_index

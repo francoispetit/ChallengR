@@ -16,6 +16,7 @@ gem 'nested_form_fields'
 gem 'paperclip'
 gem 'aws-sdk'
 gem 'dotenv-rails'
+gem 'kaminari'
 
 
 group :development, :test do
