@@ -1,5 +1,11 @@
 Rails.application.routes.draw do
 
+  get 'categories/create'
+
+  get 'categories/update'
+
+  get 'categories/delete'
+
   	root "challenges#index"
 
 	post "challenge/join_challenge/:id", to: "challenges#join_challenge", as: "join_challenge"
@@ -14,6 +20,7 @@ Rails.application.routes.draw do
 	end
 
 	resources :subgoals
+        resources :categories
 
         resources :conversations do
           resources :messages
