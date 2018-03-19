@@ -1,10 +1,12 @@
  class ChallengesController < ApplicationController
   def index
-    @challenges = Challenge.where.not(organizer_id:10)
+    red_id = User.find_by_username("The Red User").id
+    @challenges = Challenge.where.not(organizer_id:red_id)
   end
 
   def red_index
-    @challenges = Challenge.where(organizer_id:10)
+    red_id = User.find_by_username("The Red User").id
+    @challenges = Challenge.where(organizer_id:red_id)
   end
 
   def new
