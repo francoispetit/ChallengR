@@ -12,7 +12,12 @@ gem 'bootstrap', '~> 4.0.0'
 gem 'mailjet'
 gem 'chartkick'
 gem 'groupdate'
+gem 'nested_form_fields'
+gem 'paperclip'
+gem 'aws-sdk'
+gem 'dotenv-rails'
 gem "font-awesome-rails"
+
 
 group :development, :test do
   gem 'sqlite3', '1.3.13'

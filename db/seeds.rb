@@ -19,7 +19,7 @@
 	User.create(username:"Bernard", email:"bernard@mail.com", password:"123456")
 	User.create(username:"Caroline", email:"caroline@mail.com", password:"123456")
 	User.create(username:"Danièle", email:"daniele@mail.com", password:"123456")
-        a=User.create(username:"Vald", email:"v@l.d", password:"azerty")
+        a=User.create(username:"The Red User", email:"v@l.d", password:"azerty")
         a.set_default_role(:vip)
         a.save
 
@@ -130,4 +130,22 @@
         	},#subgoals
        	}#stats
 
+<<<<<<< HEAD
     a.save
+=======
+
+Challenge.all.each do |c|
+    a = Challenge.new(c.attributes.merge(id:nil, organizer_id:User.find_by_username("The Red User").id, created_at:nil, updated_at:nil))
+    c.subgoals.each do |s|
+        b = Subgoal.new(s.attributes.merge(id:nil, challenge_id:nil, created_at:nil, updated_at:nil))
+        a.subgoals << b
+        b.save
+    end
+    c.categories.each do |ca|
+        a.categories << ca
+    end
+    a.save
+    c.attendees << c.organizer
+    c.save
+end
+>>>>>>> dev

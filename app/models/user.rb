@@ -13,6 +13,9 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
+  has_many :r_convs, class_name: 'Conversation', foreign_key: 'sender_id', dependent: :destroy
+  has_many :s_convs, class_name: 'Conversation', foreign_key: 'receiver_id', dependent: :destroy
+
   has_many :organized_challenges, class_name: "Challenge", foreign_key: "organizer_id"
   has_many :participations
   has_many :attended_challenges, class_name: "Challenge", through: :participations, source: :challenge

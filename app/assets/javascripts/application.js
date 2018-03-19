@@ -10,13 +10,17 @@
 // Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
 // about supported directives.
 //
-//= require rails-ujs
-//= require turbolinks
+
 //= require jquery3
-//= require popper
+//= require jquery_ujs
 //= require bootstrap
 //= require js/chartkick
-//= require_tree 
+//= require turbolinks
+//= require popper
+//= require nested_form_fields
+//= require_tree.
+
+
 
 $(document).on('turbolinks:load', function() {
   $('.reply-form').hide();
@@ -26,17 +30,12 @@ $(document).on('turbolinks:load', function() {
   });
 });
 
+
+
 $(document).on('turbolinks:load', function() {
   $('.reply-form-challenge').hide();
   $('.btn-reply-challenge').on('click', function(e){
     e.preventDefault();
     $(this).prev('.reply-form-challenge').toggle(); // Show form on button click
   });
-});
-
-
-$(document).ready(function(){
-    $(".push_menu").click(function(){
-         $(".wrapper").toggleClass("active");
-    });
 });
