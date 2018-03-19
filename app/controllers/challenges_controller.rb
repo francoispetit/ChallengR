@@ -89,9 +89,10 @@
 
   def destroy
     @challenge = Challenge.find(params[:id])
-    if current_user.id == @challenge.current_user_id
+   if @challenge.organizer == current_user
      @challenge.destroy
      redirect_to root_path
+     flash[:success] = "Votre challenge a été supprimé !"
     else
       flash[:danger] = "Désolé, ce challenge n'est pas le votre !"
     end
