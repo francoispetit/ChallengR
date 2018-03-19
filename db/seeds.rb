@@ -130,9 +130,6 @@
         	},#subgoals
        	}#stats
 
-<<<<<<< HEAD
-    a.save
-=======
 
 Challenge.all.each do |c|
     a = Challenge.new(c.attributes.merge(id:nil, organizer_id:User.find_by_username("The Red User").id, created_at:nil, updated_at:nil))
@@ -148,4 +145,3 @@ Challenge.all.each do |c|
     c.attendees << c.organizer
     c.save
 end
->>>>>>> dev

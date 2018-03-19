@@ -22,7 +22,7 @@
           	<h5 class="card-title text-center">Catégories</h5>
           	<div class="card-body text-center">
           	<% @challenge.categories.each do |cat| %>
-          		<span class="badge badge-pill badge-info"><%= cat.category_name %></span> 
+          		<span class="badge badge-pill badge-info"><%= cat.category_name %></span>
           	<% end %>
           </div>
           </div>
@@ -31,9 +31,9 @@
 
         <div class="col-lg-9">
 
-          <div class="card mt-4">   
-            
-            <%= image_tag(@challenge.image.url, height:"400", class:"card-img-top img-fluid") %>
+          <div class="card mt-4">
+
+            <%= image_tag(@challenge.image_url, height:"400", class:"card-img-top img-fluid") %>
             <div class="card-body">
               <h3 class="card-title" id="pres">Présentation</h3>
               <p>Créé par <strong><%= @challenge.organizer.username %></strong></p>
@@ -65,7 +65,7 @@
 	            </thead>
 	            <tbody>
               <% @challenge.subgoals.each do |obj| %>
-              <tr>	
+              <tr>
               	<td><%= obj.description %></td>
               	<td><%= obj.subgoal_string %></td>
               	<td><%= obj.deadline.strftime("%d/%B") %></td>
@@ -98,9 +98,9 @@
               Commentaires
             </div>
             <div class="card-body">
-              
-            	<ul> <%= render partial: 'shared/comment', collection: @challenge.comments %> </ul>
-              
+
+            	<ul> <%= render partial: 'partials/comment', collection: @challenge.comments %> </ul>
+
             </div>
             		<% if user_signed_in? %>
 									<div class="reply-form-challenge form-group">
@@ -115,10 +115,10 @@
             <p class="btn btn-reply-challenge btn-primary btn-sm">Commenter ce challenge</p>
 
           </div><!-- /.card -->
-          
+
 
         </div><!-- /.col-lg-9 -->
-        
+
 
       </div>
 

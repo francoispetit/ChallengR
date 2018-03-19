@@ -1,10 +1,10 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand" href="#">Challenge</a>
+<nav class="navbar navbar-expand-lg bg-dark p-1">
+  <a class="navbar-brand text-white small font-weight-bold text-uppercase" href="#"><%= current_user.attended_challenges.first.goal %> </a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
 
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+  <div class="collapse navbar-collapse navbar-dark bg-dark" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item active">
         <a class="nav-link" href="#">Bilan <span class="sr-only">(current)</span></a>
@@ -16,10 +16,9 @@
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
             <%= current_user.attended_challenges.first.subgoals.each do |subgoal| %>
-                <a class="dropdown-item drop-subgoal" href="#"><%= subgoal.string %></a>
-                <div class=""></div>
+                <a class="dropdown-item drop-subgoal" href="#"><%= subgoal.subgoal_string %></a>
+                <div class="dropdown-divider"></div>
             <% end %>
-          <div class="dropdown-divider"></div>
         </div>
       </li>
     </ul>
@@ -27,7 +26,7 @@
 </nav>
 
 <div class="graphcontent" id="default">
-    <%= render 'shared/graph1' %>
+    <%= render 'partials/graph1' %>
 </div>
 
 
@@ -36,7 +35,7 @@
 
     $('div.dropdown-menu a.drop-subgoal').on('click', function() {
     if (current_content.attr('id')) {current_content.removeAttr('id')};
-    current_content.slideUp(); 
+    current_content.slideUp();
     current_content = $(this).find("div.graphcontent");
     current_content.slideDown();
 });
