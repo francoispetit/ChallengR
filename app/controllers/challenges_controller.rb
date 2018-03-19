@@ -87,7 +87,7 @@
   private
 
   def challenge_params
-    params.require(:challenge).permit(:goal, :deadline, :accomplished, :subgoals_attributes)
+    params.require(:challenge).permit(:goal, :deadline, :accomplished, :subgoals_attributes, :image)
       #subgoal: [:subgoal_int, :subgoal_unit, :subgoal_string, :duedate, :description, :accomplished, :challenge_id])
     #params.require(:challenge).permit([:goal, :deadline, :accomplished, :subgoal],[:subgoal_int, :subgoal_unit, :subgoal_string, :duedate, :description, :accomplished, :challenge_id])
     #params.require([:challenge, :subgoal]).permit([:goal, :deadline, :accomplished],[:subgoal_int, :subgoal_unit, :subgoal_string, :deadline, :description, :accomplished, :challenge_id])
