@@ -20,12 +20,33 @@
 
   def edit
     @challenge = Challenge.find(params[:id])
+     if @challenge.organizer != current_user
+      render 'show'
+     end
+
   end
 
   def update
+   
     @challenge = Challenge.find(params[:id])
-    @challenge.update(challenge_params)
-    redirect_to @challenge
+    sp = subgoal_params["subgoals_attributes"]
+    @challenge.subgoals = []
+    nsub_save = 0
+    if @challenge.update(challenge_params)
+      sp.keys.length.times do |n|
+        unless eval("sp['#{n}']['_destroy'] == '1'")
+          eval("@subgoal#{n} = @challenge.subgoals.build(sp['#{n}'])") 
+          nsub_save += 1 if eval("@subgoal#{n}.save")
+        else 
+          nsub_save += 1
+        end
+      end
+    end
+    if nsub_save == sp.keys.length
+      redirect_to @challenge
+    else
+      render 'edit'
+    end
   end
 
   def create
@@ -68,9 +89,10 @@
 
   def destroy
     @challenge = Challenge.find(params[:id])
-    if current_user.id == @challenge.current_user_id
+   if @challenge.organizer == current_user
      @challenge.destroy
      redirect_to root_path
+     flash[:success] = "Votre challenge a été supprimé !"
     else
       flash[:danger] = "Désolé, ce challenge n'est pas le votre !"
     end
@@ -102,7 +124,7 @@
   private
 
   def challenge_params
-    params.require(:challenge).permit(:goal, :deadline, :accomplished, :subgoals_attributes, :image)
+    params.require(:challenge).permit(:goal, :deadline, :accomplished, :subgoals_attributes, :image, :id)
       #subgoal: [:subgoal_int, :subgoal_unit, :subgoal_string, :duedate, :description, :accomplished, :challenge_id])
     #params.require(:challenge).permit([:goal, :deadline, :accomplished, :subgoal],[:subgoal_int, :subgoal_unit, :subgoal_string, :duedate, :description, :accomplished, :challenge_id])
     #params.require([:challenge, :subgoal]).permit([:goal, :deadline, :accomplished],[:subgoal_int, :subgoal_unit, :subgoal_string, :deadline, :description, :accomplished, :challenge_id])
@@ -112,7 +134,7 @@
   end
   
  def subgoal_params
-  params.require(:challenge).permit(subgoals_attributes: [:subgoal_int, :subgoal_unit, :subgoal_string, :deadline, :description, :accomplished, :challenge_id]) # This permits the kids params to be saved
+  params.require(:challenge).permit(subgoals_attributes: [:_destroy, :subgoal_int, :subgoal_unit, :subgoal_string, :deadline, :description, :accomplished, :challenge_id]) # This permits the kids params to be saved
 
 
   #params.require(:challenge).permit(:subgoals_attributes, :subgoal_int, :subgoal_unit, :subgoal_string, :deadline, :description, :accomplished, :challenge_id)
