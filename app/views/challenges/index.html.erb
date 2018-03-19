@@ -33,13 +33,13 @@
               <div class="card-footer">
                 <% chal.categories.each do |cat| %>
                   <span class="badge badge-pill badge-danger"><%= cat.category_name %></span> 
+                <%end%>
               </div>
               <div class="card-footer">
                 <%= link_to "En savoir plus", challenge_path(chal), class:"btn btn-primary" %>
               </div>
             </div>
           </div>
-          <%end%>
         <% end %>
 
     </div><!-- /.row -->

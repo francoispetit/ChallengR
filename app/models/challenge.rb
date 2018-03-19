@@ -5,6 +5,8 @@ class Challenge < ApplicationRecord
   has_many :participations, dependent: :destroy
   has_many :attendees, class_name:"User", through: :participations, source: :user
   has_attached_file :image  ,styles: { medium: "300x300>", thumb: "100x100>" }, default_url: "/assets/:style/missing.png"
+
+
   accepts_nested_attributes_for :subgoals,
     :allow_destroy => true,
     :reject_if => :all_blank

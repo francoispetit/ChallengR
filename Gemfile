@@ -14,6 +14,8 @@ gem 'chartkick'
 gem 'groupdate'
 gem 'nested_form_fields'
 gem 'paperclip'
+gem 'aws-sdk'
+gem 'dotenv-rails'
 
 
 group :development, :test do
