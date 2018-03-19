@@ -1,6 +1,12 @@
  class ChallengesController < ApplicationController
   def index
-    @challenges = Challenge.all
+    red_id = User.find_by_username("The Red User").id
+    @challenges = Challenge.where.not(organizer_id:red_id)
+  end
+
+  def red_index
+    red_id = User.find_by_username("The Red User").id
+    @challenges = Challenge.where(organizer_id:red_id)
   end
 
   def new
@@ -104,6 +110,15 @@
     end
   end 
 
+#  def attached_categories(action, category)
+ #   if action == "add"
+  #    self.categories << category
+   # else if action == "remove"
+    #  self.categories.delete(category)
+#    else
+ #     puts "error in attached categories method (ChallengesController)"
+  #  end
+#  end
 
   private
 
