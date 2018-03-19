@@ -12,7 +12,11 @@
           </div>
           	</br>
           <div class="card mt-4">
-          	<%= link_to "Je participe", join_challenge_path, class:"btn btn-success", :method => :post %>
+            <%= link_to "Je participe", join_challenge_path, class:"btn btn-success", :method => :post %>
+            <% if current_user == @challenge.organizer %>
+              <%= link_to "Je modifie le challenge", edit_challenge_path, class:"btn btn-info"%>
+              <%= link_to "Delete", @challenge, class:"btn btn-danger", method: :delete, data: { confirm: "Really?" } %>          
+            <%end %>
           </div>
 
           <div class="card mt-4 p-4">
@@ -28,17 +32,19 @@
 
         <div class="col-lg-9">
 
-          <div class="card mt-4">
-            <% if @challenge.image_url == nil %>
-                <%= image_tag "config/images/tomatoe800.jpg", height:"400", class:"card-img-top img-fluid" %>
-            <% else %>
+          <div class="card mt-4">   
             
-            <%= image_tag(@challenge.image_url, height:"400", class:"card-img-top img-fluid") %>
-            <% end %>
+            <%= image_tag(@challenge.image.url, height:"400", class:"card-img-top img-fluid") %>
             <div class="card-body">
               <h3 class="card-title" id="pres">Présentation</h3>
               <p>Créé par <strong><%= @challenge.organizer.username %></strong></p>
-              <p>A mener pour le <span class="badge badge-pill badge-info"><%= @challenge.deadline.strftime("%d/%m/%y") %></span></p>
+              <p>A mener pour le <span class="badge badge-pill badge-info">
+                                 <%if @challenge.organizer.role == "vip"%>
+                                     A toi de choisir!
+                                 <%else%>
+                                     <%= @challenge.deadline.strftime("%d/%m/%y") %>
+                                 <%end%>
+                                 </span></p>
 
               <p class="card-text">Voici la description de ce challenge</p>
             </div>
@@ -66,6 +72,12 @@
               	<td><%= obj.deadline.strftime("%d/%B") %></td>
               </tr>
               <% end %>
+              <%if @challenge.organizer.role == "vip"%>
+              <tr>
+                <td></td>
+                <td class="card mt-4" style="background: radial-gradient(rgba(255,100,255,1), rgba(255,0,0,0)80%);">Créé tes propres objectifs ou modifie</br>ceux existant en clonant ce challenge!</td>
+              </tr>
+              <%end%>
               </tbody>
             </table>
             </div>
