@@ -12,7 +12,10 @@
           </div>
           	</br>
           <div class="card mt-4">
-          	<%= link_to "Je participe", join_challenge_path, class:"btn btn-success", :method => :post %>
+            <%= link_to "Je participe", join_challenge_path, class:"btn btn-success", :method => :post %>
+            <% if current_user == @challenge.organizer %>
+            <%= link_to "Je modifie le challenge", edit_challenge_path, class:"btn btn-info"%>
+          <%end%>
           </div>
 
           <div class="card mt-4 p-4">
