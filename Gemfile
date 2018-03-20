@@ -20,6 +20,7 @@ gem "font-awesome-rails"
 gem 'gon'
 gem 'rabl-rails'
 gem 'oj'
+gem 'kaminari'
 
 
 group :development, :test do

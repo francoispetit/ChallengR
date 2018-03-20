@@ -1,5 +1,6 @@
 class Challenge < ApplicationRecord
   has_many :subgoals, dependent: :destroy
+  paginates_per 12
 
   belongs_to :organizer, class_name: "User"
   has_many :participations, dependent: :destroy
