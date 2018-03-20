@@ -57,8 +57,12 @@
     if @challenge.save
       nsub_save = 0
       sp.keys.length.times do |n|
-        eval("@subgoal#{n} = @challenge.subgoals.build(sp['#{n}'])")
-        nsub_save += 1 if eval("@subgoal#{n}.save")
+        unless eval("sp['#{n}']['_destroy'] == '1'")
+          eval("@subgoal#{n} = @challenge.subgoals.build(sp['#{n}'])")
+          nsub_save += 1 if eval("@subgoal#{n}.save")
+        else
+          nsub_save += 1
+        end
       end
       @challenge.image_url = "tomatoe800.jpg"
       if nsub_save == sp.keys.length
