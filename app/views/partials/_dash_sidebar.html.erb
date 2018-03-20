@@ -1,0 +1,51 @@
+    
+        <nav class="col-md-12 d-none d-md-block bg-light sidebar">
+          <div class="sidebar-sticky">
+
+            <ul class="nav flex-column">
+
+              <li class="nav-item">
+                <a class="nav-link active" href="#">
+                  <span data-feather="home"></span>
+                  Dashboard <span class="sr-only active">(current)</span>
+                </a>
+              </li>
+
+              <li class="nav-item">
+                <a class="nav-link" href="#">
+                  <span data-feather="users"></span>
+                  Mon compte
+                </a>
+              </li>
+
+            </ul>
+
+            <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+              <span>Mes challenges</span>
+              <a class="d-flex align-items-center text-muted" href="#">
+              </a>
+            </h6>
+          </br>
+            <ul class="nav flex-column mb-2">
+            <% current_user.attended_challenges.each do |chal| %>
+           
+                <li class="nav-item nav-chall">
+
+                  <button class="btn-secondary btn-sm", id="#{chal.id}"
+                  <i class='  fa fa-check-square-o' style='font-size:12px'></i> 
+                  <%= chal.goal %>
+                  </button>
+
+                </li>
+            <% end %>
+            </ul>
+          </div>
+        </nav>
+
+
+        <script>
+          $btnchal = $(ul li.nav-chall button)
+          $btnchal.on('click', function () {
+
+          })
+        </script>

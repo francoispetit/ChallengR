@@ -14,9 +14,8 @@
 //= require jquery3
 //= require jquery_ujs
 //= require bootstrap
+//= require js/chartkick
 //= require turbolinks
-
-
 //= require popper
 //= require nested_form_fields
 //= require_tree.
@@ -40,5 +39,3 @@ $(document).on('turbolinks:load', function() {
     $(this).prev('.reply-form-challenge').toggle(); // Show form on button click
   });
 });
-
-

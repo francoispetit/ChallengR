@@ -9,6 +9,7 @@
     <% if user_signed_in? %>
       <%= link_to "Je crée mon challenge", new_challenge_path, class:'btn btn-success btn-sm'%>
         <% else %>
+
           <%= link_to "Connecte-toi", new_user_session_path, class:'btn btn-success btn-sm'%>
             <%= link_to "Pas encore inscrit ? Enregistre-toi", new_user_registration_path, class:'btn btn-info btn-sm'%>
               <% end %>
