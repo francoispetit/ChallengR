@@ -17,6 +17,8 @@ gem 'paperclip'
 gem 'aws-sdk'
 gem 'dotenv-rails'
 gem "font-awesome-rails"
+gem 'kaminari'
+
 
 
 group :development, :test do
