@@ -1,36 +1,55 @@
-        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
-          <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
-            <h1 class="h2">Dashboard</h1>
-            <div class="btn-toolbar mb-2 mb-md-0">
-              <div class="btn-group mr-2">
-                <button class="btn btn-sm btn-outline-secondary">Share</button>
-                <button class="btn btn-sm btn-outline-secondary">Export</button>
-              </div>
-              <button class="btn btn-sm btn-outline-secondary dropdown-toggle">
-                <span data-feather="calendar"></span>
-                This week
-              </button>
-            </div>
-          </div>
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+  <h4 class="h5">Suivi de l'objectif</h4>
+  <div class="btn-toolbar mt-2 mb-md-0">
+    <div class="btn-group mr-2">
+      <button class="btn btn-sm btn-outline-secondary">Partager</button>
+      <button class="btn btn-sm btn-outline-secondary">Exporter</button>
+    </div>
+
+    <div class="btn-group mr-2">
+      <button type="button"class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="DropdownMenuTime" data-toggle="dropdown" >
+        <i class='fa fa-dot-circle-o' style='font-size:12px'></i>
+        Indicateurs
+      </button>
+      <div class="dropdown-menu" aria-labelledby="dropdrown-item">
+        <a class="dropdown-item active" href="#">Réalisé ou pas</a>
+        <div class="dropdown-divider"></div>
+        <a class="dropdown-item" href="#">km</a>
+        <a class="dropdown-item" href="#">mn</a>
+      </div><!-- dropdown menu -->
+    </div><!-- btn-group -->
+
+    <div class="btn-group">
+      <button type="button"class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="DropdownMenuTime" data-toggle="dropdown" >
+        <i class='fa fa-calendar' style='font-size:12px'></i>
+        Période
+      </button>
+      <div class="dropdown-menu" aria-labelledby="dropdrown-item">
+        <a class="dropdown-item active" href="#">Semaine</a>
+        <a class="dropdown-item" href="#">Mois</a>
+        <a class="dropdown-item" href="#">Année</a>
+        <div class="dropdown-divider"></div>
+        <a class="dropdown-item" href="#">Tous</a>
+      </div><!-- dropdown menu -->
+    </div><!-- btn-group -->
+</div><!-- btn toolbar -->
+</div><!-- d-flex -->
 
 <canvas class="my-2" id="myChart" width="800" height="200"></canvas>
 
-
-
-
-
- <!-- Graphs -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
-    <script>
+<!-- Graphs -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
+<script>
       var ctx = document.getElementById("myChart");
+      var date_accomplished = <%= raw @participations.find_by_challenge_id(Challenge.find_by_goal("courir un marathon").id).stats %>;
       var myChart = new Chart(ctx, {
-        type: 'bar',
+        type: 'line',
         data: {
-          labels: ["Goal 1", "Goal 2", "Goal 3", "Goal 4"],
+          labels:<%= raw Challenge.first.subgoals %>,
           datasets: [{
-            data: [2, 3, 3, 4],
+            data: [15339, 21345, 18483, 24003, 23489, 24092, 12034],
             lineTension: 0,
-            backgroundColor: '#007bff',
+            backgroundColor: 'transparent',
             borderColor: '#007bff',
             borderWidth: 4,
             pointBackgroundColor: '#007bff'
@@ -49,4 +68,4 @@
           }
         }
       });
-    </script>
+</script>

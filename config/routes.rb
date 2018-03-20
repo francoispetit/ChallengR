@@ -4,6 +4,7 @@ Rails.application.routes.draw do
 
 	post "challenge/join_challenge/:id", to: "challenges#join_challenge", as: "join_challenge"
 
+  get "user/:id/:challid", to: "users#getchallenge(:chall_id)", as:"getchallenge"
 	get "user/:id", to: "users#dashboard", as:"dashboard"
 #	get "user/:id", to: "users#show", as:"profile"
 	devise_for :users

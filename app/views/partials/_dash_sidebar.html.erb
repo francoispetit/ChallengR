@@ -1,4 +1,4 @@
-    
+
         <nav class="col-md-12 d-none d-md-block bg-light sidebar">
           <div class="sidebar-sticky">
 
@@ -28,24 +28,13 @@
           </br>
             <ul class="nav flex-column mb-2">
             <% current_user.attended_challenges.each do |chal| %>
-           
+
                 <li class="nav-item nav-chall">
 
-                  <button class="btn-secondary btn-sm", id="#{chal.id}"
-                  <i class='  fa fa-check-square-o' style='font-size:12px'></i> 
-                  <%= chal.goal %>
-                  </button>
+                  <%= link_to chal.goal, root_path, id:chal.id, class: "btn-secondary btn-sm btn-challenge", remote: true %>
 
                 </li>
             <% end %>
             </ul>
           </div>
         </nav>
-
-
-        <script>
-          $btnchal = $(ul li.nav-chall button)
-          $btnchal.on('click', function () {
-
-          })
-        </script>

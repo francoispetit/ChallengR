@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-lg bg-dark p-1">
-  <a class="navbar-brand text-white small font-weight-bold text-uppercase" href="#"><%= current_user.attended_challenges.first.goal %> </a>
+<a class="navbar-brand text-white small font-weight-bold text-uppercase" id="challenge_title" href="#"><%= 'Blabla' %> </a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -14,7 +14,7 @@
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Objectifs
         </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+        <div class="dropdown-menu" id="subgoallist" aria-labelledby="navbarDropdown">
             <%= current_user.attended_challenges.first.subgoals.each do |subgoal| %>
                 <a class="dropdown-item drop-subgoal" href="#"><%= subgoal.subgoal_string %></a>
                 <div class="dropdown-divider"></div>
@@ -26,9 +26,12 @@
 </nav>
 
 <div class="graphcontent" id="default">
-    <%= render 'partials/graph1' %>
+    <%= render 'partials/dash_graph1' %>
 </div>
 
+<div id="challenge_summary">
+    <%= render 'partials/dash_challenge_summary' %>
+</div>
 
 <script>
     let current_content = $("#default")

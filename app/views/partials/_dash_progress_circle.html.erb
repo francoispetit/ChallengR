@@ -8,7 +8,38 @@
                 <span class="progress-right">
                     <span class="progress-bar"></span>
                 </span>
-                <div class="progress-value">90%</div>
+                <div class="progress-value"><%=
+                  done = 0
+                  current_user.participations.find_by_challenge_id(Challenge.find_by_goal("courir un marathon").id).stats[:subgoals].each_value do |value|
+                    done+=1 if value[:subgoal_done]
+                  end
+                  100*done/Challenge.find_by_goal("courir un marathon").subgoals.length
+
+                  %>
+                  %</div>
+            </div>
+        </div>
+        <div class="col-md-9 col-sm-6">
+            <div class="container-fluid">
+                <table class="table table-dark col-md-3 col-sm-6">
+                  <thead>
+                    <td> Objectif </td>
+                    <td> Réalisé ? </td>
+                  </thead>
+                  <tbody>
+                    <% current_user.participations.find_by_challenge_id(Challenge.find_by_goal("courir un marathon").id).stats[:subgoals].each do |subgoal| %>
+                    <tr>
+                      <td><%= subgoal[1][:subgoal_name] %></td>
+                      <% if subgoal[1][:subgoal_done]==true%>
+                        <td style="background-color:chartreuse;">
+                      <%else%>
+                        <td style="background-color:red;">
+                      <%end%>
+                          <%= subgoal[1][:subgoal_done] %></td>
+                    </tr>
+                    <% end %>
+                  </tbody>
+                </table>
             </div>
         </div>
     </div>

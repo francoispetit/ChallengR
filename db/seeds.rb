@@ -47,7 +47,8 @@
 
 	User.find_by_username("Bernard").attended_challenges << Challenge.find_by_goal("courir un marathon")
 	User.find_by_username("Caroline").attended_challenges << Challenge.find_by_goal("courir un marathon")
-        a = User.find_by_username("Bernard").participations.find_by_challenge_id(Challenge.find_by_goal("courir un marathon").id)
+
+	a = User.find_by_username("Bernard").participations.find_by_challenge_id(Challenge.find_by_goal("courir un marathon").id)
 
 	a.stats = {
 	 	subgoals:{
@@ -84,8 +85,8 @@
         					t2:3600},#attempt_results
         				attempt_comment:"youpi!",
         				attempt_success:true
-        				},#attempt
-        			},#subgoal_attempts
+        				}#attempt
+        			}#subgoal_attempts
         		},#subgoal
         	subgoal2:{
         		subgoal_date_limit:"2018-04-20",
@@ -104,13 +105,13 @@
         					t2:3800},#attempt_results
         				attempt_comment:"badass",
         				attempt_success:true
-        				},#attempt
-        			},#subgoal_attempts
+        				}#attempt
+        			}#subgoal_attempts
         		},#subgoal
-        	subgoal3:{
+					subgoal3:{
         		subgoal_date_limit:"2018-04-30",
-        		subgoal_date_accomplished:"",
-        		subgoal_done:false,
+        		subgoal_date_accomplished:"2018-05-11",
+        		subgoal_done:true,
         		subgoal_name:"20 km en 2h",
         		subgoal_targets:{
 	            	target1:{target_compulsory:true, target_unit:"km", target_value:20},
@@ -118,17 +119,26 @@
 	            	},
         		subgoal_attempts:{
         			attempt1:{
-        				date_attempt:"2018-04-10",
+        				date_attempt:"2018-04-30",
+        				attempt_results:{
+        					t1:18,
+        					t2:7300},#attempt_results
+        				attempt_comment:"c'était TRES DUR",
+        				attempt_success:false,
+        				},#attempt
+        			attempt2:{
+        				date_attempt:"2018-05-11",
         				attempt_results:{
         					t1:20,
-        					t2:7300},#attempt_results
-        				attempt_comment:"c'était facile",
+        					t2:7200},#attempt_results
+        				attempt_comment:"c'était DUR",
         				attempt_success:true
         				},#attempt
-        			},#subgoal_attempts
+        			}#subgoal_attempts
         		}#subgoal
-        	},#subgoals
-       	}#stats
+        	}
+       	}
+	a.save
 
 
 Challenge.all.each do |c|
