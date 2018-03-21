@@ -1,6 +1,10 @@
 /* DASHBOARD */
 
+  /* Challenge summary */
 
+.hidden{
+  display:none;
+}
 
 	/* Progress bar circulaire */
 

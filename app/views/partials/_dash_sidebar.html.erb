@@ -27,11 +27,14 @@
             </h6>
           </br>
             <ul class="nav flex-column mb-2">
-            <% current_user.attended_challenges.each do |chal| %>
+            <% @challenges.each do |chal| %>
 
                 <li class="nav-item nav-chall">
 
-                  <%= link_to chal.goal, root_path, id:chal.id, class: "btn-secondary btn-sm btn-challenge", remote: true %>
+                  <%= form_tag dashboard_path do %>
+                    <%= hidden_field_tag "chal_id", chal.id %>
+                    <%= submit_tag chal.goal, class: "btn-secondary btn-sm btn-challenge" %>
+                  <% end %>
 
                 </li>
             <% end %>

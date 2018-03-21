@@ -6,6 +6,7 @@ Rails.application.routes.draw do
 
   get "user/:id/:chid", to: "users#getchallenge", as:"getchallenge"
 	get "user/:id", to: "users#dashboard", as:"dashboard"
+  post "user/:id" => "users#dashboard"
 #	get "user/:id", to: "users#show", as:"profile"
 	devise_for :users
 	resources :challenges do

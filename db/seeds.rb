@@ -53,11 +53,13 @@
 	a.stats = {
 	 	subgoals:{
         	subgoal1:{
-        		subgoal_date_limit:"2018-04-10",
+						subgoal_id:1,
+						subgoal_date_limit:"2018-04-10",
         		subgoal_date_accomplished:"2018-04-11",
         		subgoal_done:true,
+						subgoal_best_attempt:{t1:10,t2:3600},
         		subgoal_name:"10 km en 1h",
-        		subgoal_targets:{
+						subgoal_targets:{
 	            	target1:{target_compulsory:true, target_unit:"km", target_value:10},
 	            	target2:{target_compulsory:false, target_unit:"mn", target_value:3600}
 	            	},
@@ -65,8 +67,8 @@
         			attempt1:{
         				date_attempt:"2018-04-08",
         				attempt_results:{
-        					t1:8,
-        					t2:3800},#attempt_results
+        					target1:8,
+        					target2:3800},#attempt_results
         				attempt_comment:"c'était TRES DUR",
         				attempt_success:false,
         				},#attempt
@@ -89,9 +91,11 @@
         			}#subgoal_attempts
         		},#subgoal
         	subgoal2:{
+						subgoal_id:2,
         		subgoal_date_limit:"2018-04-20",
         		subgoal_date_accomplished:"2018-04-22",
         		subgoal_done:true,
+						subgoal_best_attempt:{t1:10,t2:3400},
         		subgoal_name:"10 km en 50mn",
         		subgoal_targets:{
 	            	target1:{target_compulsory:true, target_unit:"km", target_value:10},
@@ -101,17 +105,19 @@
         			attempt1:{
         				date_attempt:"2018-04-10",
         				attempt_results:{
-        					t1:8,
-        					t2:3800},#attempt_results
+        					t1:10,
+        					t2:3400},#attempt_results
         				attempt_comment:"badass",
         				attempt_success:true
         				}#attempt
         			}#subgoal_attempts
         		},#subgoal
 					subgoal3:{
+						subgoal_id:3,
         		subgoal_date_limit:"2018-04-30",
         		subgoal_date_accomplished:"2018-05-11",
         		subgoal_done:true,
+						subgoal_best_attempt:{t1:20,t2:7200},
         		subgoal_name:"20 km en 2h",
         		subgoal_targets:{
 	            	target1:{target_compulsory:true, target_unit:"km", target_value:20},

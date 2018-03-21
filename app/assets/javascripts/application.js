@@ -20,8 +20,32 @@
 //= require nested_form_fields
 //= require_tree.
 
+$(document).on('turbolinks:load', function() {
+  $('#graph').hide();
+  // Clic sur Général - Cache le bilan et affiche le graph
+    $('#btn-graph-global').on("click", function(e){
+      $('#summary').hide();
+      $('#graph').show();
+      e.preventDefault();
+    });
+  // Clic sur Bilan - Cache le graph et affiche le bilan
+    $('#btn-bilan').on("click", function(e){
+      $('#graph').hide();
+      $('#summary').show();
+      e.preventDefault();
+    });
+    // Clic sur Objectifs - Cache le bilan et affiche le graph
+    $(document).on('turbolinks:load', function() {
+      $('#subgoallist div').on('click', function(e){
+        $('#summary').hide();
+        $('#graph').show();
+        e.preventDefault();
+      });
+});
+});
 
 
+//Sur challenge#show, formulaire de commentaire
 $(document).on('turbolinks:load', function() {
   $('.reply-form').hide();
   $('.btn-reply').on('click', function(e){
@@ -29,8 +53,6 @@ $(document).on('turbolinks:load', function() {
     $(this).next('.reply-form').toggle(); // Show form on button click
   });
 });
-
-
 
 $(document).on('turbolinks:load', function() {
   $('.reply-form-challenge').hide();

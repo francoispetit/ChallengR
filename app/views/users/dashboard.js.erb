@@ -5,7 +5,12 @@ $('.btn-challenge').on('click', function(){
     url: <%= getchallenge_path %>,
     data: { idchal:idchallenge }
     success: function(e){
-      console.log("AWWWWWWW YEAH!!");
+      console.log("AW YEAH!!");
     }
   });
 });
+
+
+$('#subgoallist a').on('click', function(){
+  $('.challengesummary').toggleClass("hidden");
+}

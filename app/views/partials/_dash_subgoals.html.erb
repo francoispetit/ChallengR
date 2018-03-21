@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-lg bg-dark p-1">
-<a class="navbar-brand text-white small font-weight-bold text-uppercase" id="challenge_title" href="#"><%= 'Blabla' %> </a>
+<a class="navbar-brand text-white small font-weight-bold text-uppercase" id="challenge_title" href="#"><%= @challenge.goal %> </a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -7,16 +7,19 @@
   <div class="collapse navbar-collapse navbar-dark bg-dark" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item active">
-        <a class="nav-link" href="#">Bilan <span class="sr-only">(current)</span></a>
+        <div id="btn-bilan" class="nav-link">Bilan <span class="sr-only">(current)</span></div>
+      </li>
+      <li class="nav-item active">
+        <div id="btn-graph-global" class="nav-link">Graph global</div>
       </li>
 
       <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <a class="nav-link dropdown-toggle" href="#" id="objectifs" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Objectifs
         </a>
         <div class="dropdown-menu" id="subgoallist" aria-labelledby="navbarDropdown">
-            <%= current_user.attended_challenges.first.subgoals.each do |subgoal| %>
-                <a class="dropdown-item drop-subgoal" href="#"><%= subgoal.subgoal_string %></a>
+            <%= @challenge.subgoals.each do |sub| %>
+                <div class="dropdown-item drop-subgoal" id=sub.id ><%= sub.subgoal_string %></div>
                 <div class="dropdown-divider"></div>
             <% end %>
         </div>
@@ -25,21 +28,10 @@
   </div>
 </nav>
 
-<div class="graphcontent" id="default">
-    <%= render 'partials/dash_graph1' %>
+<div class="graphcontent" id="graph">
+    <%= render 'partials/dash_graph1'  %>
 </div>
 
-<div id="challenge_summary">
+<div class="challengesummary" id="summary">
     <%= render 'partials/dash_challenge_summary' %>
 </div>
-
-<script>
-    let current_content = $("#default")
-
-    $('div.dropdown-menu a.drop-subgoal').on('click', function() {
-    if (current_content.attr('id')) {current_content.removeAttr('id')};
-    current_content.slideUp();
-    current_content = $(this).find("div.graphcontent");
-    current_content.slideDown();
-});
-</script>
