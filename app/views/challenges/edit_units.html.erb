@@ -1,14 +1,30 @@
 </br></br></br>
+<button id="choose_unit">Add Unit</button>
+<input id="chosen_unit" type="text">
 <%= form_tag("/updateunits", method: "post") do %>
 
   <% @challenge.subgoals.each do |sub| %>
-    <div class="subgoal<%=sub.id%>">
+    <div class="subgoal" id="<%=sub.id%>">
       <%= sub.subgoal_string %>
-
-      <%= eval("label_tag(:field#{sub.id}#{@unit}, @unit)") %>
-      <%= eval("text_field_tag(:field#{sub.id}#{@unit})") %>
-
     </div>
   <% end %>
   <%= submit_tag("Search") %>
 <% end %>
+
+<script>$(document).on('turbolinks:load', function() {
+
+ $('#choose_unit').on('click', function(e){
+ $('[class*="subgoal"]').each( function(index, div){
+ var stringtoset = setunit($(div).attr("id"))
+ $('div').append(stringtoset)});
+ });  
+});
+
+function setunit(x) {
+var a = '<%=j label_tag(:field) %><%=j text_field_tag(';
+var b = x;
+var c = ') %>';
+var str = a.concat(b,c);
+return str
+}
+</script>
