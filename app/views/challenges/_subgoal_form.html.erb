@@ -4,7 +4,19 @@
 </div>
 
   <%= f.nested_fields_for "targets" do |target| %>
-    <%= render  "partials/target_form", f:target %>
+  <div class="form-group row">
+   <%= target.label :unit, "Mesuré en ?", class:"col-sm-2 col-form-label"%>
+   <%= target.text_field :unit, class:"form-control col-sm-10" %>
+  </div>
+
+  <div class="form-group row">
+   <%= target.label :value, "Valeur cible à atteindre",class:"col-sm-2 col-form-label"%>
+   <%= target.number_field :value, class:"form-control col-sm-10" %>
+  </div>
+
+  <%= f.remove_nested_fields_link "Supprimer cette cible",
+    class: 'btn btn-sm btn-danger pull-right', role: 'button' %>
+
   <% end %>
 
   <div class="btn">

@@ -16,11 +16,11 @@ class TargetsController < ApplicationController
   end
 
   def update
-    @taret.update(target_params)
+    @target.update(target_params)
   end
 
   def destroy
-
+    @target.destroy
   end
 
   private

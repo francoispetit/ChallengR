@@ -59,9 +59,10 @@
               <table class="table table-hover table-responsive">
               <thead class="thead-dark">
 	              <tr>
-	              	<th scope="col">#</th>
+	              	<th scope="col">Description</th>
 	              	<th scope="col">Objectif</th>
 	              	<th scope="col">Pour le</th>
+                  <th scope="col">Cibles</th>
 	              </tr>
 	            </thead>
 	            <tbody>
@@ -69,7 +70,13 @@
               <tr>
               	<td><%= obj.description %></td>
               	<td><%= obj.subgoal_string %></td>
-              	<td><%= obj.deadline.strftime("%d/%B") %></td>
+              	<td><%= obj.deadline.strftime("%d %B") %></td>
+
+                <td><ul><% obj.targets.each do |tar| %>
+                  <li><%= tar.value%> <%=tar.unit%></li>
+
+                  <% end %></ul>
+                </td>
               </tr>
               <% end %>
               <%if @challenge.organizer.role == "vip"%>

@@ -12,6 +12,7 @@
 	Subgoal.delete_all
 	Category.delete_all
 	Participation.delete_all
+	Target.delete_all
 
 	a=User.create(username:"Albert", email:"albert@mail.com", password:"123456")
         a.set_default_role(:admin)
@@ -34,7 +35,10 @@
 	Challenge.find_by_goal("courir un marathon").subgoals << Subgoal.create(subgoal_string:"courir 10 km en moins d'1h", deadline:"2018-04-10", challenge_id:"1")
 	Challenge.find_by_goal("courir un marathon").subgoals << Subgoal.create(subgoal_string:"courir 10 km en moins de 50mn", deadline:"2018-04-20", challenge_id:"1")
 	Challenge.find_by_goal("courir un marathon").subgoals << Subgoal.create(subgoal_string:"courir 10 km en moins de 45 mn", deadline:"2018-04-30", challenge_id:"1")
-
+	Subgoal.find_by_subgoal_string("courir 10 km en moins d'1h").targets << Target.create(value:"10", unit:"km")
+	Subgoal.find_by_subgoal_string("courir 10 km en moins d'1h").targets << Target.create(value:"60", unit:"mn")
+	Subgoal.find_by_subgoal_string("courir 10 km en moins de 50mn").targets << Target.create(value:"10", unit:"km")
+	Subgoal.find_by_subgoal_string("courir 10 km en moins de 50mn").targets << Target.create(value:"50", unit:"mn")
 
 	Category.create(category_name:"sport")
 	Category.create(category_name:"running")
@@ -44,6 +48,8 @@
 
 	Challenge.find_by_goal("courir un marathon").categories << [Category.find_by_category_name("sport"), Category.find_by_category_name("running")]
 	Challenge.find_by_goal("courir un marathon").categories << [Category.find_by_category_name("sport"), Category.find_by_category_name("beginner")]
+
+
 
 	User.find_by_username("Bernard").attended_challenges << Challenge.find_by_goal("courir un marathon")
 	User.find_by_username("Caroline").attended_challenges << Challenge.find_by_goal("courir un marathon")
