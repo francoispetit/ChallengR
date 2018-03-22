@@ -1,0 +1,14 @@
+</br></br></br>
+<%= form_tag("/updateunits", method: "post") do %>
+
+  <% @challenge.subgoals.each do |sub| %>
+    <div class="subgoal<%=sub.id%>">
+      <%= sub.subgoal_string %>
+
+      <%= eval("label_tag(:field#{sub.id}#{@unit}, @unit)") %>
+      <%= eval("text_field_tag(:field#{sub.id}#{@unit})") %>
+
+    </div>
+  <% end %>
+  <%= submit_tag("Search") %>
+<% end %>

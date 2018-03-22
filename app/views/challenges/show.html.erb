@@ -91,6 +91,9 @@
               	<td><%= obj.deadline.strftime("%d/%B") %></td>
               </tr>
               <% end %>
+              <div>
+              <%= link_to "edit units", edit_units_path %>
+              </div>
               <%if @challenge.organizer.role == "vip"%>
               <tr>
                 <td></td>

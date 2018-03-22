@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
 
+  post 'updateunits' => 'challenges#update_units'
+
+  get 'challenges/:id/editunits' => 'challenges#edit_units', as:"edit_units"
+
   get 'challenges/:id/categoremove/:catid' => 'challenges#remove_category'
 
   get 'challenges/:id/categories/:catid' => 'challenges#set_category'
