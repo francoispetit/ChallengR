@@ -16,11 +16,12 @@ class TargetsController < ApplicationController
   end
 
   def update
-    @taret.update(target_params)
+    @target.update(target_params)
   end
 
   def destroy
-
+    if @challenge.organizer_id == current_user.id
+    @target.destroy
   end
 
   private

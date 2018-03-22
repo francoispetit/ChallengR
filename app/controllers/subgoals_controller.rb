@@ -30,7 +30,7 @@ class SubgoalsController < ApplicationController
   def destroy
    @subgoal = Subgoal.find(params[:id])
 
-    if current_user.id == @subgoal.current_user_id
+    if current_user.id == @challenge.organizer_id
     @subgoal.destroy
      redirect_to root_path
     else
