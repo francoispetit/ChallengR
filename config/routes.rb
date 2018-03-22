@@ -1,5 +1,15 @@
 Rails.application.routes.draw do
 
+  get 'challenges/:id/categoremove/:catid' => 'challenges#remove_category'
+
+  get 'challenges/:id/categories/:catid' => 'challenges#set_category'
+
+  post 'categories/create/:challid' => 'categories#create'
+
+  post 'categories/update'
+
+  post 'categories/delete'
+
   	root "challenges#index"
 
 	post "challenge/join_challenge/:id", to: "challenges#join_challenge", as: "join_challenge"

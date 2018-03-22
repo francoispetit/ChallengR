@@ -20,6 +20,7 @@ class TargetsController < ApplicationController
   end
 
   def destroy
+    if @challenge.organizer_id == current_user.id
     @target.destroy
   end
 
