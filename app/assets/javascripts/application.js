@@ -13,8 +13,8 @@
 
 //= require jquery3
 //= require jquery_ujs
-//= require popper
 //= require bootstrap
+//= require popper
 //= require js/chartkick
 //= require turbolinks
 //= require nested_form_fields
