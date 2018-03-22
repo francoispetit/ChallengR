@@ -8,6 +8,12 @@
 
     <% if user_signed_in? %>
       <%= link_to "Je crée mon challenge", new_challenge_path, class:'btn btn-success btn-sm'%>
+    <%if @challenges.first.organizer.username != "The Red User"%>
+      <%= link_to "Voir les challenges vierges", red_index_path, class:'btn btn-success btn-sm'%>
+    <%else%>
+      <%= link_to "Voir les challenges en cours", root_path, class:'btn btn-success btn-sm'%>
+    <%end%>
+
         <% else %>
           <%= link_to "Connecte-toi", new_user_session_path, class:'btn btn-success btn-sm'%>
             <%= link_to "Pas encore inscrit ? Enregistre-toi", new_user_registration_path, class:'btn btn-info btn-sm'%>
@@ -34,7 +40,7 @@
                 </span> participants</p>
               <p class="font-italic">Description du challenge</p>
               <p>Organisé par
-                <span class="badge badge-pill badge-secondary">
+                <span class="badge badge-pill badge-secondary" <% if chal.organizer.username == "The Red User" %>style="background-color:turquoise; color:black;"<%end%> >
                   <%= chal.organizer.username %>
                 </span>
               </p>

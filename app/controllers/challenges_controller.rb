@@ -90,7 +90,7 @@
   def remove_category()
     @challenge = Challenge.find(params[:id])
     @challenge.categories.find(params[:catid]).delete if @challenge.categories.include? Category.find(params[:catid])
-    #redirect_to challenge_path(@challenge)
+    redirect_to challenge_path(@challenge)
   end
 
 
