@@ -22,17 +22,17 @@
     </div>
 
     <%= f.nested_fields_for "subgoals" do |s| %>
-        <%= render 'challenges/subgoal_form', f:s %>
+        <%= render 'partials/chall_subgoal', f:s %>
     <% end %>
+
     <div class="btn"><%= f.add_nested_fields_link :subgoals do %>
         <span class="glyphicon glyphicon-plus btn btn-sm btn-primary">Nouveau subgoal</span>
         <% end %>
     </div>
 
-        <div class="row">
-            <%= f.submit "Créer votre challenge", class:"btn btn-primary btn-success col-sm-12" %>
-        </div>
-
+    <div class="row">
+        <%= f.submit "Créer votre challenge", class:"btn btn-primary btn-success col-sm-12" %>
+    </div>
 
  <%end %>
  </div>

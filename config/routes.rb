@@ -4,6 +4,8 @@ Rails.application.routes.draw do
 
   get 'challenges/:id/categories/:catid' => 'challenges#set_category'
 
+  get 'challenge/:id' => 'challenges#addtargetstosubgoals', as: 'addtargetstosubgoals'
+
   post 'categories/create/:challid' => 'categories#create'
 
   post 'categories/update'

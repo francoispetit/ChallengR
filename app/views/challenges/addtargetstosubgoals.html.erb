@@ -1,0 +1,25 @@
+
+  <%= form_with(model: subgoal, local: true) do |form| %>
+
+  <%= form_tag({}, {:method => :get}) do %>
+    <%= text_tag :new_locale, options_for_select("km","mn"), :onchange => "this.form.submit();" %>
+  <% end %>
+
+  <%= s.text_field :unit %>
+    <% @subgoals.each do |sub| %>
+
+    <div id="<%= sub.id %>">
+    <%= form.fields_for :targets do |s| %>
+      <%= s.label :value %>
+      <%= s.number_field :value %>
+      <%= s.label :unit %>
+      <%= s.text_field :unit %>
+    <% end %>
+    </div>
+
+    <%= form.submit %>
+
+  <% end %>
+
+
+<% end %>

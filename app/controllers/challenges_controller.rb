@@ -11,41 +11,7 @@
 
   def new
     @challenge = Challenge.new
-  end
-
-  def show
-    @challenge = Challenge.find(params[:id])
-  end
-
-  def edit
-    @challenge = Challenge.find(params[:id])
-     if @challenge.organizer != current_user
-      render 'show'
-     end
-
-  end
-
-  def update
-
-    @challenge = Challenge.find(params[:id])
-    sp = subgoal_params["subgoals_attributes"]
-    @challenge.subgoals = []
-    nsub_save = 0
-    if @challenge.update(challenge_params)
-      sp.keys.length.times do |n|
-        unless eval("sp['#{n}']['_destroy'] == '1'")
-          eval("@subgoal#{n} = @challenge.subgoals.build(sp['#{n}'])")
-          nsub_save += 1 if eval("@subgoal#{n}.save")
-        else
-          nsub_save += 1
-        end
-      end
-    end
-    if nsub_save == sp.keys.length
-      redirect_to @challenge
-    else
-      render 'edit'
-    end
+    @challenge.subgoals.build.targets.build
   end
 
   def create
@@ -74,11 +40,51 @@
         end
     else
       render 'new'
-
-
-
     end
   end
+
+
+  def show
+    @challenge = Challenge.find(params[:id])
+  end
+
+  def edit
+    @challenge = Challenge.find(params[:id])
+     if @challenge.organizer != current_user
+      render 'show'
+     end
+
+  end
+
+
+  def addtargetstosubgoals
+    @subgoals = @challenge.subgoals
+  end
+
+  def update
+
+    @challenge = Challenge.find(params[:id])
+    sp = subgoal_params["subgoals_attributes"]
+    @challenge.subgoals = []
+    nsub_save = 0
+    if @challenge.update(challenge_params)
+      sp.keys.length.times do |n|
+        unless eval("sp['#{n}']['_destroy'] == '1'")
+          eval("@subgoal#{n} = @challenge.subgoals.build(sp['#{n}'])")
+          nsub_save += 1 if eval("@subgoal#{n}.save")
+        else
+          nsub_save += 1
+        end
+      end
+    end
+    if nsub_save == sp.keys.length
+      redirect_to @challenge
+    else
+      render 'edit'
+    end
+  end
+
+
 
   def set_category()
     category = Category.find(params[:catid])
@@ -140,20 +146,13 @@
   private
 
   def challenge_params
-    params.require(:challenge).permit(:goal, :deadline, :accomplished, :subgoals_attributes, :image, :id)
-      #subgoal: [:subgoal_int, :subgoal_unit, :subgoal_string, :duedate, :description, :accomplished, :challenge_id])
-    #params.require(:challenge).permit([:goal, :deadline, :accomplished, :subgoal],[:subgoal_int, :subgoal_unit, :subgoal_string, :duedate, :description, :accomplished, :challenge_id])
-    #params.require([:challenge, :subgoal]).permit([:goal, :deadline, :accomplished],[:subgoal_int, :subgoal_unit, :subgoal_string, :deadline, :description, :accomplished, :challenge_id])
-    #params.require(:challenge).permit(
-    #:goal, :deadline, :accomplished, :subgoal,
-   # subgoals_attributes: [:subgoal_int, :subgoal_unit, :subgoal_string, :duedate, :description, :accomplished, :challenge_id])
+
+    params.require(:challenge).permit(:goal, :deadline, :accomplished, :subgoals_attributes, :image, :id,
+      :subgoal_attributes =>[:_destroy, :subgoal_int, :subgoal_unit, :subgoal_string, :deadline, :description, :accomplished, :challenge_id,
+        :target_attributes => [:_destroy, :value, :unit]
+      ]
+    )
   end
 
- def subgoal_params
-  params.require(:challenge).permit(subgoals_attributes: [:_destroy, :subgoal_int, :subgoal_unit, :subgoal_string, :deadline, :description, :accomplished, :challenge_id]) # This permits the kids params to be saved
-
-
-  #params.require(:challenge).permit(:subgoals_attributes, :subgoal_int, :subgoal_unit, :subgoal_string, :deadline, :description, :accomplished, :challenge_id)
- end
 
 end

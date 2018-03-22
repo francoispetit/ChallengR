@@ -48,11 +48,10 @@ class SubgoalsController < ApplicationController
 
   private
   def subgoal_params
-  params.require(:subgoal).permit(:subgoal_int, :subgoal_unit, :subgoal_string, :deadline, :description, :accomplished, :challenge_id)
+    params.require(:subgoal).permit(:subgoal_int, :subgoal_unit, :subgoal_string, :deadline, :description, :accomplished, :challenge_id,
+      :target_attributes =>[:_destroy, :value, :unit]
+    )
   end
-
-
-
 
 
 end
