@@ -8,6 +8,11 @@ class SubgoalsController < ApplicationController
       @subgoal = @challenge.subgoals.build
   end
 
+  def create
+    @challenge = Challenge.find(:id)
+      @subgoal = @challenge.subgoals.create(params[:subgoal])
+  end
+
   def show
    @subgoal = Subgoal.find(params[:id])
   end
@@ -20,11 +25,6 @@ class SubgoalsController < ApplicationController
    @subgoal = Subgoal.find(params[:id])
    @subgoal.update(subgoal_params)
     redirect_to @subgoal
-  end
-
-  def create
-    @challenge = Challenge.find(:id)
-      @subgoal = @challenge.subgoals.create(params[:subgoal])
   end
 
   def destroy
@@ -53,6 +53,6 @@ class SubgoalsController < ApplicationController
 
 
 
- 
- 
+
+
 end
