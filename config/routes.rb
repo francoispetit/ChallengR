@@ -1,10 +1,14 @@
 Rails.application.routes.draw do
 
-  get 'categories/create'
+  get 'challenges/:id/categoremove/:catid' => 'challenges#remove_category'
 
-  get 'categories/update'
+  get 'challenges/:id/categories/:catid' => 'challenges#set_category'
 
-  get 'categories/delete'
+  post 'categories/create/:challid' => 'categories#create'
+
+  post 'categories/update'
+
+  post 'categories/delete'
 
   	root "challenges#index"
 		get 'challenges/redindex' => 'challenges#red_index'

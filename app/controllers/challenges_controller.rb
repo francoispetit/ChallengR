@@ -81,6 +81,20 @@
     end
   end
 
+  def set_category()
+    category = Category.find(params[:catid])
+    @challenge = Challenge.find(params[:id])
+    @challenge.categories << category unless @challenge.categories.include? category
+    redirect_to challenge_path(@challenge)
+  end
+
+  def remove_category()
+    @challenge = Challenge.find(params[:id])
+    @challenge.categories.find(params[:catid]).delete if @challenge.categories.include? Category.find(params[:catid])
+    #redirect_to challenge_path(@challenge)
+  end
+
+
   def copy_challenge_to_vip(chall)
       copychall = Challenge.new(chall.attributes.merge(id:nil, organizer_id:User.find_by_username("The Red User").id, attendees:[]))
       copychall.save
