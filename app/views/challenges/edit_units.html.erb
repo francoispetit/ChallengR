@@ -1,35 +1,22 @@
 </br></br></br>
 
-    <input type="text" name="fname" id="chosen_unit">
-    <input type="submit" value="Nouvelle unité de mesure" class="btn btn-sm btn-primary" id="btn-choose-unit">
+<%=form_tag("/challenges/#{@challenge.id}/addunit", method: "post") do%>
+  <%= label_tag(:unit_name, "Type the Unit you want to mesure") %>
+  <%= text_field_tag(:unit_name) %>
+<%@challenge.units.each do |unit|%>
+  <%=unit.unit_name%>
+<a class='fa fa-times' href="removeunit/<%=unit.id%>" style='font-size:12px; color:red;'></a>
+<%end%>
+  <%= submit_tag("Add Unit") %>
+<%end%>
+<%= form_tag("/#{@challenge.id}/preupdateunits", method: "post") do %>
+  <% @challenge.subgoals.each do |sub| %>
+    <div class="subgoal" id="<%=sub.id%>">
+      <%= sub.subgoal_string %>
 
-    <%= form_for @challenge do |f| %>
-    <div class="form-group">
-    <%= f.nested_fields_for :subgoals do |ff| %>
-    <%= ff.text_field :subgoal_string, class:"form-control-plaintext" %>
     </div>
 
-      <%= ff.nested_fields_for :targets do |f| %>
-      <form id="targetform">
-        <div class="row">
-          <div class="col-3">
-          <%= f.text_field :unit, value:"km", class:"form-control-plaintext"   %>
-          </div>
-          <div class="col-3">
-          <%= f.text_field :value, value:"10", class:"form-control form-control"  %>
-          </div>
-        </div>
-      </form>
 
-      <% end %>
-    <% end %>
-  <% end %>
+  <%= submit_tag("Edit") %>
+<% end %>
 
-<script>
-
-$(document).on('turbolinks:load', function() {
-  $('#btn-choose-unit').on("click", function(e){
-    $('#targetform').html("<%= j render(:partial => 'partials/addunit') %>");
-  });
-});
-</script>

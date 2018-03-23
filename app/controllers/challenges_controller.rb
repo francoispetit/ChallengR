@@ -63,7 +63,32 @@
     end
   end
 
+  def add_unit
+    @challenge = Challenge.find(params[:id])
+    unit = @challenge.units.build(unit_params)
+    unit.save
+    redirect_to edit_units_path
+  end
+
+  def remove_unit
+    @challenge = Challenge.find(params[:id])
+    @challenge.units.find(params[:unitid]).destroy
+    redirect_to edit_units_path
+  end
+
+  def preupdate_units
+    @challenge = Challenge.find(params[:id])
+  end
+
   def update_units
+    @challenge = Challenge.find(params[:id])
+    @targets = {}
+    @challenge.subgoals.each do |sub|
+      @targets["#{sub.subgoal_string}"] = {}
+      @challenge.units.each do |unit|
+        @targets["#{sub.subgoal_string}"]["#{unit.unit_name}"] = eval("params['#{unit.unit_name}#{sub.id}']")
+      end
+    end
     byebug
   end
 
@@ -97,6 +122,17 @@
 
 
 
+  def clone_challenge
+    @challenge = Challenge.find(params[:id])
+    @clonedchall = current_user.organized_challenges.build(@challenge.attributes.merge(id:nil, organizer_id:current_user.id, created_at:nil, updated_at:nil))
+    @clonedchall.save
+    @challenge.subgoals.each do |sub|
+      @sub = @clonedchall.subgoals.build(sub.attributes.merge(id:nil, challenge_id:@clonedchall.id, created_at:nil, updated_at:nil))
+      @sub.save
+    end
+    redirect_to challenge_path(@clonedchall.id)
+  end
+
   def set_category()
     category = Category.find(params[:catid])
     @challenge = Challenge.find(params[:id])
@@ -106,7 +142,9 @@
 
   def remove_category()
     @challenge = Challenge.find(params[:id])
-    @challenge.categories.find(params[:catid]).delete if @challenge.categories.include? Category.find(params[:catid])
+
+    @challenge.categories.delete(params[:catid]) if @challenge.categories.include? Category.find(params[:catid])
+
     redirect_to challenge_path(@challenge)
   end
 
@@ -165,5 +203,9 @@
     )
   end
 
+
+  def unit_params
+    params.permit(:unit_name)
+  end
 
 end

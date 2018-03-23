@@ -9,7 +9,7 @@ class CategoriesController < ApplicationController
     @category = Category.update(category_params)
   end
 
-  def delete
+  def destroy
     Category.find(params).destroy
   end
 

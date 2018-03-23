@@ -13,26 +13,33 @@
           	</br>
           <div class="card mt-4">
 
+            <% if current_user != nil %>
             <%= link_to "Je participe", join_challenge_path, class:"btn btn-success", :method => :post %>
-            <% if current_user == @challenge.organizer %>
-              <%= link_to "Je modifie le challenge", edit_challenge_path, class:"btn btn-info"%>
-              <%= link_to "Delete", @challenge, class:"btn btn-danger", method: :delete, data: { confirm: "Really?" } %>
-            <%end %>
+              <% if current_user == @challenge.organizer %>
+                <%= link_to "Je modifie le challenge", edit_challenge_path, class:"btn btn-info"%>
+                <%= link_to "Delete", @challenge, class:"btn btn-danger", method: :delete, data: { confirm: "Really?" } %>          
+              <%end %>
+            <% else %>
+              <%= link_to "Inscris toi pour participer!", new_user_session_path, class:"btn btn-success"%>
+            <%end%>
           </div>
+
           <div class="card mt-4 p-4">
           	<h5 class="card-title text-center">Catégories</h5>
           	<div class="card-body text-center">
           	<% @challenge.categories.each do |cat| %>
           		<span class="badge badge-pill badge-info"><%= cat.category_name %>   <a class='fa fa-times' href="<%=@challenge.id%>/categoremove/<%=cat.id%>" style='font-size:12px; color:red;'></a></span>
 <%end%>
-<%if @challenge.organizer == current_user || current_user.role == "admin"%>
-<div class="dropdown">
-  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-    Ajouter une Catégorie
-  </button>
-  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-<%Category.all.each do |cat|%>
-    <a class="dropdown-item" href="<%=@challenge.id%>/categories/<%= cat.id %>"><%=cat.category_name%></a>
+<%if current_user != nil%>
+  <%if @challenge.organizer == current_user || current_user.role == "admin"%>
+  <div class="dropdown">
+    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      Ajouter une Catégorie
+    </button>
+    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+  <%Category.all.each do |cat|%>
+      <a class="dropdown-item" href="<%=@challenge.id%>/categories/<%= cat.id %>"><%=cat.category_name%></a>
+  <%end%>
 <%end%>
   <%= form_tag("../categories/create/#{@challenge.id}", method: "post") do %>
   <%= label_tag(:category_name, "new category:") %>
@@ -103,7 +110,7 @@
               <%if @challenge.organizer.role == "vip"%>
               <tr>
                 <td></td>
-                <td class="card mt-4" style="background: radial-gradient(rgba(255,100,255,1), rgba(255,0,0,0)80%);">Créé tes propres objectifs ou modifie</br>ceux existant en clonant ce challenge!</td>
+                <a href="challenges/<%=@challenge.id%>/clonechall"><td class="card mt-4" style="background: radial-gradient(rgba(255,100,255,1), rgba(255,0,0,0)80%);">Créé tes propres objectifs ou modifie</br>ceux existant en clonant ce challenge!</td></a>
               </tr>
               <%end%>
               </tbody>
