@@ -8,6 +8,8 @@ Rails.application.routes.draw do
 
   get 'challenges/:id/categories/:catid' => 'challenges#set_category'
 
+  get 'challenges/redindex' => 'challenges#red_index', as:"red_index"
+
   post 'categories/create/:challid' => 'categories#create'
 
   post 'categories/update'

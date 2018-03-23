@@ -21,8 +21,18 @@
         </label>
     </div>
 
+<<<<<<< HEAD
     <%= f.nested_fields_for "subgoals" do |s| %>
         <%= render 'challenges/subgoal_form', f:s %>
+=======
+
+    <%= f.nested_fields_for "subgoals" do |subs| %>
+        <br/>
+
+        <%= render 'challenges/subgoal_form', f: subs %>
+            <br>
+
+>>>>>>> f27b961f5ac90f9370c677a849078c4c7374e6fa
     <% end %>
     <div class="btn"><%= f.add_nested_fields_link :subgoals do %>
         <span class="glyphicon glyphicon-plus btn btn-sm btn-primary">Nouveau subgoal</span>
