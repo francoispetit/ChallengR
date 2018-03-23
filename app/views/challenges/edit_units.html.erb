@@ -1,21 +1,53 @@
+
 </br></br></br>
 
-<%=form_tag("/challenges/#{@challenge.id}/addunit", method: "post") do%>
-  <%= label_tag(:unit_name, "Type the Unit you want to mesure") %>
-  <%= text_field_tag(:unit_name) %>
-<%@challenge.units.each do |unit|%>
-  <%=unit.unit_name%>
-<a class='fa fa-times' href="removeunit/<%=unit.id%>" style='font-size:12px; color:red;'></a>
-<%end%>
-  <%= submit_tag("Add Unit") %>
-<%end%>
-<%= form_tag("/#{@challenge.id}/preupdateunits", method: "post") do %>
-  <% @challenge.subgoals.each do |sub| %>
-    <div class="subgoal" id="<%=sub.id%>">
-      <%= sub.subgoal_string %>
+<div class="container-fluid m-3">
 
+  <div class="alert alert-success text-center" role="alert">
+  Tu vas choisir ici les unités de mesure 📐 pour tes objectifs.<br />
+  </div>
+
+  <div class="row m-4">
+
+    <div class="col-lg-8">
+    <%=form_tag("/challenges/#{@challenge.id}/addunit", method: "post") do%>
+      <%= label_tag(:unit_name, "Choisis ton unité") %>
+      <%= text_field_tag(:unit_name) %>
+      <%= submit_tag("Ajouter") %>
+    <%end%>
     </div>
-<%end%>
-  <%= submit_tag("Edit") %>
-<% end %>
 
+    <div class="col-lg-4">
+    <%@challenge.units.each do |unit|%>
+      <div class="btn btn-outline-secondary"><%=unit.unit_name%>
+        <a class='fa fa-times' href="removeunit/<%=unit.id%>" style='font-size:12px; color:red;'></a>
+      </div>
+    <%end%>
+    </div>
+  </div>
+
+  <div class="row m-4">
+    <div class="col-lg-8">
+      <div class="alert alert-info text-center">
+      <h4>Rappel de tes objectifs</h4>
+
+      <%= form_tag("/#{@challenge.id}/preupdateunits", method: "post") do %>
+
+        <div class="text-left">
+        <ul>
+        <% @challenge.subgoals.each do |sub| %>
+          <li class="subgoal" id="<%=sub.id%>">
+            <%= sub.subgoal_string %>
+          </li>
+          <% end %>
+        </ul>
+        </div>
+
+      </div>
+    </div>
+    <div class="col-lg-4">
+      <%= submit_tag("Définir ces unités", class:"btn btn-primary") %>
+      <% end %>
+    </div>
+    </div>
+</div>
