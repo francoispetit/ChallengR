@@ -31,7 +31,6 @@
       <div class="alert alert-info text-center">
       <h4>Rappel de tes objectifs</h4>
 
-      <%= form_tag("/#{@challenge.id}/preupdateunits", method: "post") do %>
 
         <div class="text-left">
         <ul>
@@ -46,8 +45,7 @@
       </div>
     </div>
     <div class="col-lg-4">
-      <%= submit_tag("Définir ces unités", class:"btn btn-primary") %>
-      <% end %>
+      <%=link_to "définir ces unités", preupdate_units_path, method:"post"%>
     </div>
     </div>
 </div>

@@ -16,7 +16,7 @@
             </li>
             <% if user_signed_in? %>
               <li class="nav-item">
-                <%= link_to "<span data-feather='user'></span> Mon compte".html_safe, dashboard_path(current_user), class:'nav-link'%>
+                <%= link_to "<span data-feather='user'></span> Mon compte".html_safe, profile_path(current_user), class:'nav-link'%>
               </li>
               <li class="nav-item">
                 <%= link_to "<span data-feather='trending-up'></span> Mes résultats".html_safe, dashboard_path(current_user), class:'nav-link'%>
@@ -37,4 +37,3 @@
         </div>
       </div>
     </nav>
- 

@@ -31,8 +31,10 @@ Rails.application.routes.draw do
         post "challenge/unjoin_challenge/:id", to: "challenges#unjoin_challenge", as: "unjoin_challenge"
 
   get "user/:id/:chid", to: "users#getchallenge", as:"getchallenge"
+  get "user/:id/profile", to: "users#show", as:"profile"
 	get "user/:id", to: "users#dashboard", as:"dashboard"
   post "user/:id" => "users#dashboard"
+  post "user/:id/setbest" => "users#setbest", as:"setbest"
 #	get "user/:id", to: "users#show", as:"profile"
 	devise_for :users
 	resources :challenges do

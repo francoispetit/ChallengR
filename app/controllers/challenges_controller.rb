@@ -1,4 +1,7 @@
 class ChallengesController < ApplicationController
+
+  skip_before_action :verify_authenticity_token, :only => [:preupdate_units, :update_units]
+
   def index
     red_id = User.find_by_username("The Red User").id
     @challenges = Challenge.where.not(organizer_id:red_id).order(created_at: :desc).page(params[:page])
