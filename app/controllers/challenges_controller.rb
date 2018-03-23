@@ -32,7 +32,32 @@
     end
   end
 
+  def add_unit
+    @challenge = Challenge.find(params[:id])
+    unit = @challenge.units.build(unit_params)
+    unit.save
+    redirect_to edit_units_path
+  end
+
+  def remove_unit
+    @challenge = Challenge.find(params[:id])
+    @challenge.units.find(params[:unitid]).destroy
+    redirect_to edit_units_path
+  end
+
+  def preupdate_units
+    @challenge = Challenge.find(params[:id])
+  end
+
   def update_units
+    @challenge = Challenge.find(params[:id])
+    @targets = {}
+    @challenge.subgoals.each do |sub|
+      @targets["#{sub.subgoal_string}"] = {}
+      @challenge.units.each do |unit|
+        @targets["#{sub.subgoal_string}"]["#{unit.unit_name}"] = eval("params['#{unit.unit_name}#{sub.id}']")
+      end
+    end
     byebug
   end
 
@@ -166,5 +191,9 @@
 
   #params.require(:challenge).permit(:subgoals_attributes, :subgoal_int, :subgoal_unit, :subgoal_string, :deadline, :description, :accomplished, :challenge_id)
  end
+
+  def unit_params
+    params.permit(:unit_name)
+  end
 
 end

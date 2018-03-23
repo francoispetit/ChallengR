@@ -1,6 +1,12 @@
 Rails.application.routes.draw do
 
-  post 'updateunits' => 'challenges#update_units'
+  post ':id/preupdateunits' => "challenges#preupdate_units", as:"preupdate_units"
+
+  get 'challenges/:id/removeunit/:unitid' => 'challenges#remove_unit'
+
+  post 'challenges/:id/addunit' => 'challenges#add_unit'
+
+  post ':id/updateunits' => 'challenges#update_units'
 
   get 'challenges/:id/editunits' => 'challenges#edit_units', as:"edit_units"
 
