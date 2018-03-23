@@ -116,6 +116,17 @@
     end
   end
 
+  def clone_challenge
+    @challenge = Challenge.find(params[:id])
+    @clonedchall = current_user.organized_challenges.build(@challenge.attributes.merge(id:nil, organizer_id:current_user.id, created_at:nil, updated_at:nil))
+    @clonedchall.save
+    @challenge.subgoals.each do |sub|
+      @sub = @clonedchall.subgoals.build(sub.attributes.merge(id:nil, challenge_id:@clonedchall.id, created_at:nil, updated_at:nil))
+      @sub.save
+    end
+    redirect_to challenge_path(@clonedchall.id)
+  end
+
   def set_category()
     category = Category.find(params[:catid])
     @challenge = Challenge.find(params[:id])

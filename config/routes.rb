@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  get 'challenges/:id/clonechall' => 'challenges#clone_challenge'
+
   post ':id/preupdateunits' => "challenges#preupdate_units", as:"preupdate_units"
 
   get 'challenges/:id/removeunit/:unitid' => 'challenges#remove_unit'
