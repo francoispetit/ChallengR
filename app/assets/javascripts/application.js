@@ -10,8 +10,6 @@
 // Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
 // about supported directives.
 //
-
-//= require popper
 //= require jquery3
 //= require jquery_ujs
 //= require bootstrap
@@ -23,25 +21,40 @@
 
 $(document).on('turbolinks:load', function() {
   $('#graph').hide();
-  // Clic sur Général - Cache le bilan et affiche le graph
+  // Clic sur Général - Cache les div et affiche le graph
     $('#btn-graph-global').on("click", function(e){
-      $('#summary').hide();
+      $('li').removeClass('active');
+      $(this).parent('li').addClass("active");
+
+      $('.dashboard_div').hide();
       $('#graph').show();
       e.preventDefault();
     });
-  // Clic sur Bilan - Cache le graph et affiche le bilan
+  // Clic sur Bilan - Cache les div et affiche le bilan
     $('#btn-bilan').on("click", function(e){
-      $('#graph').hide();
+      $('li').removeClass('active');
+      $(this).parent('li').addClass("active");
+      $('.dashboard_div').hide();
       $('#summary').show();
       e.preventDefault();
     });
-    // Clic sur Objectifs - Cache le bilan et affiche le graph
-    $(document).on('turbolinks:load', function() {
-      $('#subgoallist div').on('click', function(e){
-        $('#summary').hide();
-        $('#graph').show();
-        e.preventDefault();
-      });
+
+  // Clic sur Form - Cache les div et affiche le bilan
+    $('#btn-form-result').on("click", function(e){
+      $('li').removeClass('active');
+      $(this).parent('li').addClass("active");
+      $('.dashboard_div').hide();
+      $('#resultform').show();
+      e.preventDefault();
+    });
+
+  // Clic sur Objectifs - Cache les div et affiche le graph
+  $(document).on('turbolinks:load', function() {
+    $('#subgoallist div').on('click', function(e){
+      $('.dashboard_div').hide();
+      $('#graph').show();
+      e.preventDefault();
+    });
 });
 });
 
@@ -62,4 +75,3 @@ $(document).on('turbolinks:load', function() {
     $(this).prev('.reply-form-challenge').toggle(); // Show form on button click
   });
 });
-

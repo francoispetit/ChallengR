@@ -1,19 +1,22 @@
-<div class="container">
-    <div class="row">
-        <div class="col-md-3 col-sm-6">
-            <div class="progress blue">
-                <span class="progress-left">
-                    <span class="progress-bar"></span>
-                </span>
-                <span class="progress-right">
-                    <span class="progress-bar"></span>
-                </span>
-                <div class="progress-value">
-<%=done =   100*@stats[:subgoals_bests].length/@challenge.subgoals.length%>
-                  %</div>
-            </div>
-        </div>
-        <div class="col-md-9 col-sm-6">
+<div class="container-fluid">
+
+
+      <div class="row">
+        <br />
+        <p>Vous avez accompli <%= 100*@stats[:subgoals_bests].length/@challenge.subgoals.length %>% du challenge</p>
+        <br />
+        <progress max="100" value="<%= 100*@stats[:subgoals_bests].length/@challenge.subgoals.length %>">
+
+                <div pseudo= "-webkit-progress-inner-element">
+                    <div pseudo= "-webkit-progress-bar">
+                        <div pseudo= "-webkit-progress-value" style="width: 80%;"></div>
+                    </div>
+                </div>
+        </progress>
+      </div><!-- row -->
+
+      <div class="row">
+        <div class="col-md-12 col-sm-12">
             <div class="container-fluid">
                 <table class="table table-dark col-md-3 col-sm-6">
                   <thead>
@@ -21,20 +24,10 @@
                     <td> Réalisé ? </td>
                   </thead>
                   <tbody>
-                    <% current_user.participations.find_by_challenge_id(Challenge.find_by_goal("courir un marathon").id).stats[:subgoals_bests].each do |obj| %>
-                    <tr>
-                      <td><%= obj[:name] %></td>
-                      <% if true%>
-                        <td style="background-color:chartreuse;">
-                      <%else%>
-                        <td style="background-color:red;">
-                      <%end%>
-                          <%= obj[:best] %></td>
-                    </tr>
-                    <% end %>
+
                   </tbody>
                 </table>
-            </div>
-        </div>
+            </div> <!-- container -->
+        </div>  <!-- col -->
+      </div>  <!-- row -->
     </div>
-</div>

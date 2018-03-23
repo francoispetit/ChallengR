@@ -1,0 +1,42 @@
+  <% index = 0%>
+  <% @challenge.subgoals.each do |sub| %>
+    <%= form_tag("#{current_user.id}/setbest", method: "post") do %>
+
+    <p style="font-size:14px;font-weight:bold">Objectif : <%= sub.subgoal_string %></p>
+    <p style="font-size:12px"><%= sub.deadline.strftime("pour le %d/%m/%Y") %></p>
+
+      <table class="table table-hover table-responsive{-sm|-md|-lg|-xl}" >
+        <thead>
+          <tr class="bg-black text-center">
+            <td>Mesuré en ?</td>
+            <td>Valeur cible</td>
+            <td>Votre meilleur résultat</td>
+            <td>Avez-vous fait mieux ?</td>
+          </tr>
+        </thead>
+        <tbody>
+      <% sub.targets.each do |tar| %>
+        <tr>
+          <td><%=Unit.find(tar[:unit_id]).unit_name%></td>
+          <td><%=tar[:target_value]%></td>
+          <td>
+            <%if @stats[:subgoals_bests][index] != nil%>
+              <%= @stats[:subgoals_bests][index][:best][Unit.find(tar[:unit_id]).unit_name.to_sym][0]%>
+            <%else%>
+              Pas encore renseigné
+            <%end%>
+          </td>
+          <td><%= eval("text_field_tag(:#{Unit.find(tar[:unit_id]).unit_name}#{sub.id})") %></td>
+        </tr>
+        <% end %><!--targets -->
+      <tbody>
+    </table>
+    <br/>
+    <%= submit_tag("Envoyer ces résultats", class:"btn btn-outline-success pull-left") %>
+    <br/>
+    <br/>
+    <br/>
+    <% index += 1 %>
+    <% end %><!--chal.subgoals -->
+
+<% end %><!--form tag -->

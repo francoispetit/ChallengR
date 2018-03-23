@@ -1,3 +1,97 @@
+/* Signup */
+
+
+.stylish-form
+    {
+      background-image:url('https://www.invigorlaw.com/wp-content/uploads/2014/11/Mountain-Climbing.jpg');
+      background-repeat:no-repeat;
+      padding:10px;
+    }
+    .stylish-form h2 {
+      color:#f96332;
+      margin-top:50px;
+
+    }
+    .font_white {
+      color:#fff !important;
+    }
+    .mar20
+    {
+      margin:20px;
+    }
+    .inner-section {
+      background-color:rgba(255, 132, 31, 3);
+      width:50%!important;
+      display:flex;
+      flex-direction: column;
+      align-items: center;
+      margin:0 auto;
+    }
+    .inside-form{
+      border-radius:8px;
+      padding-top:30px;
+      padding-bottom:30px;
+    }
+    .inside-form h2 {
+      font-weight:700;
+    }
+    .inside-form ul {
+      list-style-type:none;
+      text-align:center;
+      margin-top:30px;
+    }
+
+    .input-group, .form-group {
+      margin-bottom: 10px;
+    }
+    .input-group-addon {
+      background-color: rgba(255, 255, 255, 0.1);
+      border: none;
+      padding-left: 1em;
+      color: #FFFFFF;
+      border-radius:25px 0px 0px 25px;
+    }
+    .form-sign-devise,.form-sign-devise:focus,.form-sign-devise:hover
+    {
+      background-color: rgba(255, 255, 255, 0.1);
+      color: #FFFFFF;
+      border-radius:25px;
+      border:none;
+      font-size:14px;
+    }
+    ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+      color: #fff !important;
+    }
+    ::-moz-placeholder { /* Firefox 19+ */
+      color: #fff !important;
+    }
+    :-ms-input-placeholder { /* IE 10+ */
+      color: #fff !important;
+    }
+    :-moz-placeholder { /* Firefox 18- */
+      color: #fff !important;
+    }
+    .footer {
+      margin-top:40px;
+      margin-bottom:40px;
+    }
+    input::placeholder {
+      color: #fff !important;
+    }
+    .btn-lg {
+      font-size: 1em;
+      border-radius: 0.25rem;
+      padding: 15px 48px;
+    }
+    .btn-round {
+      border-width: 1px;
+      border-radius: 30px !important;
+      padding: 11px 23px;
+    }
+    .btn-neutral,.btn-neutral:focus,.btn-neutral:hover {
+      background-color: #FFFFFF;
+      color: #f96332;
+    }
 /* Index challenges */
 
 .searchchallenge {
@@ -46,154 +140,45 @@
   display:none;
 }
 
-	/* Progress bar circulaire */
+	/* Progress bar */
 
-.progress{
-    width: 150px;
-    height: 150px;
-    line-height: 150px;
-    background: none;
-    margin: 0 auto;
-    box-shadow: none;
-    position: relative;
-}
-.progress:after{
-    content: "";
-    width: 100%;
-    height: 100%;
-    border-radius: 50%;
-    border: 12px solid #fff;
-    position: absolute;
-    top: 0;
-    left: 0;
-}
-.progress > span{
-    width: 50%;
-    height: 100%;
-    overflow: hidden;
-    position: absolute;
-    top: 0;
-    z-index: 1;
-}
-.progress .progress-left{
-    left: 0;
-}
-.progress .progress-bar{
-    width: 100%;
-    height: 100%;
-    background: none;
-    border-width: 12px;
-    border-style: solid;
-    position: absolute;
-    top: 0;
-}
-.progress .progress-left .progress-bar{
-    left: 100%;
-    border-top-right-radius: 80px;
-    border-bottom-right-radius: 80px;
-    border-left: 0;
-    -webkit-transform-origin: center left;
-    transform-origin: center left;
-}
-.progress .progress-right{
-    right: 0;
-}
-.progress .progress-right .progress-bar{
-    left: -100%;
-    border-top-left-radius: 80px;
-    border-bottom-left-radius: 80px;
-    border-right: 0;
-    -webkit-transform-origin: center right;
-    transform-origin: center right;
-    animation: loading-1 1.8s linear forwards;
-}
-.progress .progress-value{
-    width: 90%;
-    height: 90%;
-    border-radius: 50%;
-    background: #44484b;
-    font-size: 24px;
-    color: #fff;
-    line-height: 135px;
-    text-align: center;
-    position: absolute;
-    top: 5%;
-    left: 5%;
-}
-.progress.blue .progress-bar{
-    border-color: #049dff;
-}
-.progress.blue .progress-left .progress-bar{
-    animation: loading-2 1.5s linear forwards 1.8s;
-}
-.progress.yellow .progress-bar{
-    border-color: #fdba04;
-}
-.progress.yellow .progress-left .progress-bar{
-    animation: loading-3 1s linear forwards 1.8s;
-}
-.progress.pink .progress-bar{
-    border-color: #ed687c;
-}
-.progress.pink .progress-left .progress-bar{
-    animation: loading-4 0.4s linear forwards 1.8s;
-}
-.progress.green .progress-bar{
-    border-color: #1abc9c;
-}
-.progress.green .progress-left .progress-bar{
-    animation: loading-5 1.2s linear forwards 1.8s;
-}
-@keyframes loading-1{
-    0%{
-        -webkit-transform: rotate(0deg);
-        transform: rotate(0deg);
-    }
-    100%{
-        -webkit-transform: rotate(180deg);
-        transform: rotate(180deg);
-    }
-}
-@keyframes loading-2{
-    0%{
-        -webkit-transform: rotate(0deg);
-        transform: rotate(0deg);
-    }
-    100%{
-        -webkit-transform: rotate(144deg);
-        transform: rotate(144deg);
-    }
-}
-@keyframes loading-3{
-    0%{
-        -webkit-transform: rotate(0deg);
-        transform: rotate(0deg);
-    }
-    100%{
-        -webkit-transform: rotate(90deg);
-        transform: rotate(90deg);
-    }
-}
-@keyframes loading-4{
-    0%{
-        -webkit-transform: rotate(0deg);
-        transform: rotate(0deg);
-    }
-    100%{
-        -webkit-transform: rotate(36deg);
-        transform: rotate(36deg);
-    }
-}
-@keyframes loading-5{
-    0%{
-        -webkit-transform: rotate(0deg);
-        transform: rotate(0deg);
-    }
-    100%{
-        -webkit-transform: rotate(126deg);
-        transform: rotate(126deg);
-    }
-}
-@media only screen and (max-width: 990px){
-    .progress{ margin-bottom: 20px; }
-}
+  progress[value]{
+      -webkit-apperance: none;
+      apperance: none;
+
+      width: 250px;
+      height: 20px;
+  }
+
+  progress{
+          -webkit-apperance: progress-bar;
+          box-sizing: border-box;
+          display:inline-bloack;
+          height: 1em;
+          width: 10em;
+          vertical-align: -0.2em;
+  }
+
+  input, textarea, keygen, button, isindex, user agent stylesheet meter, progress{
+      -webkit-writing-mode: horizontal-tb;
+  }
+
+  progress[value]::-webkit-progress-bar{
+      background-color: #eee;
+      border-radius: 2px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.25) inset;
+  }
+
+  progress[value]::-webkit-progress-value{
+      background-image:
+          -webkit-linear-gradient(-45deg,
+                              transparent 33%, rgba(0, 0, 0, .1) 33%,
+                              rgba(0, 0, 0, .1) 66%, transparent 66%),
+          -webkit-linear-gradient(top,
+                              rgba(255, 255, 255, .25),
+                              rgba(0, 0, 0, .25)),
+          -webkit-linear-gradient(left, #09c, #f44);
+
+      border-radius: 2px;
+      background-size: 35px 20px, 100% 100%, 100% 100%;
+  }
