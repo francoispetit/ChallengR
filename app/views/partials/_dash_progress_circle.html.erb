@@ -8,14 +8,8 @@
                 <span class="progress-right">
                     <span class="progress-bar"></span>
                 </span>
-                <div class="progress-value"><%=
-                  done = 0
-                  current_user.participations.find_by_challenge_id(Challenge.find_by_goal("courir un marathon").id).stats[:subgoals].each_value do |value|
-                    done+=1 if value[:subgoal_done]
-                  end
-                  100*done/Challenge.find_by_goal("courir un marathon").subgoals.length
-
-                  %>
+                <div class="progress-value">
+<%=done =   100*@stats[:subgoals_bests].length/@challenge.subgoals.length%>
                   %</div>
             </div>
         </div>
@@ -27,15 +21,15 @@
                     <td> Réalisé ? </td>
                   </thead>
                   <tbody>
-                    <% current_user.participations.find_by_challenge_id(Challenge.find_by_goal("courir un marathon").id).stats[:subgoals].each do |subgoal| %>
+                    <% current_user.participations.find_by_challenge_id(Challenge.find_by_goal("courir un marathon").id).stats[:subgoals_bests].each do |obj| %>
                     <tr>
-                      <td><%= subgoal[1][:subgoal_name] %></td>
-                      <% if subgoal[1][:subgoal_done]==true%>
+                      <td><%= obj[:name] %></td>
+                      <% if true%>
                         <td style="background-color:chartreuse;">
                       <%else%>
                         <td style="background-color:red;">
                       <%end%>
-                          <%= subgoal[1][:subgoal_done] %></td>
+                          <%= obj[:best] %></td>
                     </tr>
                     <% end %>
                   </tbody>
