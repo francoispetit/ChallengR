@@ -1,3 +1,3 @@
 class Unit < ApplicationRecord
-belongs_to :challenge
+  belongs_to :challenge
 end

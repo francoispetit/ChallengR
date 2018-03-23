@@ -14,17 +14,17 @@
 
               <div class="input-group">
                 <span class="input-group-addon"><i class="fa fa-envelope "></i></span>
-                <%= f.email_field :email, autofocus: true, autocomplete: "email", class:"form-control", placeholder:"email" %>
+                <%= f.email_field :email, autofocus: true, autocomplete: "email", class:"form-control form-sign-devise", placeholder:"email" %>
               </div>
 
               <div class="input-group">
                 <span class="input-group-addon"><i class="fa fa-pencil "></i></span>
-                <%= f.text_field :username, autocomplete: "off", class:"form-control", placeholder:"choisis ton pseudo" %>
+                <%= f.text_field :username, autocomplete: "off", class:"form-control form-sign-devise", placeholder:"choisis ton pseudo" %>
               </div>
 
               <div class="input-group">
                 <span class="input-group-addon"><i class="fa fa-lock "></i></span>
-                <%= f.password_field :password, autocomplete: "off", class:"form-control" %>
+                <%= f.password_field :password, autocomplete: "off", class:"form-control form-sign-devise" %>
               </div>
               <% if @minimum_password_length %>
                  <p><em style="font-size:12px; text-align:center;">(<%= @minimum_password_length %> caractères minimum)</em></p>
@@ -32,7 +32,7 @@
 
               <div class="input-group">
                 <span class="input-group-addon"><i class="fa fa-lock "></i></span>
-                <%= f.password_field :password_confirmation, autocomplete: "off", class:"form-control", placeholder:"confirme le mdp" %>
+                <%= f.password_field :password_confirmation, autocomplete: "off", class:"form-control form-sign-devise", placeholder:"confirme le mdp" %>
               </div>
 
               <div class="footer text-center">
