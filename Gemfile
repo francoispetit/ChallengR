@@ -12,6 +12,7 @@ gem 'bootstrap', '~> 4.0.0'
 gem 'mailjet'
 gem 'chartkick'
 gem 'groupdate'
+gem "nested_form"
 gem 'nested_form_fields'
 gem 'paperclip'
 gem 'aws-sdk'

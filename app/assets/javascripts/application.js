@@ -62,3 +62,26 @@ $(document).on('turbolinks:load', function() {
     $(this).prev('.reply-form-challenge').toggle(); // Show form on button click
   });
 });
+
+
+$(document).on('turbolinks:load', function() {
+  $('btn #choose_unit').on('click', function(e){
+    var unit = $('#chosen_unit').val();
+  $('[class*="subgoal"]').append(defineform());
+  });
+});
+
+
+
+function remove_fields(link) {
+  $(link).previous("input[type=hidden]").value = "1";
+  $(link).up(".fields").hide();
+}
+
+function add_fields(link, association, content) {
+  var new_id = new Date().getTime();
+  var regexp = new RegExp("new_" + association, "g")
+  $(link).up().insert({
+    before: content.replace(regexp, new_id)
+  });
+}

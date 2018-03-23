@@ -51,9 +51,20 @@
   def edit
     @challenge = Challenge.find(params[:id])
      if @challenge.organizer != current_user
-      render 'show'
+       redirect_to challenge_path(params[:id])
      end
+  end
 
+  def edit_units
+    @challenge = Challenge.find(params[:id])
+    @subgoals = @challenge.subgoals.all
+    if @challenge.organizer != current_user
+      redirect_to challenge_path(params[:id])
+    end
+  end
+
+  def update_units
+    byebug
   end
 
 

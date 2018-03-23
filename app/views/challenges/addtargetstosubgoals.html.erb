@@ -8,7 +8,7 @@
   <%= s.text_field :unit %>
     <% @subgoals.each do |sub| %>
 
-    <div id="<%= sub.id %>">
+    <div class="subgoal" id="<%= sub.id %>">
     <%= form.fields_for :targets do |s| %>
       <%= s.label :value %>
       <%= s.number_field :value %>

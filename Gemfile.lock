@@ -675,6 +675,7 @@ GEM
     mini_portile2 (2.3.0)
     minitest (5.11.3)
     multi_json (1.13.1)
+    nested_form (0.3.2)
     nested_form_fields (0.8.2)
       coffee-rails (>= 3.2.1)
       jquery-rails
@@ -826,6 +827,7 @@ DEPENDENCIES
   kaminari
   listen (= 3.1.5)
   mailjet
+  nested_form
   nested_form_fields
   oj
   paperclip

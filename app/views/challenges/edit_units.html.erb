@@ -1,0 +1,35 @@
+</br></br></br>
+
+    <input type="text" name="fname" id="chosen_unit">
+    <input type="submit" value="Nouvelle unité de mesure" class="btn btn-sm btn-primary" id="btn-choose-unit">
+
+    <%= form_for @challenge do |f| %>
+    <div class="form-group">
+    <%= f.nested_fields_for :subgoals do |ff| %>
+    <%= ff.text_field :subgoal_string, class:"form-control-plaintext" %>
+    </div>
+
+      <%= ff.nested_fields_for :targets do |f| %>
+      <form id="targetform">
+        <div class="row">
+          <div class="col-3">
+          <%= f.text_field :unit, value:"km", class:"form-control-plaintext"   %>
+          </div>
+          <div class="col-3">
+          <%= f.text_field :value, value:"10", class:"form-control form-control"  %>
+          </div>
+        </div>
+      </form>
+
+      <% end %>
+    <% end %>
+  <% end %>
+
+<script>
+
+$(document).on('turbolinks:load', function() {
+  $('#btn-choose-unit').on("click", function(e){
+    $('#targetform').html("<%= j render(:partial => 'partials/addunit') %>");
+  });
+});
+</script>
