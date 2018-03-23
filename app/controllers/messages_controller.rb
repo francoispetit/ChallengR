@@ -26,6 +26,7 @@ end
 def create
  @message = @conversation.messages.new(message_params)
  if @message.save
+  @conversation.touch
   redirect_to conversation_messages_path(@conversation)
  end
 end

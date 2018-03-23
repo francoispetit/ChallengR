@@ -3,6 +3,7 @@ class ConversationsController < ApplicationController
 def index
  @users = User.all
  @conversations = Conversation.all
+ @conversations = Conversation.order(updated_at: :desc).page(params[:page])
  end
 def create
  if Conversation.between(params[:sender_id],params[:receiver_id])

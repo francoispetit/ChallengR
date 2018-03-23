@@ -58,7 +58,6 @@
         @targets["#{sub.subgoal_string}"]["#{unit.unit_name}"] = eval("params['#{unit.unit_name}#{sub.id}']")
       end
     end
-    byebug
   end
 
   def update
