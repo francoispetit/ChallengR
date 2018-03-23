@@ -10,6 +10,7 @@ class UsersController < ApplicationController
 	end
 
 	def dashboard
+<<<<<<< HEAD
 
 		gon.data = @stats
 
@@ -23,6 +24,9 @@ class UsersController < ApplicationController
 
 	def check_user
 		if current_user.attended_challenges == [] || current_user == nil
+=======
+		if current_user.attended_challenges == [] || current_user == nil || current_user.participations.first.stats[:subgoals_bests] == nil
+>>>>>>> dev
 			redirect_to root_path
 			flash[:notice] = "You must avoir un challenge"
 		end

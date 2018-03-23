@@ -51,13 +51,34 @@ class ChallengesController < ApplicationController
 
   def update_units
     @challenge = Challenge.find(params[:id])
+    @challenge.subgoals.each do |sub|
+      sub.targets.destroy_all
+    end
     @targets = {}
     @challenge.subgoals.each do |sub|
       @targets["#{sub.subgoal_string}"] = {}
       @challenge.units.each do |unit|
         @targets["#{sub.subgoal_string}"]["#{unit.unit_name}"] = eval("params['#{unit.unit_name}#{sub.id}']")
+        @tar = sub.targets.build(unit_id:unit.id, subgoal_id:sub.id, target_value:eval("params['#{unit.unit_name}#{sub.id}']"))
+        @tar.save
       end
     end
+    @challenge.attendees.each do |attendee|
+      @a = attendee.participations.find_by_challenge_id(@challenge.id)
+      @a.stats = {units:[], subgoals_bests:[]}
+      @challenge.units.each do |unit|
+        @a.stats[:units] << unit.unit_name
+      end
+      @a.save
+    end
+
+    redirect_to challenge_path(@challenge.id)
+
+  end
+
+
+  def addtargetstosubgoals
+    @subgoals = @challenge.subgoals
   end
 
   def update
@@ -117,6 +138,7 @@ class ChallengesController < ApplicationController
     @challenge = Challenge.find(params[:id])
     @clonedchall = current_user.organized_challenges.build(@challenge.attributes.merge(id:nil, organizer_id:current_user.id, created_at:nil, updated_at:nil))
     @clonedchall.save
+    @clonedchall.attendees << current_user
     @challenge.subgoals.each do |sub|
       @sub = @clonedchall.subgoals.build(sub.attributes.merge(id:nil, challenge_id:@clonedchall.id, created_at:nil, updated_at:nil))
       @sub.save
@@ -166,9 +188,20 @@ class ChallengesController < ApplicationController
         redirect_to @challenge
     else
       @challenge.attendees << current_user
+      @a = current_user.participations.find_by_challenge_id(@challenge.id)
+      @a.stats = {units:[], subgoals_bests:[]}
+      @challenge.units.each do |unit|
+        @a.stats[:units] << unit.unit_name
+      end
+      @a.save
       flash[:success] = "Bienvenue dans l'équipe !"
       redirect_to @challenge
     end
+  end
+
+  def unjoin_challenge
+    current_user.attended_challenges.delete(params[:id])
+    redirect_to Challenge.find(params[:id])
   end
 
 #  def attached_categories(action, category)

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180323005950) do
+ActiveRecord::Schema.define(version: 20180323113811) do
 
   create_table "categories", force: :cascade do |t|
     t.string "category_name"
@@ -59,7 +59,6 @@ ActiveRecord::Schema.define(version: 20180323005950) do
   create_table "messages", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "conversation_id"
     t.text "body"
     t.integer "user_id"
     t.boolean "read", default: false
@@ -94,6 +93,8 @@ ActiveRecord::Schema.define(version: 20180323005950) do
     t.string "unit"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "target_value"
+    t.integer "unit_id"
     t.index ["subgoal_id"], name: "index_targets_on_subgoal_id"
   end
 

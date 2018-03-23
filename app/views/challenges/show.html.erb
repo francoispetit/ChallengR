@@ -14,10 +14,13 @@
           <div class="card mt-4">
 
             <% if current_user != nil %>
-            <%= link_to "Je participe", join_challenge_path, class:"btn btn-success", :method => :post %>
               <% if current_user == @challenge.organizer %>
                 <%= link_to "Je modifie le challenge", edit_challenge_path, class:"btn btn-info"%>
                 <%= link_to "Delete", @challenge, class:"btn btn-danger", method: :delete, data: { confirm: "Really?" } %>          
+              <%elsif @challenge.attendees.include?(current_user)%>
+                <%= link_to "Je ne participe plus :(", unjoin_challenge_path, class:"btn btn-danger", method: :post %>
+              <%else%>
+                <%= link_to "Je participe", join_challenge_path, class:"btn btn-success", :method => :post %>
               <%end %>
             <% else %>
               <%= link_to "Inscris toi pour participer!", new_user_session_path, class:"btn btn-success"%>
@@ -28,7 +31,7 @@
           	<h5 class="card-title text-center">Catégories</h5>
           	<div class="card-body text-center">
           	<% @challenge.categories.each do |cat| %>
-          		<span class="badge badge-pill badge-info"><%= cat.category_name %>   <a class='fa fa-times' href="<%=@challenge.id%>/categoremove/<%=cat.id%>" style='font-size:12px; color:red;'></a></span>
+          		<span class="badge badge-pill badge-info"><%= cat.category_name %>   <%if current_user.role == "admin" || @challenge.organizer == current_user %><a class='fa fa-times' href="<%=@challenge.id%>/categoremove/<%=cat.id%>" style='font-size:12px; color:red;'></a><%end%></span>
 <%end%>
 <%if current_user != nil%>
   <%if @challenge.organizer == current_user || current_user.role == "admin"%>
@@ -40,15 +43,16 @@
   <%Category.all.each do |cat|%>
       <a class="dropdown-item" href="<%=@challenge.id%>/categories/<%= cat.id %>"><%=cat.category_name%></a>
   <%end%>
-<%end%>
   <%= form_tag("../categories/create/#{@challenge.id}", method: "post") do %>
   <%= label_tag(:category_name, "new category:") %>
   <%= text_field_tag(:category_name) %>
   <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
   <%= submit_tag("Add") %>
                 <% end %>
-  </div>
+
 </div>
+</div>
+<%end%>
 <%end%>
           </div>
           </div>
@@ -98,7 +102,7 @@
               	<td><%= obj.deadline.strftime("%d %B") %></td>
 
                 <td><ul><% obj.targets.each do |tar| %>
-                  <li><%= tar.value%> <%=tar.unit%></li>
+                  <li><%= tar.target_value%> <%=tar.unit.unit_name%></li>
 
                   <% end %></ul>
                 </td>
@@ -110,7 +114,7 @@
               <%if @challenge.organizer.role == "vip"%>
               <tr>
                 <td></td>
-                <a href="challenges/<%=@challenge.id%>/clonechall"><td class="card mt-4" style="background: radial-gradient(rgba(255,100,255,1), rgba(255,0,0,0)80%);">Créé tes propres objectifs ou modifie</br>ceux existant en clonant ce challenge!</td></a>
+                <a href="<%=@challenge.id%>/clonechall">YOLO<td class="card mt-4" style="background: radial-gradient(rgba(255,100,255,1), rgba(255,0,0,0)80%);">Créé tes propres objectifs ou modifie</br>ceux existant en clonant ce challenge!</td></a>
               </tr>
               <%end%>
               </tbody>
