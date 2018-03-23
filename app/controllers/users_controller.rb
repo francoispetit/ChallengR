@@ -9,7 +9,7 @@ class UsersController < ApplicationController
 	end
 
 	def dashboard
-		if current_user.attended_challenges == [] || current_user == nil
+		if current_user.attended_challenges == [] || current_user == nil || current_user.participations.first.stats[:subgoal] == nil
 			redirect_to root_path
 			flash[:notice] = "You must avoir un challenge"
 		end

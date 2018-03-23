@@ -28,6 +28,8 @@ Rails.application.routes.draw do
 
 	post "challenge/join_challenge/:id", to: "challenges#join_challenge", as: "join_challenge"
 
+        post "challenge/unjoin_challenge/:id", to: "challenges#unjoin_challenge", as: "unjoin_challenge"
+
   get "user/:id/:chid", to: "users#getchallenge", as:"getchallenge"
 	get "user/:id", to: "users#dashboard", as:"dashboard"
   post "user/:id" => "users#dashboard"

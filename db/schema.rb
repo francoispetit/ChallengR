@@ -10,9 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-
-ActiveRecord::Schema.define(version: 20180323005950) do
-
+ActiveRecord::Schema.define(version: 20180323113811) do
 
   create_table "categories", force: :cascade do |t|
     t.string "category_name"
@@ -92,9 +90,10 @@ ActiveRecord::Schema.define(version: 20180323005950) do
     t.integer "value"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "target_value"
+    t.integer "unit_id"
     t.index ["subgoal_id"], name: "index_targets_on_subgoal_id"
   end
-
 
   create_table "units", force: :cascade do |t|
     t.string "unit_name"
@@ -102,7 +101,6 @@ ActiveRecord::Schema.define(version: 20180323005950) do
     t.datetime "updated_at", null: false
     t.integer "challenge_id"
   end
-
 
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
