@@ -11,6 +11,7 @@
 // about supported directives.
 //
 
+//= require popper
 //= require jquery3
 //= require jquery_ujs
 //= require bootstrap
@@ -42,5 +43,4 @@ $(document).on('turbolinks:load', function() {
     $(this).prev('.reply-form-challenge').toggle(); // Show form on button click
   });
 });
-
 

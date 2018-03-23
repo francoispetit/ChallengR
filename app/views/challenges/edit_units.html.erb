@@ -1,0 +1,18 @@
+</br></br></br>
+<%=form_tag("/challenges/#{@challenge.id}/addunit", method: "post") do%>
+  <%= label_tag(:unit_name, "Type the Unit you want to mesure") %>
+  <%= text_field_tag(:unit_name) %>
+<%@challenge.units.each do |unit|%>
+  <%=unit.unit_name%>
+<a class='fa fa-times' href="removeunit/<%=unit.id%>" style='font-size:12px; color:red;'></a>
+<%end%>
+  <%= submit_tag("Add Unit") %>
+<%end%>
+<%= form_tag("/#{@challenge.id}/preupdateunits", method: "post") do %>
+  <% @challenge.subgoals.each do |sub| %>
+    <div class="subgoal" id="<%=sub.id%>">
+      <%= sub.subgoal_string %>
+    </div>
+  <% end %>
+  <%= submit_tag("Edit") %>
+<% end %>

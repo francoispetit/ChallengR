@@ -1,0 +1,15 @@
+</br></br></br>
+<%@challenge.units.each do |unit|%>
+  <%=unit.unit_name%>
+<%end%>
+<%= form_tag("updateunits", method: "post") do %>
+  <% @challenge.subgoals.each do |sub| %>
+    <div class="subgoal" id="<%=sub.id%>">
+      <%= sub.subgoal_string %>
+      <% @challenge.units.each do |unit| %>
+        <%= eval("text_field_tag(:#{unit.unit_name}#{sub.id})") %>      
+      <% end %>
+    </div>
+  <% end %>
+  <%= submit_tag("Edit") %>
+<% end %>

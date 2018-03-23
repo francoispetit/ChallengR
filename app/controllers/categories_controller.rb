@@ -1,19 +1,21 @@
 class CategoriesController < ApplicationController
   def create
     @category = Category.create(category_params)
+    Challenge.find(params[:challid]).categories << @category
+    redirect_to challenge_path(params[:challid])
   end
 
   def update
     @category = Category.update(category_params)
   end
 
-  def delete
+  def destroy
     Category.find(params).destroy
   end
 
 private
 
   def category_params
-    params.require(:category).permit(:category_name)
+    params.permit(:category_name)
   end
 end
