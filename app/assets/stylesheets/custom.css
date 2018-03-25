@@ -3,8 +3,8 @@
 
 .stylish-form
     {
-      background-image:url('https://www.invigorlaw.com/wp-content/uploads/2014/11/Mountain-Climbing.jpg');
-      background-repeat:no-repeat;
+      background-image:url('climbing.jpg');
+      background-size:cover;
       margin-top:2%;
       padding:8%;
       height:100%;

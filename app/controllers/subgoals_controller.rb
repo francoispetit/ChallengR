@@ -1,5 +1,5 @@
 class SubgoalsController < ApplicationController
-    def index
+  def index
    @subgoals =Subgoal.all
   end
 
