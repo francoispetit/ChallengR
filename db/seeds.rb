@@ -7,12 +7,12 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 
-	User.delete_all
-	Challenge.delete_all
-	Subgoal.delete_all
-	Category.delete_all
-	Participation.delete_all
-	Target.delete_all
+#	User.delete_all
+#	Challenge.delete_all
+#	Subgoal.delete_all
+#	Category.delete_all
+#	Participation.delete_all
+#	Target.delete_all
 
 	a=User.create(username:"Albert", email:"albert@mail.com", password:"123456")
         a.set_default_role(:admin)
