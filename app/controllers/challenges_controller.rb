@@ -69,8 +69,16 @@ class ChallengesController < ApplicationController
     @challenge.attendees.each do |attendee|
       @a = attendee.participations.find_by_challenge_id(@challenge.id)
       @a.stats = {units:[], subgoals_bests:[]}
-      @challenge.units.each do |unit|
-        @a.stats[:units] << unit.unit_name
+@challenge.units.each do |unit|
+@a.stats[:units] << unit.unit_name
+end
+      @challenge.subgoals.length.times do |x|
+        @a.stats[:subgoals_bests][x] = {}
+        @a.stats[:subgoals_bests][x][:name] = @challenge.subgoals[x].subgoal_string
+        @a.stats[:subgoals_bests][x][:best] = {}
+          @challenge.units.each do |unit|
+            @a.stats[:subgoals_bests][x][:best][unit.unit_name.to_sym] = [0,params[eval("'#{unit.unit_name}#{@challenge.subgoals[x].id}'")]]
+        end
       end
       @a.save
     end

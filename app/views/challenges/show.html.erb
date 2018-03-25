@@ -31,7 +31,7 @@
           	<h5 class="card-title text-center">Catégories</h5>
           	<div class="card-body text-center">
           	<% @challenge.categories.each do |cat| %>
-          		<span class="badge badge-pill badge-info"><%= cat.category_name %>   <%if current_user.role == "admin" || @challenge.organizer == current_user %><a class='fa fa-times' href="<%=@challenge.id%>/categoremove/<%=cat.id%>" style='font-size:12px; color:red;'></a><%end%></span>
+          		<span class="badge badge-pill badge-info"><%= cat.category_name %>   <%if current_user != nil%><%if current_user.role == "admin" || @challenge.organizer == current_user %><a class='fa fa-times' href="<%=@challenge.id%>/categoremove/<%=cat.id%>" style='font-size:12px; color:red;'></a><%end%><%end%></span>
 <%end%>
 <%if current_user != nil%>
   <%if @challenge.organizer == current_user || current_user.role == "admin"%>
@@ -108,9 +108,11 @@
                 </td>
               </tr>
               <% end %>
+              <%if current_user == @challenge.organizer || current_user.role == "admin" %>
               <div>
               <%= link_to "edit units", edit_units_path %>
               </div>
+              <%end%>
               <%if @challenge.organizer.role == "vip"%>
               <tr>
                 <td></td>

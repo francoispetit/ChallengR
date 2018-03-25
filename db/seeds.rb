@@ -7,12 +7,12 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 
-	User.delete_all
-	Challenge.delete_all
-	Subgoal.delete_all
-	Category.delete_all
-	Participation.delete_all
-	Target.delete_all
+#	User.delete_all
+#	Challenge.delete_all
+#	Subgoal.delete_all
+#	Category.delete_all
+#	Participation.delete_all
+#	Target.delete_all
 
 	a=User.create(username:"Albert", email:"albert@mail.com", password:"123456")
         a.set_default_role(:admin)
@@ -44,11 +44,11 @@ Unit.create(unit_name:"pompes", challenge_id:Challenge.find_by_goal("courir un m
 	Subgoal.find_by_subgoal_string("courir 10 km en moins de 50mn").targets << Target.create(value:"10", unit_id:Unit.find_by_unit_name("kilometres").id)
 	Subgoal.find_by_subgoal_string("courir 10 km en moins de 50mn").targets << Target.create(value:"50", unit_id:Unit.find_by_unit_name("minutes").id)
 
-	Category.create(category_name:"sport")
-	Category.create(category_name:"running")
-	Category.create(category_name:"music")
-	Category.create(category_name:"art")
-	Category.create(category_name:"beginner")
+	Category.create(category_name:"sport", id:1)
+	Category.create(category_name:"running", id:2)
+	Category.create(category_name:"music", id:3)
+	Category.create(category_name:"art", id:4)
+	Category.create(category_name:"beginner", id:5)
 
 	Challenge.find_by_goal("courir un marathon").categories << [Category.find_by_category_name("sport"), Category.find_by_category_name("running")]
 	Challenge.find_by_goal("courir un marathon").categories << [Category.find_by_category_name("sport"), Category.find_by_category_name("beginner")]
@@ -59,27 +59,27 @@ Unit.create(unit_name:"pompes", challenge_id:Challenge.find_by_goal("courir un m
 	a = User.find_by_username("Bernard").participations.find_by_challenge_id(Challenge.find_by_goal("courir un marathon").id)
 
 	a.stats = {
-		targets:["km", "mn"],
+		units:["kilometres", "minutes"],
 		subgoals_bests:[
 			{
 				name:"10 km en 1h",
 				best:{
-					km:[11, 10],
-					mn:[58, 60]
+					kilometres:[11, 10],
+					minutes:[58, 60]
 				}
 			},
 			{
 				name:"10 km en 50mn",
 				best:{
-					km:[10,10],
-					mn:[49,50]
+					kilometres:[10,10],
+					minutes:[49,50]
 				}
 			},
 			{
 				name:"20 km en 2h",
 				best:{
-					km:[21,20],
-					mn:[119,120]
+					kilometres:[21,20],
+					minutes:[119,120]
 				}
 			}]
     }
