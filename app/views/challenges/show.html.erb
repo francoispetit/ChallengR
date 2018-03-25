@@ -15,15 +15,15 @@
 
       <% if current_user != nil %>
         <% if current_user == @challenge.organizer %>
-          <%= link_to "Je modifie le challenge", edit_challenge_path, class:"btn btn-info"%>
-          <%= link_to "Delete", @challenge, class:"btn btn-danger", method: :delete, data: { confirm: "Really?" } %>
+          <%= link_to "Je modifie le challenge", edit_challenge_path, class:"btn btn-info m-1 "%>
+          <%= link_to "Delete", @challenge, class:"btn btn-danger m-1 ", method: :delete, data: { confirm: "Really?" } %>
           <%elsif @challenge.attendees.include?(current_user)%>
-            <%= link_to "Je ne participe plus :(", unjoin_challenge_path, class:"btn btn-danger", method: :post %>
+            <%= link_to "Je ne participe plus :(", unjoin_challenge_path, class:"btn btn-danger m-1 ", method: :post %>
           <%else%>
-            <%= link_to "Je participe", join_challenge_path, class:"btn btn-success", :method => :post %>
+            <%= link_to "Je participe", join_challenge_path, class:"btn btn-success m-1 ", :method => :post %>
           <%end %>
         <%else %>
-          <%= link_to "Inscris toi pour participer!", new_user_session_path, class:"btn btn-success"%>
+          <%= link_to "Inscris toi pour participer!", new_user_session_path, class:"btn btn-success m-1 "%>
         <%end%>
       </div>
 
@@ -34,15 +34,15 @@
             <span class="badge badge-pill badge-info"><%= cat.category_name %>
               <%if current_user != nil%>
                 <%if current_user.role == "admin" || @challenge.organizer == current_user %>
-                  <a class='fa fa-times' href="<%=@challenge.id%>/categoremove/<%=cat.id%>" style='font-size:12px; color:red;'></a>
+                  <a class='fa fa-times' href="<%=@challenge.id%>/categoremove/<%=cat.id%>" style='font-size:12px; color:white;'></a>
                 <%end%>
               <%end%>
             </span>
           <%end%>
           <%if current_user != nil%>
             <%if @challenge.organizer == current_user || current_user.role == "admin"%>
-              <div class="dropdown">
-                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <div class="dropdown mx-auto">
+                <button class="btn btn-secondary m-1 dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   Ajouter une Catégorie
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
@@ -125,7 +125,7 @@
             <%if current_user != nil%>
               <%if current_user == @challenge.organizer || current_user.role == "admin" %>
                 <div>
-                  <%= link_to "edit units", edit_units_path %>
+                  <%= link_to "edit units", edit_units_path, class:"btn btn-secondary m-1" %>
                 </div>
               <%end%>
               <%if @challenge.organizer.role == "vip"%>

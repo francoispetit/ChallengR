@@ -11,6 +11,7 @@
     }
     .stylish-form h2 {
       color:white;
+      text-shadow: 2px 3px rgba(4, 35, 164, 0.83);
       font-weight: bold;
       margin-top:50px;
 
