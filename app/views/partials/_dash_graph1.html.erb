@@ -2,36 +2,18 @@
   <h4 class="h5">Mes résultats</h4>
   <div class="btn-toolbar mt-2 mb-md-0">
     <div class="btn-group mr-2">
-      <button class="btn btn-sm btn-outline-secondary">Partager</button>
-      <button class="btn btn-sm btn-outline-secondary">Exporter</button>
-    </div>
-
-    <div class="btn-group mr-2">
       <button type="button"class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="DropdownMenuTime" data-toggle="dropdown" >
         <i class='fa fa-dot-circle-o' style='font-size:12px'></i>
         Indicateurs
       </button>
       <div class="dropdown-menu" aria-labelledby="dropdrown-item">
-        <a class="dropdown-item active" id="done" href="#">Réalisé ou pas</a>
         <div class="dropdown-divider"></div>
-        <a class="dropdown-item" href="#">km</a>
-        <a class="dropdown-item" href="#">mn</a>
+          <%@challenge.units.each do |unit|%>
+            <a class="dropdown-item" href="/unitboard/<%=unit.id%>/<%=@challenge.id%>"><%=unit.unit_name%></a>
+          <%end%>
       </div><!-- dropdown menu -->
     </div><!-- btn-group -->
 
-    <div class="btn-group">
-      <button type="button"class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="DropdownMenuTime" data-toggle="dropdown" >
-        <i class='fa fa-calendar' style='font-size:12px'></i>
-        Période
-      </button>
-      <div class="dropdown-menu" aria-labelledby="dropdrown-item">
-        <a class="dropdown-item active" id="semaine" href="#">Semaine</a>
-        <a class="dropdown-item" id="mois" href="#">Mois</a>
-        <a class="dropdown-item" id="année" href="#">Année</a>
-        <div class="dropdown-divider"></div>
-        <a class="dropdown-item" id="dureetotale" href="#">Durée totale</a>
-      </div><!-- dropdown menu -->
-    </div><!-- btn-group -->
 </div><!-- btn toolbar -->
 </div><!-- d-flex -->
 
@@ -60,7 +42,7 @@
     				responsive: true,
     				title: {
     					display: true,
-    					text: 'Chart.js Line Chart'
+    					text: 'Complétion des objectifs en pourcentage'
     				},
     				tooltips: {
     					mode: 'index',
@@ -97,14 +79,15 @@ for(var x=0; x<gon.data["units"].length; x++) {
 
 
 
-<%if "ON VEUT EN POURCENTAGES"%>
+if(gon.unitgraph == null) {
 
 
-            datarray[y] = 100*gon.data["subgoals_bests"][y]["best"][gon.data["units"][x]][0]/gon.data["subgoals_bests"][y]["best"][gon.data["units"][x]][1]
+            datarray[y] = 100*gon.data["subgoals_bests"][y]["best"][gon.data["units"][x]][0]/gon.data["subgoals_bests"][y]["best"][gon.data["units"][x]][1];
 
-<%else%>
-datarray[y] = gon.data["subgoals_bests"][y]["best"][gon.data["units"][x]][0]
-<%end%>
+} else {
+datarray[y] = gon.data["subgoals_bests"][y]["best"][gon.data["units"][x]][0];
+gon.unitgraph = null;
+}
 
 
 

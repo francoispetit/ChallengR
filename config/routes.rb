@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'unitboard/:id/:challid' => 'users#unitboard', as:"unit_graph"
 
   get 'challenges/:id/clonechall' => 'challenges#clone_challenge'
 
@@ -32,11 +33,11 @@ Rails.application.routes.draw do
   post "user/setbest" => "users#setbest", as:"setbest"
 
 
-  get "user/:id/:chid", to: "users#getchallenge", as:"getchallenge"
+#  get "user/:id/:chid", to: "users#getchallenge", as:"getchallenge"
   get "user/:id/profile", to: "users#show", as:"profile"
 
 	get "user/:id", to: "users#dashboard", as:"dashboard"
-  post "user/:id" => "users#dashboard"
+  post "user/:id/:challid" => "users#dashboard"
 #	get "user/:id", to: "users#show", as:"profile"
 	devise_for :users
 	resources :challenges do

@@ -12,7 +12,7 @@
 
                 <li class="nav-item nav-chall">
 
-                  <%= form_tag dashboard_path do %>
+                  <%= form_tag "/user/#{current_user.id}/#{chal.id}" do %>
                     <%= hidden_field_tag "chal_id", chal.id %>
                     <%= submit_tag chal.goal, class: "btn-secondary btn-sm btn-challenge" %>
                   <% end %>
