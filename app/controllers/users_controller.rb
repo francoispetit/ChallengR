@@ -11,7 +11,7 @@ class UsersController < ApplicationController
 	end
 
 	def dashboard
-		gon.data = @stats
+		 gon.data = @stats
                 if flash[:unitgraph] != nil
                   gon.unitgraph = true
                   @unit = Unit.find(flash[:unitgraph]["id"])
@@ -21,13 +21,13 @@ class UsersController < ApplicationController
                 end
 	end
 
-        def unitboard
-                @challenge = Challenge.find(params[:challid])
-	        @unit = Unit.find(params[:id])
-                flash[:unitgraph] = @unit
-                session[:chall] = @challenge
-                redirect_to dashboard_path
-        end
+  def unitboard
+          @challenge = Challenge.find(params[:challid])
+    @unit = Unit.find(params[:id])
+          flash[:unitgraph] = @unit
+          session[:chall] = @challenge
+          redirect_to dashboard_path
+  end
 
 	def profile
 		@user = User.find(params[:id])
@@ -35,22 +35,30 @@ class UsersController < ApplicationController
 
 	def setbest
 		@challenge = Challenge.find(params[:challid])
-                @keyswithsubid = []
-                params.keys.each do |key|
-		  @keyswithsubid << key unless ["utf8","authenticity_token","challid","commit","controller","action","id"].include?(key)
+
+    @keyswithsubid = []
+    params.keys.each do |key|
+  		@keyswithsubid << key unless ["utf8","authenticity_token","challid","commit","controller","action","id"].include?(key)
+			
 		end
 		@subgoal = @challenge.subgoals.find(@keyswithsubid.first.gsub(/[^0-9]/, ""))
+
 	#	@subgoal_index = get_subgoal_index(@subgoal)
-                a = current_user.participations.find_by_challenge_id(@challenge.id)
-                a.stats[:subgoals_bests].each do |hashh|
+    a = current_user.participations.find_by_challenge_id(@challenge.id)
+
+    a.stats[:subgoals_bests].each do |hashh|
+
 		  if hashh[:name] == @subgoal.subgoal_string
+
 		    hashh[:best].each do |k, v|
 		      v[0] = params[eval("'#{k}#{@subgoal.id}'")]
-		    end
-		  end
-		end
-                a.save
 
+		    end
+			end
+		end
+
+    a.save
+		render "users/dashboard"
 	end
 
 private
