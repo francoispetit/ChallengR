@@ -19,9 +19,22 @@ class UsersController < ApplicationController
 	end
 
 	def setbest
-		@challenge = Challenge.find(params[:id])
-		@subgoal_index = get_subgoal_index
-		byebug
+		@challenge = Challenge.find(params[:challid])
+                @keyswithsubid = []
+                params.keys.each do |key|
+		  @keyswithsubid << key unless ["utf8","authenticity_token","challid","commit","controller","action","id"].include?(key)
+		end
+		@subgoal = @challenge.subgoals.find(@keyswithsubid.first.gsub(/[^0-9]/, ""))
+	#	@subgoal_index = get_subgoal_index(@subgoal)
+                a = current_user.participations.find_by_challenge_id(@challenge.id)
+                a.stats[:subgoals_bests].each do |hashh|
+		  if hashh[:name] == @subgoal.subgoal_string
+		    hashh[:best].each do |k, v|
+		      v[0] = params[eval("'#{k}#{@subgoal.id}'")] 
+		    end
+		  end
+		end
+                a.save
 
 	end
 
@@ -55,10 +68,10 @@ private
 		end
 	end
 
-	def get_subgoal_index
+	def get_subgoal_index(subg)
 		@challenge.subgoals.each do |sub, index|
 
-			if sub.subgoal_string == @subgoal.subgoal_string
+			if sub.subgoal_string == subg.subgoal_string
 				return index
 			end
 		end

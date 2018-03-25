@@ -89,13 +89,30 @@
     			}
     		};
         var colors = [window.chartColors.red, window.chartColors.blue, window.chartColors.yellow, window.chartColors.orange, window.chartColors.black];
-for(var x=0; x<gon.data["targets"].length; x++) {
+for(var x=0; x<gon.data["units"].length; x++) {
   datarray = [];
           for(var y=0; y<gon.data["subgoals_bests"].length; y++){
-            datarray[y] = 100*gon.data["subgoals_bests"][y]["best"][gon.data["targets"][x]][0]/gon.data["subgoals_bests"][y]["best"][gon.data["targets"][x]][1]
+
+
+
+
+
+<%if "ON VEUT EN POURCENTAGES"%>
+
+
+            datarray[y] = 100*gon.data["subgoals_bests"][y]["best"][gon.data["units"][x]][0]/gon.data["subgoals_bests"][y]["best"][gon.data["units"][x]][1]
+
+<%else%>
+datarray[y] = gon.data["subgoals_bests"][y]["best"][gon.data["units"][x]][0]
+<%end%>
+
+
+
+
+
           }
           config["data"]["datasets"][x] = {
-          label: gon.data["targets"][x],
+          label: gon.data["units"][x],
           fill: false,
           backgroundColor: colors[x],
           borderColor: colors[x],

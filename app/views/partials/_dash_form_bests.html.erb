@@ -1,7 +1,8 @@
   <% index = 0%>
   <% @challenge.subgoals.each do |sub| %>
-    <%= form_tag("#{current_user.id}/setbest", method: "post") do %>
-
+    <%= form_tag("setbest", method: "post") do %>
+<%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+<%= hidden_field_tag :challid, @challenge.id %>
     <p style="font-size:14px;font-weight:bold">Objectif : <%= sub.subgoal_string %></p>
     <p style="font-size:12px"><%= sub.deadline.strftime("pour le %d/%m/%Y") %></p>
 

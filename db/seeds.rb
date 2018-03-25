@@ -61,27 +61,27 @@ Unit.create(unit_name:"pompes", challenge_id:Challenge.find_by_goal("courir un m
 	a = User.find_by_username("Bernard").participations.find_by_challenge_id(Challenge.find_by_goal("courir un marathon").id)
 
 	a.stats = {
-		targets:["km", "mn"],
+		units:["kilometres", "minutes"],
 		subgoals_bests:[
 			{
 				name:"10 km en 1h",
 				best:{
-					km:[11, 10],
-					mn:[58, 60]
+					kilometres:[11, 10],
+					minutes:[58, 60]
 				}
 			},
 			{
 				name:"10 km en 50mn",
 				best:{
-					km:[10,10],
-					mn:[49,50]
+					kilometres:[10,10],
+					minutes:[49,50]
 				}
 			},
 			{
 				name:"20 km en 2h",
 				best:{
-					km:[21,20],
-					mn:[119,120]
+					kilometres:[21,20],
+					minutes:[119,120]
 				}
 			}]
     }
