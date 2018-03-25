@@ -62,25 +62,25 @@ class ChallengesController < ApplicationController
       @targets["#{sub.subgoal_string}"] = {}
       @challenge.units.each do |unit|
         @targets["#{sub.subgoal_string}"]["#{unit.unit_name}"] = eval("params['#{unit.unit_name}#{sub.id}']")
-        @tar = sub.targets.build(unit_id:unit.id, subgoal_id:sub.id, target_value:eval("params['#{unit.unit_name}#{sub.id}']"))
+        @tar = sub.targets.build(unit_id:unit.id, subgoal_id:sub.id, value:eval("params['#{unit.unit_name}#{sub.id}'].to_i"))
         @tar.save
       end
     end
     @challenge.attendees.each do |attendee|
-      @a = attendee.participations.find_by_challenge_id(@challenge.id)
-      @a.stats = {units:[], subgoals_bests:[]}
+      @participation = attendee.participations.find_by_challenge_id(@challenge.id)
+      @participation.stats = {units:[], subgoals_bests:[]}
 @challenge.units.each do |unit|
-@a.stats[:units] << unit.unit_name
+@participation.stats[:units] << unit.unit_name
 end
       @challenge.subgoals.length.times do |x|
-        @a.stats[:subgoals_bests][x] = {}
-        @a.stats[:subgoals_bests][x][:name] = @challenge.subgoals[x].subgoal_string
-        @a.stats[:subgoals_bests][x][:best] = {}
+        @participation.stats[:subgoals_bests][x] = {}
+        @participation.stats[:subgoals_bests][x][:name] = @challenge.subgoals[x].subgoal_string
+        @participation.stats[:subgoals_bests][x][:best] = {}
           @challenge.units.each do |unit|
-            @a.stats[:subgoals_bests][x][:best][unit.unit_name.to_sym] = [0,params[eval("'#{unit.unit_name}#{@challenge.subgoals[x].id}'")]]
+            @participation.stats[:subgoals_bests][x][:best][unit.unit_name.to_sym] = [0,params[eval("'#{unit.unit_name}#{@challenge.subgoals[x].id}'")]]
         end
       end
-      @a.save
+      @participation.save
     end
 
     redirect_to challenge_path(@challenge.id)
@@ -199,12 +199,21 @@ end
         redirect_to @challenge
     else
       @challenge.attendees << current_user
-      @a = current_user.participations.find_by_challenge_id(@challenge.id)
-      @a.stats = {units:[], subgoals_bests:[]}
+      @participation = current_user.participations.find_by_challenge_id(@challenge.id)
+      @participation.stats = {units:[], subgoals_bests:[]}
       @challenge.units.each do |unit|
-        @a.stats[:units] << unit.unit_name
+        @participation.stats[:units] << unit.unit_name
+
       end
-      @a.save
+      @challenge.subgoals.length.times do |x|
+        @participation.stats[:subgoals_bests][x] = {}
+        @participation.stats[:subgoals_bests][x][:name] = @challenge.subgoals[x].subgoal_string
+        @participation.stats[:subgoals_bests][x][:best] = {}
+          @challenge.units.each do |unit|
+            @participation.stats[:subgoals_bests][x][:best][unit.unit_name.to_sym] = [0,@challenge.organizer.participations.find_by_challenge_id(@challenge.id).stats[:subgoals_bests][x][:best][unit.unit_name.to_sym]]
+        end
+      end
+      @participation.save
       flash[:success] = "Bienvenue dans l'équipe !"
       redirect_to @challenge
     end
@@ -214,16 +223,6 @@ end
     current_user.attended_challenges.delete(params[:id])
     redirect_to Challenge.find(params[:id])
   end
-
-#  def attached_categories(action, category)
- #   if action == "add"
-  #    self.categories << category
-   # else if action == "remove"
-    #  self.categories.delete(category)
-#    else
- #     puts "error in attached categories method (ChallengesController)"
-  #  end
-#  end
 
   private
 
