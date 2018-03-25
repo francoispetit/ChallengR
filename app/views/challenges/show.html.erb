@@ -131,7 +131,8 @@
               <%if @challenge.organizer.role == "vip"%>
                 <tr>
                   <td></td>
-                  <a href="<%=@challenge.id%>/clonechall">YOLO<td class="card mt-4" style="background: radial-gradient(rgba(255,100,255,1), rgba(255,0,0,0)80%);">Créé tes propres objectifs ou modifie</br>ceux existant en clonant ce challenge!</td>
+                  <td colspan="2"><a href="<%=@challenge.id%>/clonechall" class="btn btn-warning">Adapte ce challenge avec tes propres objectifs!</a></td>
+                  <td></td>
                 </a>
               </tr>
             <%end%>
@@ -147,7 +148,7 @@
     </div>
     <div class="card-body">
       <% @challenge.attendees.each do |att| %>
-        <p><%= att.username %></p>
+        <p class="badge badge-dark"><%= att.username %></p>
       <% end %>
     </div>
   </div>
