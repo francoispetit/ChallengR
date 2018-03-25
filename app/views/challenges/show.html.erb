@@ -12,15 +12,48 @@
           </div>
           	</br>
           <div class="card mt-4">
-          	<%= link_to "Je participe", join_challenge_path, class:"btn btn-success", :method => :post %>
+
+            <% if current_user != nil %>
+              <% if current_user == @challenge.organizer %>
+                <%= link_to "Je modifie le challenge", edit_challenge_path, class:"btn btn-info"%>
+                <%= link_to "Delete", @challenge, class:"btn btn-danger", method: :delete, data: { confirm: "Really?" } %>          
+              <%elsif @challenge.attendees.include?(current_user)%>
+                <%= link_to "Je ne participe plus :(", unjoin_challenge_path, class:"btn btn-danger", method: :post %>
+              <%else%>
+                <%= link_to "Je participe", join_challenge_path, class:"btn btn-success", :method => :post %>
+              <%end %>
+            <% else %>
+              <%= link_to "Inscris toi pour participer!", new_user_session_path, class:"btn btn-success"%>
+            <%end%>
           </div>
 
           <div class="card mt-4 p-4">
           	<h5 class="card-title text-center">Catégories</h5>
           	<div class="card-body text-center">
           	<% @challenge.categories.each do |cat| %>
-          		<span class="badge badge-pill badge-info"><%= cat.category_name %></span> 
-          	<% end %>
+          		<span class="badge badge-pill badge-info"><%= cat.category_name %>   <%if current_user != nil%><%if current_user.role == "admin" || @challenge.organizer == current_user %><a class='fa fa-times' href="<%=@challenge.id%>/categoremove/<%=cat.id%>" style='font-size:12px; color:red;'></a><%end%><%end%></span>
+<%end%>
+<%if current_user != nil%>
+  <%if @challenge.organizer == current_user || current_user.role == "admin"%>
+  <div class="dropdown">
+    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      Ajouter une Catégorie
+    </button>
+    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+  <%Category.all.each do |cat|%>
+      <a class="dropdown-item" href="<%=@challenge.id%>/categories/<%= cat.id %>"><%=cat.category_name%></a>
+  <%end%>
+  <%= form_tag("../categories/create/#{@challenge.id}", method: "post") do %>
+  <%= label_tag(:category_name, "new category:") %>
+  <%= text_field_tag(:category_name) %>
+  <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+  <%= submit_tag("Add") %>
+                <% end %>
+
+</div>
+</div>
+<%end%>
+<%end%>
           </div>
           </div>
         </div>
@@ -29,16 +62,18 @@
         <div class="col-lg-9">
 
           <div class="card mt-4">
-            <% if @challenge.image_url == nil %>
-                <%= image_tag "config/images/tomatoe800.jpg", height:"400", class:"card-img-top img-fluid" %>
-            <% else %>
-            
-            <%= image_tag(@challenge.image_url, height:"400", class:"card-img-top img-fluid") %>
-            <% end %>
+
+            <%= image_tag(@challenge.image.url, height:"400", class:"card-img-top img-fluid") %>
             <div class="card-body">
               <h3 class="card-title" id="pres">Présentation</h3>
               <p>Créé par <strong><%= @challenge.organizer.username %></strong></p>
-              <p>A mener pour le <span class="badge badge-pill badge-info"><%= @challenge.deadline.strftime("%d/%m/%y") %></span></p>
+              <p>A mener pour le <span class="badge badge-pill badge-info">
+                                 <%if @challenge.organizer.role == "vip"%>
+                                     A toi de choisir!
+                                 <%else%>
+                                     <%= @challenge.deadline.strftime("%d/%m/%y") %>
+                                 <%end%>
+                                 </span></p>
 
               <p class="card-text">Voici la description de ce challenge</p>
             </div>
@@ -53,19 +88,37 @@
               <table class="table table-hover table-responsive">
               <thead class="thead-dark">
 	              <tr>
-	              	<th scope="col">#</th>
+	              	<th scope="col">Description</th>
 	              	<th scope="col">Objectif</th>
 	              	<th scope="col">Pour le</th>
+                  <th scope="col">Cibles</th>
 	              </tr>
 	            </thead>
 	            <tbody>
               <% @challenge.subgoals.each do |obj| %>
-              <tr>	
+              <tr>
               	<td><%= obj.description %></td>
               	<td><%= obj.subgoal_string %></td>
-              	<td><%= obj.deadline.strftime("%d/%B") %></td>
+              	<td><%= obj.deadline.strftime("%d %B") %></td>
+
+                <td><ul><% obj.targets.each do |tar| %>
+                  <li><%= tar.target_value%> <%=tar.unit.unit_name%></li>
+
+                  <% end %></ul>
+                </td>
               </tr>
               <% end %>
+              <%if current_user == @challenge.organizer || current_user.role == "admin" %>
+              <div>
+              <%= link_to "edit units", edit_units_path %>
+              </div>
+              <%end%>
+              <%if @challenge.organizer.role == "vip"%>
+              <tr>
+                <td></td>
+                <a href="<%=@challenge.id%>/clonechall">YOLO<td class="card mt-4" style="background: radial-gradient(rgba(255,100,255,1), rgba(255,0,0,0)80%);">Créé tes propres objectifs ou modifie</br>ceux existant en clonant ce challenge!</td></a>
+              </tr>
+              <%end%>
               </tbody>
             </table>
             </div>
@@ -87,9 +140,9 @@
               Commentaires
             </div>
             <div class="card-body">
-              
-            	<ul> <%= render partial: 'shared/comment', collection: @challenge.comments %> </ul>
-              
+
+            	<ul> <%= render partial: 'partials/comment', collection: @challenge.comments %> </ul>
+
             </div>
             		<% if user_signed_in? %>
 									<div class="reply-form-challenge form-group">
@@ -104,10 +157,10 @@
             <p class="btn btn-reply-challenge btn-primary btn-sm">Commenter ce challenge</p>
 
           </div><!-- /.card -->
-          
+
 
         </div><!-- /.col-lg-9 -->
-        
+
 
       </div>
 

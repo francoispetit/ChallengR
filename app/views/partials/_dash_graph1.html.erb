@@ -1,0 +1,111 @@
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+  <h4 class="h5">Mes résultats</h4>
+  <div class="btn-toolbar mt-2 mb-md-0">
+    <div class="btn-group mr-2">
+      <button type="button"class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="DropdownMenuTime" data-toggle="dropdown" >
+        <i class='fa fa-dot-circle-o' style='font-size:12px'></i>
+        Indicateurs
+      </button>
+      <div class="dropdown-menu" aria-labelledby="dropdrown-item">
+        <div class="dropdown-divider"></div>
+          <%@challenge.units.each do |unit|%>
+            <a class="dropdown-item" href="/unitboard/<%=unit.id%>/<%=@challenge.id%>"><%=unit.unit_name%></a>
+          <%end%>
+      </div><!-- dropdown menu -->
+    </div><!-- btn-group -->
+
+</div><!-- btn toolbar -->
+</div><!-- d-flex -->
+
+<canvas class="my-2" id="myChart" width="800" height="400"></canvas>
+
+<!-- Graphs -->
+<script src="http://www.chartjs.org/dist/2.7.2/Chart.bundle.js"></script>
+<script src="http://www.chartjs.org/samples/latest/utils.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
+
+<script id="chartscript">
+
+
+    var obj_names = [];
+    for(var x=0; x<gon.data["subgoals_bests"].length; x++){
+      obj_names[x] = gon.data["subgoals_bests"][x]["name"];
+    }
+    		var config = {
+    			type: 'line',
+    			data:
+          {
+    				labels: obj_names,
+    				datasets: [{}]
+    			},
+    			options: {
+    				responsive: true,
+    				title: {
+    					display: true,
+    					text: 'Complétion des objectifs en pourcentage'
+    				},
+    				tooltips: {
+    					mode: 'index',
+    					intersect: false,
+    				},
+    				hover: {
+    					mode: 'nearest',
+    					intersect: true
+    				},
+    				scales: {
+    					xAxes: [{
+    						display: true,
+    						scaleLabel: {
+    							display: true,
+    							labelString: 'Subgoal'
+    						}
+    					}],
+    					yAxes: [{
+    						display: true,
+    						scaleLabel: {
+    							display: true,
+    							labelString: 'Value (%)'
+    						}
+    					}]
+    				}
+    			}
+    		};
+        var colors = [window.chartColors.red, window.chartColors.blue, window.chartColors.yellow, window.chartColors.orange, window.chartColors.black];
+for(var x=0; x<gon.data["units"].length; x++) {
+  datarray = [];
+          for(var y=0; y<gon.data["subgoals_bests"].length; y++){
+
+
+
+
+
+if(gon.unitgraph == null) {
+
+
+            datarray[y] = 100*gon.data["subgoals_bests"][y]["best"][gon.data["units"][x]][0]/gon.data["subgoals_bests"][y]["best"][gon.data["units"][x]][1];
+
+} else {
+datarray[y] = gon.data["subgoals_bests"][y]["best"][gon.data["units"][x]][0];
+gon.unitgraph = null;
+}
+
+
+
+
+
+          }
+          config["data"]["datasets"][x] = {
+          label: gon.data["units"][x],
+          fill: false,
+          backgroundColor: colors[x],
+          borderColor: colors[x],
+          data: datarray,
+
+          };
+        }
+
+    		window.onload = function() {
+    			var ctx = document.getElementById('myChart').getContext('2d');
+    			window.myLine = new Chart(ctx, config);
+    		};
+	</script>

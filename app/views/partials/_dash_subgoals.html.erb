@@ -1,0 +1,49 @@
+<div class="container m-3">
+
+  <nav class="navbar navbar-expand-lg bg-dark p-1">
+  <a class="navbar-brand text-white small font-weight-bold text-uppercase" id="challenge_title" href="#"><%= @challenge[:goal] %> </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse navbar-dark bg-dark" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <div id="btn-bilan" class="nav-link">Aperçu du challenge <span class="sr-only">(current)</span></div>
+        </li>
+
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="objectifs" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Objectifs
+          </a>
+          <div class="dropdown-menu" id="subgoallist" aria-labelledby="navbarDropdown">
+              <% @challenge.subgoals.each do |sub| %>
+                  <div class="dropdown-item drop-subgoal" id=sub.id ><%= sub.subgoal_string %></div>
+                  <div class="dropdown-divider"></div>
+              <% end %>
+          </div>
+        </li>
+        <li class="nav-item">
+          <div id="btn-graph-global" class="nav-link">Graph</div>
+        </li>
+        <li class="nav-item">
+          <div id="btn-form-result" class="nav-link">Mettre à jour mes résultats</div>
+        </li>
+
+      </ul>
+    </div>
+  </nav>
+
+  <div class="dashboard_div" id="graph">
+      <%= render 'partials/dash_graph1'  %>
+  </div>
+
+  <div class="dashboard_div" id="summary">
+      <%= render 'partials/dash_challenge_summary' %>
+  </div>
+
+  <div class="dashboard_div" id="resultform">
+      <%= render 'partials/dash_form_bests' %>
+  </div>
+
+  </div>

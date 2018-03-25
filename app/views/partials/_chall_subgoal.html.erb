@@ -1,0 +1,12 @@
+<div class="form-group row">
+      <%= f.label :subgoal_string, "Subgoal", class:"col-sm-2 col-form-label"%>
+      <%= f.text_field :subgoal_string, class:"form-control col-sm-10" %>
+      <%= f.label :deadline, "Deadline", class:"col-sm-2 col-form-label" %>
+      <%= f.date_field :deadline, class:"form-control col-sm-10" %>
+      <%= f.label :description,"Description" ,class:"col-sm-2 col-form-label"%>
+      <%= f.text_area :description, class:"form-control col-sm-10" %>
+</div>
+
+<%= f.remove_nested_fields_link "Supprimer le subgoal", class: 'btn btn-sm btn-danger pull-right', role: 'button' %>
+
+<br>

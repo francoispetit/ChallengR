@@ -8,6 +8,11 @@ class SubgoalsController < ApplicationController
       @subgoal = @challenge.subgoals.build
   end
 
+  def create
+    @challenge = Challenge.find(:id)
+      @subgoal = @challenge.subgoals.create(params[:subgoal])
+  end
+
   def show
    @subgoal = Subgoal.find(params[:id])
   end
@@ -22,15 +27,10 @@ class SubgoalsController < ApplicationController
     redirect_to @subgoal
   end
 
-  def create
-    @challenge = Challenge.find(:id)
-      @subgoal = @challenge.subgoals.create(params[:subgoal])
-  end
-
   def destroy
    @subgoal = Subgoal.find(params[:id])
 
-    if current_user.id == @subgoal.current_user_id
+    if current_user.id == @challenge.organizer_id
     @subgoal.destroy
      redirect_to root_path
     else
@@ -48,11 +48,10 @@ class SubgoalsController < ApplicationController
 
   private
   def subgoal_params
-  params.require(:subgoal).permit(:subgoal_int, :subgoal_unit, :subgoal_string, :deadline, :description, :accomplished, :challenge_id)
+    params.require(:subgoal).permit(:subgoal_int, :subgoal_unit, :subgoal_string, :deadline, :description, :accomplished, :challenge_id,
+      :target_attributes =>[:_destroy, :value, :unit]
+    )
   end
 
 
-
- 
- 
 end

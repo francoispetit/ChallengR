@@ -7,15 +7,22 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 
-	User.delete_all
-	Challenge.delete_all
-	Subgoal.delete_all
-	Category.delete_all
+#	User.delete_all
+#	Challenge.delete_all
+#	Subgoal.delete_all
+#	Category.delete_all
+#	Participation.delete_all
+#	Target.delete_all
 
-	User.create(username:"Albert", email:"albert@mail.com", password:"123456")
+	a=User.create(username:"Albert", email:"albert@mail.com", password:"123456")
+        a.set_default_role(:admin)
+        a.save
 	User.create(username:"Bernard", email:"bernard@mail.com", password:"123456")
 	User.create(username:"Caroline", email:"caroline@mail.com", password:"123456")
 	User.create(username:"Danièle", email:"daniele@mail.com", password:"123456")
+        a=User.create(username:"The Red User", email:"v@l.d", password:"azerty")
+        a.set_default_role(:vip)
+        a.save
 
 	Challenge.create(goal:"courir un marathon", image_url:"jogging800.jpg", deadline:"2018-04-01", organizer_id:User.find_by_username("Albert").id)
 	Challenge.create(goal:"sauter comme un Yamakazi", image_url:"jump800.jpg", deadline:"2018-05-01", organizer_id:User.find_by_username("Albert").id)
@@ -25,31 +32,73 @@
 	Challenge.create(goal:"déguiser un crime", image_url:"crime800.jpg", deadline:"2018-06-01",organizer_id:User.find_by_username("Caroline").id)
 
 
+Unit.create(unit_name:"kilometres", challenge_id:Challenge.find_by_goal("courir un marathon").id)
+Unit.create(unit_name:"minutes", challenge_id:Challenge.find_by_goal("courir un marathon").id)
+Unit.create(unit_name:"pompes", challenge_id:Challenge.find_by_goal("courir un marathon").id)
+
 	Challenge.find_by_goal("courir un marathon").subgoals << Subgoal.create(subgoal_string:"courir 10 km en moins d'1h", deadline:"2018-04-10", challenge_id:"1")
 	Challenge.find_by_goal("courir un marathon").subgoals << Subgoal.create(subgoal_string:"courir 10 km en moins de 50mn", deadline:"2018-04-20", challenge_id:"1")
 	Challenge.find_by_goal("courir un marathon").subgoals << Subgoal.create(subgoal_string:"courir 10 km en moins de 45 mn", deadline:"2018-04-30", challenge_id:"1")
-
+	Subgoal.find_by_subgoal_string("courir 10 km en moins d'1h").targets << Target.create(value:"10", unit_id:Unit.find_by_unit_name("kilometres").id)
+	Subgoal.find_by_subgoal_string("courir 10 km en moins d'1h").targets << Target.create(value:"60", unit_id:Unit.find_by_unit_name("minutes").id)
+	Subgoal.find_by_subgoal_string("courir 10 km en moins de 50mn").targets << Target.create(value:"10", unit_id:Unit.find_by_unit_name("kilometres").id)
+	Subgoal.find_by_subgoal_string("courir 10 km en moins de 50mn").targets << Target.create(value:"50", unit_id:Unit.find_by_unit_name("minutes").id)
 
 	Category.create(category_name:"sport", id:1)
 	Category.create(category_name:"running", id:2)
-	Category.create(category_name:"music")
-	Category.create(category_name:"art")
-	Category.create(category_name:"beginner")
+	Category.create(category_name:"music", id:3)
+	Category.create(category_name:"art", id:4)
+	Category.create(category_name:"beginner", id:5)
 
 	Challenge.find_by_goal("courir un marathon").categories << [Category.find_by_category_name("sport"), Category.find_by_category_name("running")]
 	Challenge.find_by_goal("courir un marathon").categories << [Category.find_by_category_name("sport"), Category.find_by_category_name("beginner")]
 
+
+
 	User.find_by_username("Bernard").attended_challenges << Challenge.find_by_goal("courir un marathon")
 	User.find_by_username("Caroline").attended_challenges << Challenge.find_by_goal("courir un marathon")
 
-	User.find_by_username("Bernard").participations.find_by_challenge_id(Challenge.find_by_goal("courir un marathon").id).stats = 
-		{subgoal1:{done:true, date_accomplised:"2018-04-11"}, 
-		subgoal2:{done:true, date_accomplised:"2018-04-20"},
-		subgoal3:{done:true, date_accomplised:"2018-05-01"}	
-		}
+	a = User.find_by_username("Bernard").participations.find_by_challenge_id(Challenge.find_by_goal("courir un marathon").id)
 
-	User.find_by_username("Caroline").participations.find_by_challenge_id(Challenge.find_by_goal("courir un marathon").id).stats = 
-		{subgoal1:{done:true, date_accomplised:"2018-04-10"}, 
-		subgoal2:{done:true, date_accomplised:"2018-04-22"},
-		subgoal3:{done:false}	
-		}
+	a.stats = {
+		units:["kilometres", "minutes"],
+		subgoals_bests:[
+			{
+				name:"10 km en 1h",
+				best:{
+					kilometres:[11, 10],
+					minutes:[58, 60]
+				}
+			},
+			{
+				name:"10 km en 50mn",
+				best:{
+					kilometres:[10,10],
+					minutes:[49,50]
+				}
+			},
+			{
+				name:"20 km en 2h",
+				best:{
+					kilometres:[21,20],
+					minutes:[119,120]
+				}
+			}]
+    }
+	a.save
+
+
+Challenge.all.each do |c|
+    a = Challenge.new(c.attributes.merge(id:nil, organizer_id:User.find_by_username("The Red User").id, created_at:nil, updated_at:nil))
+    c.subgoals.each do |s|
+        b = Subgoal.new(s.attributes.merge(id:nil, challenge_id:nil, created_at:nil, updated_at:nil))
+        a.subgoals << b
+        b.save
+    end
+    c.categories.each do |ca|
+        a.categories << ca
+    end
+    a.save
+    c.attendees << c.organizer
+    c.save
+end

@@ -8,42 +8,6 @@
   <br />
   <br />
 
+<h1>Qu'allez vous accomplir ?</h1>
 
-
-<%= form_for @challenge do |f| %> %>
-  <%= f.label 'Objectif' %>
-  <%= f.text_field :goal %>
-  <br /> <br />
-
-  <%= f.label 'Date limite ?' %>
-  <%= f.date_field :deadline %>
-  <br /> <br />
-
-
-  <%= f.fields_for :subgoal do |sbg| %>
-      <li>
-        <%= sbg.label :subgoal_string, "Quel est votre sous-objectif" %>
-        <%= sbg.text_field :subgoal_string %>
-    
-        <%=  sbg.label :subgoal_int %>
-        <%= sbg.number_field :subgoal_int %>
-
-    
-            <%=  sbg.label :subgoal_unit %>
-            <%= sbg.text_field :subgoal_unit %>
-
-        <%= sbg.label :deadline %>
-        <%= sbg.date_field :deadline %>
-
-         <%= sbg.label :description %>
-        <%= sbg.text_field :description %>
-
-
-        
-            
-        <%= sbg.label :accomplished, "Accomplis ?"  %>
-        <%= sbg.check_box :accomplished %>
-      </li>
-    <% end %>
-    <%= f.submit %>
- <% end %>
+<%= render  "partials/full_challenge_form" %>
