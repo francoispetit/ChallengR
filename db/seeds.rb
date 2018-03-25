@@ -53,8 +53,6 @@ Unit.create(unit_name:"pompes", challenge_id:Challenge.find_by_goal("courir un m
 	Challenge.find_by_goal("courir un marathon").categories << [Category.find_by_category_name("sport"), Category.find_by_category_name("running")]
 	Challenge.find_by_goal("courir un marathon").categories << [Category.find_by_category_name("sport"), Category.find_by_category_name("beginner")]
 
-
-
 	User.find_by_username("Bernard").attended_challenges << Challenge.find_by_goal("courir un marathon")
 	User.find_by_username("Caroline").attended_challenges << Challenge.find_by_goal("courir un marathon")
 

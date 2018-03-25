@@ -21,8 +21,6 @@ class UsersController < ApplicationController
 	def setbest
 		@challenge = Challenge.find(params[:id])
 		@subgoal_index = get_subgoal_index
-		byebug
-
 	end
 
 private
