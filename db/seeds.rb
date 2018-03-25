@@ -44,11 +44,11 @@ Unit.create(unit_name:"pompes", challenge_id:Challenge.find_by_goal("courir un m
 	Subgoal.find_by_subgoal_string("courir 10 km en moins de 50mn").targets << Target.create(value:"10", unit_id:Unit.find_by_unit_name("kilometres").id)
 	Subgoal.find_by_subgoal_string("courir 10 km en moins de 50mn").targets << Target.create(value:"50", unit_id:Unit.find_by_unit_name("minutes").id)
 
-	Category.create(category_name:"sport")
-	Category.create(category_name:"running")
-	Category.create(category_name:"music")
-	Category.create(category_name:"art")
-	Category.create(category_name:"beginner")
+	Category.create(category_name:"sport", id:1)
+	Category.create(category_name:"running", id:2)
+	Category.create(category_name:"music", id:3)
+	Category.create(category_name:"art", id:4)
+	Category.create(category_name:"beginner", id:5)
 
 	Challenge.find_by_goal("courir un marathon").categories << [Category.find_by_category_name("sport"), Category.find_by_category_name("running")]
 	Challenge.find_by_goal("courir un marathon").categories << [Category.find_by_category_name("sport"), Category.find_by_category_name("beginner")]
