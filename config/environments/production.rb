@@ -1,6 +1,8 @@
 Rails.application.configure do
-  # Settings specified here will take precedence over those in config/application.rb.
 
+  config.web_socket_server_url = "wss://radiant-fortress-64494.herokuapp.com/cable" 
+  # Settings specified here will take precedence over those in config/application.rb.
+  config.action_cable.allowed_request_origins = ['https://radiant-fortress-64494.herokuapp.com', 'https://radiant-fortress-64494.herokuapp.com']
   # Code is not reloaded between requests.
   config.cache_classes = true
 

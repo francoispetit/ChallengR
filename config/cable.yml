@@ -6,5 +6,6 @@ test:
 
 production:
   adapter: redis
-  url: redis://localhost:6379/1
+  url: redis://redistogo:7e17fbb2c77db3b2556c861db607b391@tarpon.redistogo.com:9180/
+
   channel_prefix: challengr_production

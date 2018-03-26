@@ -13,9 +13,10 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
-  has_many :r_convs, class_name: 'Conversation', foreign_key: 'sender_id', dependent: :destroy
-  has_many :s_convs, class_name: 'Conversation', foreign_key: 'receiver_id', dependent: :destroy
-
+  has_many :messages
+  has_many :subscriptions
+  has_many :chats, through: :subscriptions
+  
   has_many :organized_challenges, class_name: "Challenge", foreign_key: "organizer_id"
   has_many :participations
   has_many :attended_challenges, class_name: "Challenge", through: :participations, source: :challenge
@@ -33,4 +34,15 @@ class User < ApplicationRecord
 
   validates :password, presence: true, length: { minimum: 6 }
 
+
+  def existing_chats_users
+    existing_chat_users = []
+    self.chats.each do |chat|
+    existing_chat_users.concat(chat.subscriptions.where.not(user_id: self.id).map {|subscription| subscription.user})
+    end
+
+    existing_chat_users.uniq
+  end
+
 end
+

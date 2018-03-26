@@ -23,6 +23,7 @@ gem 'rabl-rails'
 gem 'oj'
 gem 'kaminari'
 gem 'rollbar'
+gem 'redis'
 
 
 group :development, :test do
