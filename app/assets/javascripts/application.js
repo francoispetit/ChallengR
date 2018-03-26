@@ -46,7 +46,7 @@ $('#resultform').hide();
       e.preventDefault();
     });
 
-  // Clic sur Form - Cache les div et affiche le bilan
+  // Clic sur Form - Cache les div et affiche le form
     $('#btn-form-result').on("click", function(e){
       $('li').removeClass('active');
       $(this).parent('li').addClass("active");
@@ -81,5 +81,5 @@ $(document).on('turbolinks:load', function() {
     e.preventDefault();
     $(this).prev('.reply-form-challenge').toggle(); // Show form on button click
   });
-  
+
 });

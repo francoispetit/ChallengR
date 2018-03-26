@@ -23,7 +23,7 @@ class UsersController < ApplicationController
 
   def unitboard
           @challenge = Challenge.find(params[:challid])
-    @unit = Unit.find(params[:id])
+    	@unit = Unit.find(params[:id])
           flash[:unitgraph] = @unit
           session[:chall] = @challenge
           redirect_to dashboard_path
@@ -39,7 +39,7 @@ class UsersController < ApplicationController
     @keyswithsubid = []
     params.keys.each do |key|
   		@keyswithsubid << key unless ["utf8","authenticity_token","challid","commit","controller","action","id"].include?(key)
-			
+
 		end
 		@subgoal = @challenge.subgoals.find(@keyswithsubid.first.gsub(/[^0-9]/, ""))
 
