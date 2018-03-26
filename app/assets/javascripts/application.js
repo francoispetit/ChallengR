@@ -81,5 +81,5 @@ $(document).on('turbolinks:load', function() {
     e.preventDefault();
     $(this).prev('.reply-form-challenge').toggle(); // Show form on button click
   });
-  
+
 });

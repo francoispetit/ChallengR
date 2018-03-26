@@ -30,7 +30,7 @@ Rails.application.routes.draw do
 	post "challenge/join_challenge/:id", to: "challenges#join_challenge", as: "join_challenge"
 
         post "challenge/unjoin_challenge/:id", to: "challenges#unjoin_challenge", as: "unjoin_challenge"
-  post "user/setbest" => "users#setbest", as:"setbest"
+  post "/setbest" => "users#setbest", as:"setbest"
 
 
 #  get "user/:id/:chid", to: "users#getchallenge", as:"getchallenge"
