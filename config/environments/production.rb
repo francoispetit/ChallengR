@@ -1,6 +1,6 @@
 Rails.application.configure do
 
-  config.web_socket_server_url = "wss://orbit-project.herokuapp.com/cable" 
+  config.web_socket_server_url = "wss://orbit-project.herokuapp.com/cable"
   # Settings specified here will take precedence over those in config/application.rb.
   config.action_cable.allowed_request_origins = ['https://orbit-project.herokuapp.com/', 'https://orbit-project.herokuapp.com/']
   # Code is not reloaded between requests.
