@@ -39,7 +39,7 @@ class UsersController < ApplicationController
     @keyswithsubid = []
     params.keys.each do |key|
   		@keyswithsubid << key unless ["utf8","authenticity_token","challid","commit","controller","action","id"].include?(key)
-			
+
 		end
 		@subgoal = @challenge.subgoals.find(@keyswithsubid.first.gsub(/[^0-9]/, ""))
 
@@ -64,9 +64,15 @@ class UsersController < ApplicationController
 private
 
 	def check_user
-		if current_user.attended_challenges == [] || current_user == nil || current_user.participations.first.stats[:subgoals_bests] == nil
-			redirect_to root_path
-			flash[:notice] = "You must avoir un challenge"
+		b=0
+		current_user.participations.each do |p|
+			unless p.stats[:subgoals_bests] == nil
+				b+=1
+			end
+		end
+		if current_user.attended_challenges == [] || current_user == nil || b == 0
+			  redirect_to root_path
+			  flash[:notice] = "You must avoir un challenge"
 		end
 		@user = current_user
 		@challenges = @user.attended_challenges
@@ -74,10 +80,10 @@ private
 	end
 
 	def get_challenge
-			if params[:chal_id]==nil
+			if params[:challid]==nil
 				@challenge = current_user.attended_challenges.first
 			else
-				@challenge = Challenge.find(params[:chal_id])
+				@challenge = Challenge.find(params[:challid])
 			end
 			@stats = @participations.find_by_challenge_id(@challenge.id).stats
 	end

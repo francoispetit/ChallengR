@@ -41,13 +41,13 @@ Rails.application.routes.draw do
 
 	get "user/:id", to: "users#dashboard", as:"dashboard"
   post "user/:id/:challid" => "users#dashboard"
-  
+
   mount ActionCable.server => '/cable'
 
   resources :messages, only:[:create]
 
 #	get "user/:id", to: "users#show", as:"profile"
-  devise_for :users 
+  devise_for :users
    resources :chats, only: [:index, :show, :create]
 	resources :challenges do
 		resources  :comments
@@ -58,7 +58,7 @@ Rails.application.routes.draw do
 
 	resources :subgoals
 
-       
+
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
