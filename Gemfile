@@ -22,6 +22,7 @@ gem 'gon'
 gem 'rabl-rails'
 gem 'oj'
 gem 'kaminari'
+gem 'rollbar'
 
 
 group :development, :test do

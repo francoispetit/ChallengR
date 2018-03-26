@@ -1,6 +1,6 @@
   <% index = 0%>
   <% @challenge.subgoals.each do |sub| %>
-    <%= form_tag("setbest", method: "post") do %>
+    <%= form_tag("/setbest", method: "post") do %>
 <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
 <%= hidden_field_tag :challid, @challenge.id %>
     <p style="font-size:14px;font-weight:bold">Objectif : <%= sub.subgoal_string %></p>
@@ -19,7 +19,7 @@
       <% sub.targets.each do |tar| %>
         <tr>
           <td><%=Unit.find(tar[:unit_id]).unit_name%></td>
-          <td><%=tar[:target_value]%></td>
+          <td><%=tar[:value]%></td>
           <td>
             <%if @stats[:subgoals_bests][index] != nil%>
               <%= @stats[:subgoals_bests][index][:best][Unit.find(tar[:unit_id]).unit_name.to_sym][0]%>
@@ -33,6 +33,7 @@
       <tbody>
     </table>
     <br/>
+    <%= hidden_field_tag :authenticity_token, form_authenticity_token -%>
     <%= submit_tag("Envoyer ces résultats", class:"btn btn-outline-success pull-left") %>
     <br/>
     <br/>
