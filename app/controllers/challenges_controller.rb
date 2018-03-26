@@ -135,7 +135,7 @@ end
           copy_challenge_to_vip(@challenge)
           @challenge.attendees << @challenge.organizer
           flash[:success] = "challenge créé"
-          redirect_to edit_units_path
+          render 'show'
         else
           flash[:danger] = "Challenge créé, mais création de subgoals échouée!"
           render 'show'

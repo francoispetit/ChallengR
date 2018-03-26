@@ -1,26 +1,28 @@
-
 <div class="container">
 
   <!-- Jumbotron Header -->
   <header class="jumbotron my-4 mt-5">
     <div class="row">
       <div class="col-lg-6 mb-2">
-      <h3 class="display-3">Challenge-toi !</h3>
-      <p class="lead">ChallengR t'aide à franchir le pas</p>
-      <% if user_signed_in? %>
-        <%= link_to "Je crée mon challenge", new_challenge_path, class:'btn btn-success btn-sm'%>
-          <% else %>
-            <%= link_to "Connecte-toi", new_user_session_path, class:'btn btn-success btn-sm'%>
-              <%= link_to "Pas encore inscrit ? Enregistre-toi", new_user_registration_path, class:'btn btn-info btn-sm'%>
-                <% end %>
-<% if @challenges.first.organizer.username != "The Red User" %>
-<%= link_to "Voir les Challenges Vierges", red_index_path, class:'btn btn-success btn-sm' %>
-<% else %>
-<%= link_to "Voir les Challenges en cours", root_path, class:'btn btn-success btn-sm' %>
-<%end%>
+        <h3 class="display-3">Challenge-toi !</h3>
+        <hr class="my-4">
+        <p class="lead">ChallengR t'aide à franchir le pas</p>
+        <% if user_signed_in? %>
+          <%= link_to "Je crée mon challenge", new_challenge_path, class:'btn btn-success btn-sm'%>
+        <% else %>
+          <%= link_to "Connecte-toi", new_user_session_path, class:'btn btn-success btn-sm'%>
+        </br>
+          <%= link_to "Pas encore inscrit ? Enregistre-toi", new_user_registration_path, class:'btn btn-info btn-sm'%>
+        </br>
+        <% end %>
+        <% if @challenges.first.organizer.username != "The Red User" %>
+          <%= link_to "Voir les Challenges Vierges", red_index_path, class:'btn btn-success btn-sm' %>
+        <% else %>
+          <%= link_to "Voir les Challenges en cours", root_path, class:'btn btn-success btn-sm' %>
+        <%end%>
       </div>
 
-      <div class="col-lg-6 mb-2">
+      <div style="overflow: hidden" class="col-lg-6 mb-2">
         <%= render 'partials/search_title' %>
       </div>
     </div>
@@ -28,17 +30,15 @@
 
   <!-- Page Features -->
 
-
-
   <div class="container">
 
-  <div class="row">
-    <% @challenges.each do |chal| %>
+    <div class="row">
+      <% @challenges.each do |chal| %>
 
-      <div class="col-lg-3 col-md-6 mb-4">
-        <div class="card h-100">
+        <div class="col-lg-3 col-md-6 mb-4">
+          <div class="card h-100">
 
-          <%= image_tag(chal.image.url, height:"400", class:"card-img-top img-fluid") %>
+            <%= image_tag(chal.image.url, height:"400", class:"card-img-top img-fluid") %>
             <div class="card-body">
               <h5 class="card-title">
                 <%= chal.goal %>
@@ -46,10 +46,14 @@
               <p>
                 <span class="badge badge-pill badge-primary">
                   <%= chal.attendees.size %>
-                </span> participants</p>
+                </span>
+                participants</p>
               <p class="font-italic">Description du challenge</p>
               <p>Organisé par
-                <span class="badge badge-pill badge-secondary" <% if chal.organizer.username == "The Red User" %>style="background-color:turquoise; color:black;"<%end%> >
+                <% if chal.organizer.username == "The Red User" %>
+                  <span style="background-color:turquoise; color:black;"class="badge badge-pill badge-secondary" >
+                <% end %>
+                  <span class="badge badge-pill badge-secondary" >
                   <%= chal.organizer.username %>
                 </span>
               </p>
@@ -60,15 +64,15 @@
                 <span class="badge badge-pill badge-danger">
                   <%= cat.category_name %>
                 </span>
-                <%end%>
+              <%end%>
             </div>
             <div class="card-footer">
               <%= link_to "En savoir plus", challenge_path(chal), class:"btn btn-primary" %>
             </div>
+          </div>
         </div>
-      </div>
       <% end %>
 
+    </div>
+    <!-- /.row -->
   </div>
-  <!-- /.row -->
-</div>
