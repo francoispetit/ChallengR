@@ -15,14 +15,15 @@
     <div class="card mt-4">
 
       <% if current_user != nil %>
-        <% if current_user == @challenge.organizer %>
-          <%= link_to "Je modifie le challenge", edit_challenge_path, class:"btn btn-info m-1 "%>
-          <%= link_to "Delete", @challenge, class:"btn btn-danger m-1 ", method: :delete, data: { confirm: "Really?" } %>
+          <%if current_user.role == "admin" || @challenge.organizer == current_user %>
+            <%= link_to "Je modifie le challenge", edit_challenge_path, class:"btn btn-info m-1 "%>
+            <%= link_to "Delete", @challenge, class:"btn btn-danger m-1 ", method: :delete, data: { confirm: "Really?" } %>
           <%elsif @challenge.attendees.include?(current_user)%>
             <%= link_to "Je ne participe plus :(", unjoin_challenge_path, class:"btn btn-danger m-1 ", method: :post %>
           <%elsif @challenge.organizer.username != "The Red User" %>
             <%= link_to "Je participe", join_challenge_path, class:"btn btn-success m-1 ", :method => :post %>
           <%end %>
+        <% else %>
           <%= link_to "Inscris toi pour participer!", new_user_session_path, class:"btn btn-success m-1 "%>
         <%end%>
       </div>

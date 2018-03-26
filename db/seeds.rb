@@ -25,16 +25,15 @@ Target.delete_all
         a.save
 
 	Challenge.create(goal:"courir un marathon", image_url:"jogging800.jpg", deadline:"2018-04-01", organizer_id:User.find_by_username("Albert").id)
-	Challenge.create(goal:"sauter comme un Yamakazi", image_url:"jump800.jpg", deadline:"2018-05-01", organizer_id:User.find_by_username("Albert").id)
-	Challenge.create(goal:"danser les classiques", image_url:"dance800.jpg", deadline:"2018-06-01", organizer_id:User.find_by_username("Albert").id)
-	Challenge.create(goal:"faire pousser des tomates", image_url:"tomatoe800.jpg", deadline:"2018-06-01", organizer_id:User.find_by_username("Albert").id)
+	Challenge.create(goal:"développer mon activité commerciale", image_url:"jump800.jpg", deadline:"2018-05-01", organizer_id:User.find_by_username("Albert").id)
+	Challenge.create(goal:"apprendre le yoga", image_url:"dance800.jpg", deadline:"2018-06-01", organizer_id:User.find_by_username("Albert").id)
+	Challenge.create(goal:"maîtriser le chinois", image_url:"tomatoe800.jpg", deadline:"2018-06-01", organizer_id:User.find_by_username("Albert").id)
 	Challenge.create(goal:"monter sa startup", image_url:"startup800.jpg", deadline:"2018-06-01",organizer_id:User.find_by_username("Albert").id)
-	Challenge.create(goal:"déguiser un crime", image_url:"crime800.jpg", deadline:"2018-06-01",organizer_id:User.find_by_username("Caroline").id)
 
 
-Unit.create(unit_name:"kilometres", challenge_id:Challenge.find_by_goal("courir un marathon").id)
-Unit.create(unit_name:"minutes", challenge_id:Challenge.find_by_goal("courir un marathon").id)
-Unit.create(unit_name:"pompes", challenge_id:Challenge.find_by_goal("courir un marathon").id)
+	Unit.create(unit_name:"kilometres", challenge_id:Challenge.find_by_goal("courir un marathon").id)
+	Unit.create(unit_name:"minutes", challenge_id:Challenge.find_by_goal("courir un marathon").id)
+	Unit.create(unit_name:"pompes", challenge_id:Challenge.find_by_goal("courir un marathon").id)
 
 	Challenge.find_by_goal("courir un marathon").subgoals << Subgoal.create(subgoal_string:"courir 10 km en moins d'1h", deadline:"2018-04-10", challenge_id:"1")
 	Challenge.find_by_goal("courir un marathon").subgoals << Subgoal.create(subgoal_string:"courir 10 km en moins de 50mn", deadline:"2018-04-20", challenge_id:"1")

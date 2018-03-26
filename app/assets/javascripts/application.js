@@ -17,7 +17,7 @@
 //= require js/chartkick
 //= require turbolinks
 //= require nested_form_fields
-//= require_tree ./channels
+//= require_tree.
 
 
 
@@ -62,8 +62,17 @@ $('#resultform').hide();
       $('#graph').show();
       e.preventDefault();
     });
+
+
+  // Clic sur Unité - Recharge le graph2 avec une seule unité dans data
+  $('#menu-unit .dropdown-item').on("click", function(e){
+    $('#graph_dynamic').html("#{escape_javascript(render partial: 'dash_graph2')}");
+    e.preventDefault();
+  });
+
 });
 });
+
 
 
 //Sur challenge#show, formulaire de commentaire
