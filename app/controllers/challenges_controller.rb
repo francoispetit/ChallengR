@@ -83,6 +83,8 @@ end
       end
       @participation.save
     end
+<<<<<<< HEAD
+=======
 
     redirect_to challenge_path(@challenge.id)
 
@@ -91,6 +93,7 @@ end
 
   def addtargetstosubgoals
     @subgoals = @challenge.subgoals
+>>>>>>> master
   end
 
   def update
