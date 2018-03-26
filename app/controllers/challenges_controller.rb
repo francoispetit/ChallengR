@@ -18,6 +18,7 @@ class ChallengesController < ApplicationController
   end
 
   def show
+
     @challenge = Challenge.find(params[:id])
   end
 
@@ -134,7 +135,7 @@ end
           copy_challenge_to_vip(@challenge)
           @challenge.attendees << @challenge.organizer
           flash[:success] = "challenge créé"
-          redirect_to @challenge
+          render 'show'
         else
           flash[:danger] = "Challenge créé, mais création de subgoals échouée!"
           render 'show'

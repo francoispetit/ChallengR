@@ -1,15 +1,27 @@
+
+
     <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top mb-5">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark  mb-5">
       <div class="container">
         <%= link_to "ChallengR", root_path, class:'navbar-brand'%>
         <% if user_signed_in? %>
         <p style="color:grey;font-weight:bold;"><%= current_user.username %></p>
         <% end %>
 
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
 
+
+    <div class="m-2" style="overflow: visible; max-height:40px;"><%= link_to(image_tag("orbitlogo2.png", width:"140", height:"140"), root_path) %></div>
+    <div class="text-center">
+    <% if user_signed_in? %>
+      <span class="align-right">
+        <p class="text-center" style="color:grey;font-weight:bold;">👐 Bienvenue <%= current_user.username %> !</p>
+      </span>
+    <% end %>
+    </div>
+
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
 
         <div class="collapse navbar-collapse" id="navbarResponsive">
           <ul class="navbar-nav ml-auto">
@@ -18,6 +30,10 @@
                 <span class="sr-only">(current)</span>
             </li>
             <% if user_signed_in? %>
+            </li>
+              <li class="nav-item">
+                <%= link_to "<span data-feather='inbox'></span> Messages".html_safe, chats_path(current_user.id), class:'nav-link'%>
+              </li>
               <li class="nav-item">
                 <%= link_to "<span data-feather='trending-up'></span> Mes résultats".html_safe, dashboard_path(current_user), class:'nav-link'%>
               </li>
@@ -30,10 +46,10 @@
               </li>
               <li class="nav-item">
                 <%= link_to "<span data-feather='user'></span> S'inscrire".html_safe, new_user_registration_path, class:'nav-link'%>
-              </li>
+              
             <% end %>
           </ul>
 
-        </div>
-      </div>
-    </nav>
+    </div>
+</nav>
+</div>
