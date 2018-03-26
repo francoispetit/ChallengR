@@ -4,19 +4,22 @@
   <header class="jumbotron my-4 mt-5">
     <div class="row">
       <div class="col-lg-6 mb-2">
-        <h3 class="display-3">Challenge-toi !</h3>
+        <h4 class="display-5">Plus vite !</h4>
+        <h4 class="display-4">Plus haut !</h4>
+        <h4 class="display-4">Plus fort !</h4>
         <hr class="my-4">
-        <p class="lead">ChallengR t'aide à franchir le pas</p>
+        <p class="lead">Envie de te dépasser ?<br />Orbit te place sur la bonne trajectoire</p>
+        <p>En rejoignant nos challenges ou en créant le tien, tu peux mesurer tes progrès et compter sur l'appui des autres participants.</p>
         <% if user_signed_in? %>
-          <%= link_to "Je crée mon challenge", new_challenge_path, class:'btn btn-success btn-sm'%>
+          <%= link_to "Je crée mon challenge", new_challenge_path, class:'btn btn-success btn-sm mb-1'%>
         <% else %>
-          <%= link_to "Connecte-toi", new_user_session_path, class:'btn btn-success btn-sm'%>
+          <%= link_to "Connecte-toi", new_user_session_path, class:'btn btn-success btn-sm mb-1'%>
         </br>
-          <%= link_to "Pas encore inscrit ? Enregistre-toi", new_user_registration_path, class:'btn btn-info btn-sm'%>
+          <%= link_to "Pas encore inscrit ? Enregistre-toi", new_user_registration_path, class:'btn btn-info btn-sm mb-1'%>
         </br>
         <% end %>
         <% if @challenges.first.organizer.username != "The Red User" %>
-          <%= link_to "Voir les Challenges Vierges", red_index_path, class:'btn btn-success btn-sm' %>
+          <%= link_to "Partir d'un modèle", red_index_path, class:'btn btn-success btn-sm' %>
         <% else %>
           <%= link_to "Voir les Challenges en cours", root_path, class:'btn btn-success btn-sm' %>
         <%end%>
@@ -44,7 +47,7 @@
                 <%= chal.goal %>
               </h5>
               <p>
-                <span class="badge badge-pill badge-primary">
+                <span class="badge badge-pill badge-success">
                   <%= chal.attendees.size %>
                 </span>
                 participants</p>
@@ -61,13 +64,13 @@
             </div>
             <div class="card-footer">
               <% chal.categories.each do |cat| %>
-                <span class="badge badge-pill badge-danger">
+                <span class="badge badge-pill badge-success">
                   <%= cat.category_name %>
                 </span>
               <%end%>
             </div>
             <div class="card-footer">
-              <%= link_to "En savoir plus", challenge_path(chal), class:"btn btn-primary" %>
+              <%= link_to "En savoir plus", challenge_path(chal), class:"btn btn-sm btn-success" %>
             </div>
           </div>
         </div>
