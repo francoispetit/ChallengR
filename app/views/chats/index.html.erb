@@ -1,26 +1,52 @@
-<ul>
+<div class="container-fluid chats-container">
+ <div class="chats-bloc-left"> 
+ <table class="table table-borderless table-hover message-table "> 
+ <tr>
+    <th scope="col"> Conversation avec</th>
+    <th scope="col"> Dernier message à</th>
+
+</tr>
+
+   <tr>
  <% if @existing_chats_users %>
    <% @existing_chats_users.each do |other_user| %>
     <% if other_user != current_user %>
-      <li>
-        <%= link_to chat_path(current_user, :other_user => other_user.id) do %>
-        <%= other_user.username %>
+        <td><%= link_to chat_path(current_user, :other_user => other_user.id) do %></td>
+        <td><%= other_user.username %></td>
         <% end %>
-      </li>
      <% end %>
    <% end %>
   <% end %>
-</ul>
+  </tr>
+  </div>
+  </table>
+
+<div class="conv-bloc-right">  
+    <div class="ui segment">
+
 All Users:
-<ul>
+ <table class="table usertable table-borderless table-hover">
+ <tr class="header">
+<tr>
+<th scope="col"> Envie de discuter ?</th>
+</tr>
+ <tr>
+
+
+
+
+
   <% User.all.each do |other_user| %>
    <% if other_user != current_user %>
-     <li>
-       <%= link_to chat_path(current_user, :other_user => other_user.id) do %>
-       <%= other_user.username %>
-       <% end %>
-     </li>
+     
+    <tr>
+   <td> <%= link_to chat_path(current_user, :other_user => other_user.id) do %><%= other_user.username %></td>
+    </tr>   
+        <% end %>
+        <% end %>
     <% end %>
-  <% end %>
-</ul>
-<%= link_to "Logout",  destroy_user_session_path(current_user.id), method: :delete  %>
+    <%= link_to "Logout",  destroy_user_session_path(current_user.id), method: :delete  %>
+   </table>
+    </div>
+</div>
+  

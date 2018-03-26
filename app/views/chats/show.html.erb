@@ -1,6 +1,9 @@
-<div class="scroll">
+<div class="container">
+<div class="card">
   <h4>Chat with <%= @other_user.username %></h4>
   <% if @chat.messages.any? %>
+
+
     <div id="messages">
       <%= render partial: 'messages/message', collection: @chat.messages.order(id: :asc)%>
     </div>
@@ -8,11 +11,12 @@
     <div id="messages">
     </div>
   <%end%>
-</div>
 
 <%= render partial: 'messages/message_form', locals: {message: @message, chat: @chat}%>
 
-<p><%= link_to "Back to list of chats", chats_path(current_user.id) %></p>
+<p><%= link_to "Retourner à la liste des discussions", chats_path(current_user.id) %></p>
+</div>
+</div>
 
 <script>
   createMessageChannel();
