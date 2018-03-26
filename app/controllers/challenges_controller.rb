@@ -83,8 +83,6 @@ end
       end
       @participation.save
     end
-<<<<<<< HEAD
-=======
 
     redirect_to challenge_path(@challenge.id)
 
@@ -93,7 +91,6 @@ end
 
   def addtargetstosubgoals
     @subgoals = @challenge.subgoals
->>>>>>> master
   end
 
   def update
@@ -214,7 +211,7 @@ end
         @participation.stats[:subgoals_bests][x][:name] = @challenge.subgoals[x].subgoal_string
         @participation.stats[:subgoals_bests][x][:best] = {}
           @challenge.units.each do |unit|
-            @participation.stats[:subgoals_bests][x][:best][unit.unit_name.to_sym] = [0,@challenge.organizer.participations.find_by_challenge_id(@challenge.id).stats[:subgoals_bests][x][:best][unit.unit_name.to_sym]]
+            @participation.stats[:subgoals_bests][x][:best][unit.unit_name.to_sym] = [0,@challenge.organizer.participations.find_by_challenge_id(@challenge.id).stats[:subgoals_bests][x][:best][unit.unit_name.to_sym][1]]
         end
       end
       @participation.save
