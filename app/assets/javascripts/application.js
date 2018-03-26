@@ -17,7 +17,7 @@
 //= require js/chartkick
 //= require turbolinks
 //= require nested_form_fields
-//= require_tree.
+//= require_tree ./channels
 
 
 
