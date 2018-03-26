@@ -1,0 +1,29 @@
+<% if !flash.empty? %>
+  <div class="row justify-content-around">
+    <div class="col-lg-2"></div>
+    <div class="col-lg-6 center">
+      <div id="flash">
+        <% if flash[:error].present?%>
+          <div class="alert alert-danger alert-message alert-message-common" role="alert">
+            <%= flash[:error].html_safe %>
+          </div>
+        <% end %>
+        <% if flash[:notice].present? %>
+          <div class="alert alert-success alert-message alert-message-common" role="alert">
+            <%= flash[:notice].html_safe %>
+          </div>
+        <% end %>
+        <% if flash[:alert].present? %>
+          <div class="alert alert-danger alert-message alert-message-common" role="alert">
+            <%= flash[:alert].html_safe %>
+          </div>
+        <% end %>
+        <% if flash[:success].present?%>
+          <div class="alert alert-success alert-message alert-message-common" role="alert">
+            <%= flash[:success].html_safe %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+<% end %>

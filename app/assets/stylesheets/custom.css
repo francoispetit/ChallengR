@@ -1,5 +1,6 @@
 
 
+
 html body {
   width: 100%;
   height: 100%;  
@@ -19,78 +20,202 @@ html body {
 
 
 
-/* CONVERSATION VIEWS*/
 
 
-.conv-container {
-   display: flex;
-   flex-direction: row;
+/* Signup */
+
+
+.stylish-form
+    {
+      background-image:url('https://coresites-cdn.factorymedia.com/mpora_new/wp-content/uploads/2016/02/Mountaineering-Equipment-Mountain-Ice-Climbing-Boots-Ireland-Books.jpg');
+      background-size:cover;
+      margin-top:0;
+      padding:8%;
+      height:100%;
+    }
+    .stylish-form h2 {
+      font-size:3em;
+      color:orange;
+      text-shadow: 2px 2px 4px #000000;
+      font-weight: bold;
+      margin-top:50px;
+
+    }
+    .font_white {
+      color:#fff !important;
+    }
+    .mar20
+    {
+      margin:20px;
+    }
+    .inner-section {
+      background-color:rgba(63,191,191, 2);
+      width:50%!important;
+      display:flex;
+      flex-direction: column;
+      align-items: center;
+      margin:0 auto;
+    }
+    .inside-form{
+      border-radius:8px;
+      padding-top:30px;
+      padding-bottom:30px;
+    }
+    .inside-form h2 {
+      font-weight:700;
+    }
+    .inside-form ul {
+      list-style-type:none;
+      text-align:center;
+      margin-top:30px;
+    }
+
+    .input-group, .form-group {
+      margin-bottom: 10px;
+    }
+    .input-group-addon {
+      background-color: rgba(255, 255, 255, 0.1);
+      border: none;
+      padding-left: 1em;
+      padding-right:1em;
+      color: #FFFFFF;
+      border-radius:25px 0px 0px 25px;
+    }
+    .form-sign-devise,.form-sign-devise:focus,.form-sign-devise:hover
+    {
+      background-color: rgba(255, 255, 255, 0.1);
+      color: #FFFFFF;
+      border-radius:25px;
+      border:none;
+      font-size:14px;
+    }
+    ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+      color: grey !important;
+    }
+    ::-moz-placeholder { /* Firefox 19+ */
+      color: grey !important;
+    }
+    :-ms-input-placeholder { /* IE 10+ */
+      color: grey !important;
+    }
+    :-moz-placeholder { /* Firefox 18- */
+      color: grey !important;
+    }
+    .inside-form .legend {
+      color:white;
+      font-size: 10px;
+      text-align: center;
+    }
+
+    .footer {
+      margin-top:40px;
+      margin-bottom:40px;
+    }
+    input::placeholder {
+      color: grey !important;
+    }
+    .btn-lg {
+      font-size: 1em;
+      border-radius: 0.25rem;
+      padding: 15px 48px;
+    }
+    .btn-round {
+      border-width: 1px;
+      border-radius: 30px !important;
+      padding: 11px 23px;
+    }
+    .btn-neutral,.btn-neutral:focus,.btn-neutral:hover {
+      background-color: #FFFFFF;
+      color: #f96332;
+    }
+/* Index challenges */
+
+.searchchallenge {
+  max-height:100px;
+  box-sizing: border-box;
 }
 
-.conv-bloc-left {
-    width: 60%
+#myInput {
+  background-image: url('/css/searchicon.png');
+  background-position: 10px 12px;
+  background-repeat: no-repeat;
+  width: 100%;
+  font-size: 16px;
+  padding: 12px 20px 12px 40px;
+  border: 1px solid #ddd;
+  margin-bottom: 12px;
 }
 
-.conv-bloc-right {
-    width: 30%;
+#myUL {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  overflow: auto;
 }
 
-.table-borderless td, .table-borderless th, .table-borderless th {
-    border: 0 !important
+#myUL li a {
+  border: 1px solid #ddd;
+  margin-top: -1px; /* Prevent double borders */
+  background-color: #f6f6f6;
+  padding: 12px;
+  text-decoration: none;
+  font-size: 18px;
+  color: black;
+  display: block
 }
 
-/* END OF CONVERSATION VIEWS */
-/*SEARCHBAR FOR CONVERSATION VIEW */
-
-/*.item {
-    max-width: 40%;
-} */
-
-
-#searchbar {
-    background-image: url("/css/searchicon.png");
-    /* Add a search icon to input */
-    background-position: 10px 12px;
-    /* Position the search icon */
-    background-repeat: no-repeat;
-    /* Do not repeat the icon image */
-    width: 100%;
-    /* Full-width */
-    font-size: 16px;
-    /* Increase font-size */
-    padding: 12px 20px 12px 40px;
-    /* Add some padding */
-    border: 1px solid #ddd;
-    /* Add a grey border */
-    margin-bottom: 12px;
-    /* Add some space below the input */
+#myUL li a:hover:not(.header) {
+  background-color: #eee;
 }
 
-.usertable {
-    border-collapse: collapse;
-    /* Collapse borders */
-    width: 100%;
-    /* Full-width */
-    /* Add a grey border */
-    font-size: 18px;
-    /* Increase font-size */
+/* DASHBOARD */
+
+  /* Challenge summary */
+
+.hidden{
+  display:none;
 }
 
-.usertable th,.usertable td {
-    text-align: left;
-    /* Left-align text */
-    padding: 12px;
-    /* Add padding */
-}
+	/* Progress bar */
 
-.usertable tr {
-    /* Add a bottom border to all table rows */
-}
+  progress[value]{
+      -webkit-apperance: none;
+      apperance: none;
 
-.usertable tr.header,
-.usertable tr:hover {
-    /* Add a grey background color to the table header and on hover */
-    background-color: #f1f1f1;
-}
+      width: 250px;
+      height: 20px;
+  }
 
-/* END OF THE SEARCHBAR FOR CONVERSATION VIEW */
+  progress{
+          -webkit-apperance: progress-bar;
+          box-sizing: border-box;
+          display:inline-bloack;
+          height: 1em;
+          width: 10em;
+          vertical-align: -0.2em;
+  }
+
+  input, textarea, keygen, button, isindex, user agent stylesheet meter, progress{
+      -webkit-writing-mode: horizontal-tb;
+  }
+
+  progress[value]::-webkit-progress-bar{
+      background-color: #eee;
+      border-radius: 2px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.25) inset;
+  }
+
+  progress[value]::-webkit-progress-value{
+      background-image:
+          -webkit-linear-gradient(-45deg,
+                              transparent 33%, rgba(0, 0, 0, .1) 33%,
+                              rgba(0, 0, 0, .1) 66%, transparent 66%),
+          -webkit-linear-gradient(top,
+                              rgba(255, 255, 255, .25),
+                              rgba(0, 0, 0, .25)),
+          -webkit-linear-gradient(left, #09c, #f44);
+
+      border-radius: 2px;
+      background-size: 35px 20px, 100% 100%, 100% 100%;
+  }
+

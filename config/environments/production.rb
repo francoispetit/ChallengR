@@ -1,6 +1,8 @@
 Rails.application.configure do
-  # Settings specified here will take precedence over those in config/application.rb.
 
+  config.web_socket_server_url = "wss://orbit-project.herokuapp.com/cable" 
+  # Settings specified here will take precedence over those in config/application.rb.
+  config.action_cable.allowed_request_origins = ['https://orbit-project.herokuapp.com/', 'https://orbit-project.herokuapp.com/']
   # Code is not reloaded between requests.
   config.cache_classes = true
 
@@ -88,13 +90,14 @@ Rails.application.configure do
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
-   config.paperclip_defaults = {
+  config.paperclip_defaults = {
   storage: :s3,
   s3_credentials: {
-    bucket: ENV.fetch('S3_BUCKET_NAME'),
-    access_key_id: ENV.fetch('AWS_ACCESS_KEY_ID'),
-    secret_access_key: ENV.fetch('AWS_SECRET_ACCESS_KEY'),
-    s3_region: ENV.fetch('AWS_REGION'),
+   s3_host_name: "s3-#{ENV['AWS_REGION']}.amazonaws.com",
+   bucket: ENV.fetch('S3_BUCKET_NAME'),
+   access_key_id: ENV.fetch('AWS_ACCESS_KEY_ID'),
+   secret_access_key: ENV.fetch('AWS_SECRET_ACCESS_KEY'),
+   s3_region: ENV.fetch('AWS_REGION'),
   }
-}
+  }
 end

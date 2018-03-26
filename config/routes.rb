@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
 
+
+
+  get 'unitboard/:id/:challid' => 'users#unitboard', as:"unit_graph"
+
   get 'challenges/:id/clonechall' => 'challenges#clone_challenge'
 
   post ':id/preupdateunits' => "challenges#preupdate_units", as:"preupdate_units"
@@ -16,6 +20,8 @@ Rails.application.routes.draw do
 
   get 'challenges/:id/categories/:catid' => 'challenges#set_category'
 
+  get 'challenges/redindex' => 'challenges#red_index', as:"red_index"
+
   post 'categories/create/:challid' => 'categories#create'
 
   post 'categories/update'
@@ -23,12 +29,26 @@ Rails.application.routes.draw do
   post 'categories/delete'
 
   	root "challenges#index"
-		get 'challenges/redindex' => 'challenges#red_index'
 
 	post "challenge/join_challenge/:id", to: "challenges#join_challenge", as: "join_challenge"
 
-	get "user/:id", to: "users#show", as:"profile"
-	devise_for :users
+        post "challenge/unjoin_challenge/:id", to: "challenges#unjoin_challenge", as: "unjoin_challenge"
+  post "/setbest" => "users#setbest", as:"setbest"
+
+
+#  get "user/:id/:chid", to: "users#getchallenge", as:"getchallenge"
+  get "user/:id/profile", to: "users#show", as:"profile"
+
+	get "user/:id", to: "users#dashboard", as:"dashboard"
+  post "user/:id/:challid" => "users#dashboard"
+  
+  mount ActionCable.server => '/cable'
+
+  resources :messages, only:[:create]
+
+#	get "user/:id", to: "users#show", as:"profile"
+  devise_for :users 
+   resources :chats, only: [:index, :show, :create]
 	resources :challenges do
 		resources  :comments
 	end
@@ -37,11 +57,8 @@ Rails.application.routes.draw do
 	end
 
 	resources :subgoals
-        resources :categories
 
-        resources :conversations do
-          resources :messages
-        end
+       
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

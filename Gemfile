@@ -12,17 +12,23 @@ gem 'bootstrap', '~> 4.0.0'
 gem 'mailjet'
 gem 'chartkick'
 gem 'groupdate'
+gem "nested_form"
 gem 'nested_form_fields'
 gem 'paperclip'
 gem 'aws-sdk'
 gem 'dotenv-rails'
+gem "font-awesome-rails"
+gem 'gon'
+gem 'rabl-rails'
+gem 'oj'
 gem 'kaminari'
+gem 'rollbar'
+gem 'redis'
 
 
 group :development, :test do
   gem 'sqlite3', '1.3.13'
   gem 'byebug',  '9.0.6', platform: :mri
-  gem 'dotenv-rails'
   gem 'rspec-rails', '~> 3.7'
 end
 
@@ -36,5 +42,6 @@ group :development do
 end
 group :production do
   gem 'pg', '0.20.0'
+  gem 'rails_12factor', '~> 0.0.3'
 end
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]

@@ -1,34 +1,54 @@
-<h2>Sign up</h2>
+<div class="container-fluid stylish-form">
 
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-  <%= devise_error_messages! %>
+    <h2 class="text-center">Quel <br/>challenge<br/>es-tu prêt<br/>à relever ?</h2>
 
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
-  </div>
 
-    <div class="field">
-    <%= f.label :username %><br />
-    <%= f.text_field :username, autocomplete: "off" %>
-  </div>
+  <div class="row mar20">
+    <div class="col-md-12 col-sm-12 col-xs-12">
+      <div class="inner-section">
 
-  <div class="field">
-    <%= f.label :password %>
-    <% if @minimum_password_length %>
-    <em>(<%= @minimum_password_length %> characters minimum)</em>
-    <% end %><br />
-    <%= f.password_field :password, autocomplete: "off" %>
-  </div>
+            <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+              <div class="mar20 inside-form flex-column align-items-center">
+                <h3 class="font_white text-center mb-5">Je m'inscris</h3>
 
-  <div class="field">
-    <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "off" %>
-  </div>
+              <%= devise_error_messages! %>
 
-  <div class="actions">
-    <%= f.submit "Sign up" %>
-  </div>
-<% end %>
+              <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-envelope "></i></span>
+                <%= f.email_field :email, autofocus: true, autocomplete: "email", class:"form-control form-sign-devise", placeholder:"email" %>
+              </div>
 
-<%= render "devise/shared/links" %>
+              <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-pencil "></i></span>
+                <%= f.text_field :username, autocomplete: "off", class:"form-control form-sign-devise", placeholder:"choisis ton pseudo" %>
+              </div>
+
+              <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-lock "></i></span>
+                <%= f.password_field :password, autocomplete: "off", class:"form-control form-sign-devise" %>
+              </div>
+              <% if @minimum_password_length %>
+                 <p><em style="font-size:12px; text-align:center;">(<%= @minimum_password_length %> caractères minimum)</em></p>
+              <% end %>
+
+              <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-lock "></i></span>
+                <%= f.password_field :password_confirmation, autocomplete: "off", class:"form-control form-sign-devise", placeholder:"confirme le mdp" %>
+              </div>
+
+              <div class="footer text-center">
+                <div class="actions">
+                  <%= f.submit "Sign up", class:"btn btn-neutral btn-round btn-lg" %>
+                </div>
+              </div>
+            <% end %>
+
+      </div><!-- Inner section -->
+      <div class="text-center">
+        <%= render "devise/shared/links" %>
+      </div>
+    </div><!-- col -->
+
+  </div><!-- row -->
+
+</div><!-- container -->

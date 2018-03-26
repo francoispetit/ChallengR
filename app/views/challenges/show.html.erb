@@ -1,153 +1,200 @@
+<br/>
 <div class="container mt-5">
 
-      <div class="row">
+  <div class="row">
 
-        <div class="col-lg-3">
-          <h2 class="my-4"><%= @challenge.goal %></h2>
-          <div class="list-group">
-            <a href="#pres" class="list-group-item active">Présentation</a>
-            <a href="#objectifs" class="list-group-item">Objectifs</a>
-            <a href="#participants" class="list-group-item">Participants</a>
-            <a href="#commentaires" class="list-group-item">Commentaires</a>
-          </div>
-          	</br>
-          <div class="card mt-4">
-            <% if current_user != nil %>
-            <%= link_to "Je participe", join_challenge_path, class:"btn btn-success", :method => :post %>
-              <% if current_user == @challenge.organizer %>
-                <%= link_to "Je modifie le challenge", edit_challenge_path, class:"btn btn-info"%>
-                <%= link_to "Delete", @challenge, class:"btn btn-danger", method: :delete, data: { confirm: "Really?" } %>          
-              <%end %>
-            <% else %>
-              <%= link_to "Inscris toi pour participer!", new_user_session_path, class:"btn btn-success"%>
-            <%end%>
-          </div>
+    <div class="col-lg-3">
+      <h2 class="my-4"><%= @challenge.goal %></h2>
+      <div class="list-group">
+        <a href="#pres" class="list-group-item active">Présentation</a>
+        <a href="#objectifs" class="list-group-item">Objectifs</a>
+        <a href="#participants" class="list-group-item">Participants</a>
+        <a href="#commentaires" class="list-group-item">Commentaires</a>
+      </div>
+    </br>
+    <div class="card mt-4">
 
-          <div class="card mt-4 p-4">
-          	<h5 class="card-title text-center">Catégories</h5>
-          	<div class="card-body text-center">
-          	<% @challenge.categories.each do |cat| %>
-          		<span class="badge badge-pill badge-info"><%= cat.category_name %>   <a class='fa fa-times' href="<%=@challenge.id%>/categoremove/<%=cat.id%>" style='font-size:12px; color:red;'></a></span> 
-<%end%>
-<%if current_user != nil%>
-  <%if @challenge.organizer == current_user || current_user.role == "admin"%>
-  <div class="dropdown">
-    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-      Ajouter une Catégorie
-    </button>
-    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-  <%Category.all.each do |cat|%>
-      <a class="dropdown-item" href="<%=@challenge.id%>/categories/<%= cat.id %>"><%=cat.category_name%></a>
-  <%end%>
-<%end%>
-  <%= form_tag("../categories/create/#{@challenge.id}", method: "post") do %>
-  <%= label_tag(:category_name, "new category:") %>
-  <%= text_field_tag(:category_name) %>
-  <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
-  <%= submit_tag("Add") %>
-                <% end %>
-  </div>
-</div>
-<%end%>
-          </div>
-          </div>
-        </div>
-        <!-- /.col-lg-3 -->
-
-        <div class="col-lg-9">
-
-          <div class="card mt-4">   
-            
-            <%= image_tag(@challenge.image.url, height:"400", class:"card-img-top img-fluid") %>
-            <div class="card-body">
-              <h3 class="card-title" id="pres">Présentation</h3>
-              <p>Créé par <strong><%= @challenge.organizer.username %></strong></p>
-              <p>A mener pour le <span class="badge badge-pill badge-info">
-                                 <%if @challenge.organizer.role == "vip"%>
-                                     A toi de choisir!
-                                 <%else%>
-                                     <%= @challenge.deadline.strftime("%d/%m/%y") %>
-                                 <%end%>
-                                 </span></p>
-
-              <p class="card-text">Voici la description de ce challenge</p>
-            </div>
-          </div>
-          <!-- /.card -->
-
-          <div class="card card-outline-secondary my-4">
-            <div class="card-header" id="objectifs">
-              Objectifs
-            </div>
-            <div class="card-body">
-              <table class="table table-hover table-responsive">
-              <thead class="thead-dark">
-	              <tr>
-	              	<th scope="col">#</th>
-	              	<th scope="col">Objectif</th>
-	              	<th scope="col">Pour le</th>
-	              </tr>
-	            </thead>
-	            <tbody>
-              <% @challenge.subgoals.each do |obj| %>
-              <tr>	
-              	<td><%= obj.description %></td>
-              	<td><%= obj.subgoal_string %></td>
-              	<td><%= obj.deadline.strftime("%d/%B") %></td>
-              </tr>
-              <% end %>
-              <div>
-              <%= link_to "edit units", edit_units_path %>
-              </div>
-              <%if @challenge.organizer.role == "vip"%>
-              <tr>
-                <td></td>
-                <a href="challenges/<%=@challenge.id%>/clonechall"><td class="card mt-4" style="background: radial-gradient(rgba(255,100,255,1), rgba(255,0,0,0)80%);">Créé tes propres objectifs ou modifie</br>ceux existant en clonant ce challenge!</td></a>
-              </tr>
-              <%end%>
-              </tbody>
-            </table>
-            </div>
-          </div>
-
-          <div class="card card-outline-secondary my-4">
-            <div class="card-header" id="participants">
-              Participants
-            </div>
-            <div class="card-body">
-              <% @challenge.attendees.each do |att| %>
-              	<p><%= att.username %></p>
-              <% end %>
-            </div>
-          </div>
-
-          <div class="card card-outline-secondary my-4">
-            <div class="card-header" id="commentaires">
-              Commentaires
-            </div>
-            <div class="card-body">
-              
-            	<ul> <%= render partial: 'shared/comment', collection: @challenge.comments %> </ul>
-              
-            </div>
-            		<% if user_signed_in? %>
-									<div class="reply-form-challenge form-group">
-										<%= form_for [@challenge, Comment.new] do |f| %>
-										<%= f.text_area :body, class:"form-control" %>
-										<%= f.submit "Commenter le challenge", class:"btn btn-primary btn-sm" %>
-										<% end %>
-									</div>
-								<% else %>
-								  Vous devez vous <%= link_to "connecter", new_user_session_path %> ou vous <%= link_to "inscrire", new_user_registration_path %> pour laisser un commentaire.
-								<% end %>
-            <p class="btn btn-reply-challenge btn-primary btn-sm">Commenter ce challenge</p>
-
-          </div><!-- /.card -->
-          
-
-        </div><!-- /.col-lg-9 -->
-        
-
+      <% if current_user != nil %>
+        <% if current_user == @challenge.organizer %>
+          <%= link_to "Je modifie le challenge", edit_challenge_path, class:"btn btn-info m-1 "%>
+          <%= link_to "Delete", @challenge, class:"btn btn-danger m-1 ", method: :delete, data: { confirm: "Really?" } %>
+          <%elsif @challenge.attendees.include?(current_user)%>
+            <%= link_to "Je ne participe plus :(", unjoin_challenge_path, class:"btn btn-danger m-1 ", method: :post %>
+          <%elsif @challenge.organizer.username != "The Red User" %>
+            <%= link_to "Je participe", join_challenge_path, class:"btn btn-success m-1 ", :method => :post %>
+          <%end %>
+          <%= link_to "Inscris toi pour participer!", new_user_session_path, class:"btn btn-success m-1 "%>
+        <%end%>
       </div>
 
+      <div class="card mt-4 p-4">
+        <h5 class="card-title text-center">Catégories</h5>
+        <div class="card-body justify-content-center">
+          <% @challenge.categories.each do |cat| %>
+            <span class="badge badge-pill text-center badge-info"><%= cat.category_name %>
+              <%if current_user != nil%>
+                <%if current_user.role == "admin" || @challenge.organizer == current_user %>
+                  <a class='fa fa-times' href="<%=@challenge.id%>/categoremove/<%=cat.id%>" style='font-size:12px; color:white;'></a>
+                <%end%>
+              <%end%>
+            </span>
+          <%end%>
+          <%if current_user != nil%>
+            <%if @challenge.organizer == current_user || current_user.role == "admin"%>
+              <div class="dropdown text-center d-flex flex-column">
+                <button class="btn btn-secondary m-1 dropdown-toggle align-self-center" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Ajouter une Catégorie
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                  <%Category.all.each do |cat|%>
+                    <a class="dropdown-item" href="<%=@challenge.id%>/categories/<%= cat.id %>"><%=cat.category_name%></a>
+                  <%end%>
+                  <%= form_tag("../categories/create/#{@challenge.id}", method: "post") do %>
+                  <%= label_tag(:category_name, "new category:") %>
+                  <%= text_field_tag(:category_name) %>
+                  <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+                  <%= submit_tag("Add") %>
+                <% end %>
+
+              </div>
+            </div>
+          <%end%>
+        <%end%>
+      </div>
     </div>
+  </div>
+  <!-- /.col-lg-3 -->
+
+  <div class="col-lg-9">
+
+    <div class="card mt-4">
+
+      <%= image_tag(@challenge.image.url, height:"400", class:"card-img-top img-fluid") %>
+      <div class="card-body">
+        <h3 class="card-title" id="pres">Présentation</h3>
+        <p>Créé par
+          <strong><%= @challenge.organizer.username %></strong>
+        </p>
+        <p>A mener pour le
+          <span class="badge badge-pill badge-info">
+            <%if @challenge.organizer.role == "vip"%>
+              A toi de choisir!
+            <%else%>
+              <%= @challenge.deadline.strftime("%d/%m/%y") %>
+            <%end%>
+          </span>
+        </p>
+
+        <p class="card-text">Voici la description de ce challenge</p>
+      </div>
+    </div>
+    <!-- /.card -->
+
+    <div class="card card-outline-secondary my-4">
+      <div class="card-header" id="objectifs">
+        Objectifs
+      </div>
+      <div class="card-body">
+
+        <%if current_user != nil%>
+          <%if current_user == @challenge.organizer || current_user.role == "admin" %>
+            <tr>
+              <td></td>
+              <td colspan="2"><%= link_to "Modifier les indicateurs", edit_units_path, class:"btn btn-secondary m-1" %></td>
+              <td></td>
+            </tr>
+
+          <%end%>
+
+          <table class="table table-hover table-responsive">
+            <thead class="thead-dark">
+              <tr>
+                <th scope="col">Description</th>
+                <th scope="col">Objectif</th>
+                <th scope="col">Pour le</th>
+                <th scope="col">Cibles</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @challenge.subgoals.each do |obj| %>
+                <tr>
+                  <td><%= obj.description %></td>
+                  <td><%= obj.subgoal_string %></td>
+                  <td><%= obj.deadline.strftime("%d %B") %></td>
+
+                  <td>
+                    <ul>
+                      <% obj.targets.each do |tar| %>
+                        <li><%= tar.target_value%>
+                          <%=tar.unit.unit_name%></li>
+
+                      <% end %>
+                    </ul>
+                  </td>
+                </tr>
+              <% end %>
+
+              <%if @challenge.organizer.role == "vip"%>
+                <tr>
+                  <td></td>
+                  <td colspan="2">
+                    <a href="<%=@challenge.id%>/clonechall" class="btn btn-warning">Adapte ce challenge avec tes propres objectifs!</a>
+                  </td>
+                  <td></td>
+                </a>
+              </tr>
+
+            <%end%>
+          <%end%>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="card card-outline-secondary my-4">
+    <div class="card-header" id="participants">
+      Participants
+    </div>
+    <div class="card-body">
+      <% @challenge.attendees.each do |att| %>
+        <p class="badge badge-dark"><%= att.username %></p>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="card card-outline-secondary my-4">
+    <div class="card-header" id="commentaires">
+      Commentaires
+    </div>
+    <div class="card-body">
+
+      <ul>
+        <%= render partial: 'partials/comment', collection: @challenge.comments %>
+      </ul>
+
+    </div>
+    <% if user_signed_in? %>
+      <div class="reply-form-challenge form-group">
+        <%= form_for [@challenge, Comment.new] do |f| %>
+        <%= f.text_area :body, class:"form-control" %>
+        <%= f.submit "Commenter le challenge", class:"btn btn-primary btn-sm" %>
+      <% end %>
+    </div>
+  <% else %>
+    Vous devez vous
+    <%= link_to "connecter", new_user_session_path %>
+    ou vous
+    <%= link_to "inscrire", new_user_registration_path %>
+    pour laisser un commentaire.
+  <% end %>
+  <p class="btn btn-reply-challenge btn-primary btn-sm">Commenter ce challenge</p>
+
+</div>
+<!-- /.card -->
+
+</div>
+<!-- /.col-lg-9 -->
+
+</div>
+
+</div>
